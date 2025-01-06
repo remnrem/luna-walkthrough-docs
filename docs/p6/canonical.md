@@ -1,0 +1,466 @@
+# 6.1 Canonical signal definitions
+
+The information in this section outlines the use of Luna's
+[`CANONICAL` command](https://zzz.bwh.harvard.edu/luna/ref/canonical/)
+to provide a more structured way to harmonize files. As described in
+the [channel harmonization page](../p1/chs.md), we only had one
+special exception (`M09`) and so all files could be processed
+relatively straightforwardly.  However, it is not hard to imagine real
+datasets with more combinations of different types of exceptions.  In
+these cases, rather than performing one-off commands, it can be easier
+to adopt this approach.
+
+Instead of manually performing the above steps (separating out `M09`
+from the other studies), it can sometimes be easier to use Luna's
+[`CANONICAL` command](https://zzz.bwh.harvard.edu/luna/ref/canonical/), which is
+designed to help when harmonizing multiple sets of EDFs that have
+different labels and conventions.
+
+## Specifying rules
+
+We must first write a [_specification
+file_](https://zzz.bwh.harvard.edu/luna/ref/canonical/#canonical-signal-definitions)
+that describes a set of _rules_ for finding (and converting) signals to a
+standardized (_canonical_) form.  We won't be able to
+describe the full syntax here, but we'll give a simple script that replicates the steps above.
+The full file is in `orig/aux/lm.sigs`.  We'll also give a second example (to implement
+contra-lateral mastoid referencing) in a second step below, to further showcase how `CANONICAL` works
+(although note: contra-lateral mastoid referenced data are not part of this walkthrough).
+
+The basic form of a _rule_ is as follows, e.g. for the C3 channel:
+
+```
+C3
+ req:
+  sig = C3,EEG-C3,"C3 REF"
+  ref = "A1,A2"
+  ref = "M1,M2"
+  unit = uV
+  unit = mV
+ set:
+  unit = uV
+  sr = 128
+```
+
+This finds a channel that is labelled either `C3`, `EEG-C3` or `C3
+REF` (note the space is quoted here) and then looks for both `A1` and
+`A2` (or `M1` and `M2`) as reference channels.  A special syntax for `ref`
+of `"a,b"` means use the _average_ of channels `a` and `b`,
+i.e. for linked mastoid referencing.  Note that `sig` and `ref` can take a single list, or
+you can list the entries on separate lines: i.e.
+```
+  sig = C3
+  sig = EEG-C3
+  sig = "C3 REF"
+```
+
+has the same effect as `sig = C3,EEG-C3,"C3 REF"`.  Note that channel
+labels are _sanitized_ and case-insensitive when we perform the
+matching for required signals.
+
+!!!info "Aliases and canonical rules"
+    Note that _channel aliases_ can perform some of the same logic as the `CANONICAL` command, albeit in a more limited fashion.  Although
+    you could combine _aliases_ (i.e. from the `cmaps` file) with these steps, it is probably clear to keep a single, self-contained canonical
+    rule specification file that has all the mappings instead.
+    
+The above rule also requires that all channels have uV or mV units.  If we find
+channels that match these criteria, we make a new (or update the
+original) channel, with the name `C3` as the first (rule label) shows.
+We also resample to a desired sample rate of 128 Hz, if needed.
+
+## Rule templates
+
+One could imagine typing out the above rules for all EEG channels, and
+also allowing for different reference labels (e.g. `EEG-M1` and
+`EEG-M2`), but that would quickly become tedious.   Therefore the `CANONICAL`
+command allows for _variables_ and _templates_ to aid this process.
+
+ - _variables_ (using the same [variable syntax](https://zzz.bwh.harvard.edu/luna/luna/args/#variables) as used
+   in Luna scripts)  are assigned with the syntax `${a=C3}` and referenced using
+   the syntax `${a}` (i.e. which would substitute the text `C3` in this
+   case).  You can use variables in variable assignments, but note
+   that Luna script variables work on simple text substitution: e.g. 
+   ```
+   ${a=1}
+   ${a=${a}+1}
+   ```
+   will end up with `${a}` equaling the string `1+1` rather than the number 2.
+
+ - _templates_ can be defined for a single _type_ of channel, and then
+    rules can be automatically generated for many actual channels
+    (e.g. C3, C4, F3, etc...)
+
+
+The text file `lm.sigs` starts by defining the core EEG channels as variables (comment lines
+start with `%`):
+
+```
+% ------- core EEG labels and canonical targets
+
+${left=Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1}
+
+${right=Fp2 AF4 F2 F4 F6 F8 FC2 FC4 FC6 FT8 C2 C4 C6 T8 CP2 CP4 CP6 TP8 P2 P4 P6 P8 PO4 O2}
+
+${midline=FPZ AFZ FZ FCZ CZ CPZ PZ POz OZ}
+
+${eeg=${left},${midline},${right}}
+```
+
+Note that we've listed left, right and midline EEG channels separately, and
+then combined them in a single list (`${eeg}`).  `CANONICAL` can take lists of
+channels that are either comma- or space-delimited, as shown above (i.e. for `${left}` and `${right}`, we
+could be used either form equivalently). Although it
+doesn't matter in this example, we split EEGs in this way it simplifies the
+second contra-lateral mastoid example.
+
+The next step is to define mastoid channel labels, as we want to
+extract/generate linked mastoid channels:
+
+```
+% ------- mastoid labels
+
+${linked_mastoids="M1,M2"}
+${linked_mastoids+="EEG-M1,EEG-M2"}
+${linked_mastoids+="M1 REF,M2 REF"}
+${linked_mastoids+="A1,A2"}
+${linked_mastoids+="EEG-A1,EEG-A2"}
+${linked_mastoids+="A1 REF,A2 REF"}
+```
+
+The `+=` syntax means to append as a comma-delimited list, and so the `${linked_mastoids}` ends up being:
+```
+ "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF","A1,A2","EEG-A1,EEG-A2","A1 REF,A2 REF"
+```
+
+We could have just written this out and made one assignment, but sometimes spreading
+definitions over lines can make the files easier to read.
+
+Next we _define a rule template_ for the case where we have (unreferenced) EEG channels with both mastoid channels present separately in the EDF,
+i.e. given we know/assume that the channels haven't already ben re-referenced:
+
+```
+define: EEG_make_linked_mastoid
+ req:
+  sig = ^
+  sig = EEG-^
+  sig = "^ REF"
+  ref = ${linked_mastoids}
+ set:
+  unit = uV
+  sr = 128
+```
+
+This template is identical to the format of the rule above, except is
+starts with the `define:` keyword (indicating that we are defining a template) and
+has an arbitrary label (here `EEG_make_linked_mastoid`).  Templates use the special `^`
+character, which will be substituted for the actual channel labels when the
+template is applied.  Note we can have normal variables in template
+definitions too (e.g. `${linked_mastoids}`) rather than writing things
+out here in full.
+
+We also make a second template, to cover the case where (we know) the
+EEG are already referenced to linked mastoids:
+
+```
+define: EEG_is_linked_mastoid
+ req:
+  sig = ^-(M1+M2)/2
+ set:
+  unit = uV
+  sr = 128
+```
+
+i.e. here there is no separate `ref` category, and we require that
+channel labels must in the form `^-(M1+M2)/2` (where `^` will be C3,
+C4, etc).  This handles the `M09` case.  In practice, one would review
+a dataset as we've done, and generate/extend the templates above to
+match the data.
+
+## Applying templates
+
+The final step is to _apply_ these templates for the whole set of EEG channels, using the `apply:` keyword
+following by the template label:
+```
+apply: EEG_make_linked_mastoid ${eeg}
+
+apply: EEG_is_linked_mastoid ${eeg}
+```
+In both cases, the `${eeg}` variable (defined above) expands to the list of core EEG channels (we could have just typed them out here too -
+we don't _need_ to use variables here, but it can often make life easier.)
+Note: when using `CANONICAL`, the variable `${eeg}` is __not__ automatically populated with likely EEG channel
+labels based on the attached EDF header: here they must be specified
+explicitly, unlike in actual Luna scripts.
+
+The use of templates (`define:` / `apply:` keywords) essentially just
+preprocesses the file and expands out all templates to make a longer
+rules file.  To check things are working as expected, you can add the `dump` option
+to `CANONICAL` and it will print the processed script (to standard output) and then stop. Doing this 
+just for the first individual:
+
+```
+luna s1.lst 1 -s CANONICAL file=orig/aux/lm.sigs dump > rules.txt
+```
+
+The console shows how the variables were set:
+
+```
+  setting variable ${left} = Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1
+  setting variable ${right} = Fp2 AF4 F2 F4 F6 F8 FC2 FC4 FC6 FT8 C2 C4 C6 T8 CP2 CP4 CP6 TP8 P2 P4 P6 P8 PO4 O2
+  setting variable ${midline} = FPZ AFZ FZ FCZ CZ CPZ PZ POz OZ
+  setting variable ${eeg} = Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1,FPZ AFZ FZ FCZ CZ CPZ PZ POz OZ,Fp2 AF4 F2 F4 F6 F8 FC2 FC4 FC6 FT8 C2 C4 C6 T8 CP2 CP4 CP6 TP8 P2 P4 P6 P8 PO4 O2
+  setting variable ${linked_mastoids} = "M1,M2"
+  appending variable ${linked_mastoids} = "M1,M2","EEG-M1,EEG-M2"
+  appending variable ${linked_mastoids} = "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF"
+  appending variable ${linked_mastoids} = "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF","A1,A2"
+  appending variable ${linked_mastoids} = "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF","A1,A2","EEG-A1,EEG-A2"
+  appending variable ${linked_mastoids} = "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF","A1,A2","EEG-A1,EEG-A2","A1 REF,A2 REF"
+  defining template 'EEG_make_linked_mastoid' with target form '^'
+  defining template 'EEG_is_linked_mastoid' with target form '^'
+  expanding template 'EEG_make_linked_mastoid' for 57 channels
+  expanding template 'EEG_is_linked_mastoid' for 57 channels
+  read 114 rules from orig/aux/lm.sigs
+  in total, read 114 rules
+
+  running with 'dump' option, will not attempt to apply rules
+```
+The generated `rules.txt` contains a set of 114 (i.e. 2 times 57 channels) rules -- showing here just the first two -- along with the original
+template/variable lines of the `lm.sigs` commented out:
+```
+Fp1
+ req:
+  sig = Fp1
+  sig = EEG-Fp1
+  sig = "Fp1 REF"
+  ref = "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF","A1,A2","EEG-A1,EEG-A2","A1 REF,A2 REF"
+ set:
+  unit = uV
+  sr = 128
+
+AF3
+ req:
+  sig = AF3
+  sig = EEG-AF3
+  sig = "AF3 REF"
+  ref = "M1,M2","EEG-M1,EEG-M2","M1 REF,M2 REF","A1,A2","EEG-A1,EEG-A2","A1 REF,A2 REF"
+ set:
+  unit = uV
+  sr = 128
+```
+
+## Running CANONICAL
+
+If we omit the `drop` argument, Luna will try to enforce these rules
+and make new signals (note: we could have used `CANONICAL file=rules.txt` if we generated `rules.txt` as above,
+and the results would be the same; normally, Luna doesn't need to save this _intermediate_ processed file):
+
+```
+luna s1.lst 1 -o out.db -s CANONICAL file=orig/aux/lm.sigs
+```
+It shows its progress in the console:
+```
+  59 signals from EDF
+  + generating canonical signal Fp1 from existing signal(s) FP1 / A1,A2
+  + generating canonical signal AF3 from existing signal(s) AF3 / A1,A2
+  + generating canonical signal F7 from existing signal(s) F7 / A1,A2
+  + generating canonical signal F5 from existing signal(s) F5 / A1,A2
+  + generating canonical signal F3 from existing signal(s) F3 / A1,A2
+  + generating canonical signal F1 from existing signal(s) F1 / A1,A2
+...
+```
+and also gives information on the EDF channels used / canonical channels set in the output:
+```
+destrat out.db +CANONICAL | behead
+```
+```
+        ID   F01                 
+    CS_NOT   0
+    CS_SET   57                  
+ UNUSED_CH   0                   
+   USED_CH   59                  
+```
+
+Typically, one combines `CANONICAL` with `WRITE` to generate the new
+EDF; also, one usually wants to add `drop-originals` so that only the
+newly-generated canonical signals are left (i.e. in this instance,
+this drops the mastoid channels):
+
+```
+luna s1.lst 1 -o out.db \
+ -s ' CANONICAL file=orig/aux/lm.sigs drop-originals & WRITE edf=new1 ' 
+```
+
+which makes a new file `new1.edf` here.
+
+## Generating new EDFs
+
+Putting this all together, to recapitulate the steps described
+[here](../p1/chs.md) to make all 20 EDFs, given we have `lm.sigs`
+defining the rules.  So as not to overwrite the prior EDFs, we'll add
+these to a new folder (`harm1b`) but the EDFs generayed there should
+be effectively identical to those generated in `harm1/` (we'll leave
+checking this as an exercise for the reader: any minor differences are
+because `CANONICAL` also tidies up some of the other EDF header fields
+(e.g. transducer, pre-filtering)).
+
+```
+mkdir work/harm1b
+```
+
+We then run to convert all 20 files:
+
+```
+luna s1.lst -o out.db \
+ -s ' CANONICAL file=orig/aux/lm.sigs drop-originals & WRITE edf-dir=work/harm1b/ '
+```
+
+You can remove the `work/harm1b/` folder after confirming that the above command worked as expected.
+
+
+## Contra-latreral mastoid example
+
+As a second (and more technical) example of `CANONICAL`, the script
+`orig/aux/cm.sigs` contains rules to make new datasets with
+contra-lateral mastoid references.  We use this as to illustrate a few
+other features of the `CANONICAL` syntax set.  
+
+Here is the full script:
+
+```
+cat orig/aux/cm.sigs
+```
+```
+% ------- core EEG labels and canonical targets
+
+${left=Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1}
+
+${right=Fp2,AF4,F2,F4,F6,F8,FC2,FC4,FC6,FT8,C2,C4,C6,T8,CP2,CP4,CP6,TP8,P2,P4,P6,P8,PO4,O2}
+
+% ------- mastoid labels
+
+${left_mastoid=M1,A1}
+${left_mastoid+=[EEG-][${left_mastoid}],[${left_mastoid}][ REF]}
+
+${right_mastoid=M2,A2}
+${right_mastoid+=[EEG-][${right_mastoid}],[${right_mastoid}][ REF]}
+
+
+% ------- example unit mappings (first term in list is the final/preferred label, e.g. 'uV')
+
+${volts=V,volt}
+
+${mvolts=mV,millivolt,milli-volt,mvolt,m-volt}
+
+${uvolts=uV,microvolt,micro-volt,uvolt,u-volt}
+
+
+% ------- preferred SR and units as variables
+
+${pref_sr=128}
+
+${pref_unit=uV}
+
+
+% ------- template for contra-lateral mastoid channels
+
+%  the label after the template name gives the desired form
+%  of the target label, e.g. C3_M2 if ^ is C3 and ${cm_label} was set of M2
+
+%  definition uses $${x} variables, which are swapped in when applying the template,
+%  i.e. not when first reading the template definition (unlike ${x} would be)
+
+define: EEG_make_cm_referenced ^_$${cm_label}
+ req:
+  sig = ^,EEG-^,"^ REF"
+  ref = $${ref}
+  unit = ${uvolts}
+  unit = ${mvolts}
+  unit = ${volts}
+ set:
+  unit = ${pref_unit}
+  sr = ${pref_sr}
+
+% ------- apply rules for contra-lateral mastoid referencing
+
+apply: EEG_make_cm_referenced ${left} ${ref=${right_mastoid}} ${cm_label=M2}
+
+apply: EEG_make_cm_referenced ${right} ${ref=${left_mastoid}} ${cm_label=M1}
+```
+
+## Extensions
+
+Key extensions here:
+
+ - Template variables: when defining a template, variables in the form
+   `$${x}` are evaluated _not at the time the template is read_ (as
+   `${x}` would be) _but later when it is applied_.  This allows
+   different values (other than `^`) to be passed into the template,
+   e.g. `$${ref}`, which is _either_ a set of labels that match the
+   left _or_ the right mastoids.
+
+ - Named templates: the `define:` keyword has a second label after
+   the template name (`EEG_make_cm_referenced`),
+   i.e. `^_$${cm_label}`, which specifies the name of the rule (and
+   thus the name of the channel that will be created in the new EDF).
+   If it is not specified, it is assumed to be `^` by default -
+   i.e. just the name of the channels in `${eeg}` etc.  Here we modify
+   it to have an underscore and then either `M1` or `M2` specified via
+   `$${cm_label}`.  Note that if `${ref}` was simply (e.g. `M1`) we
+   should not need to set the `${cm_label}`, we could just use that:
+   (`^_$${ref}`). However, here `${ref}` is a _list_ of matching terms
+   (e.g. `M1,EEG-M1,A1,...`) and so the new channel needs a simpler
+   label.  So, as we first apply only to the left EEGs with
+   `${cm_label=M2}`, then only to the right EEGs with `${cm_label=M1}`
+   we end up with the desired labels in the form `C3_M2`, `F3_M2`, etc
+   matched with `C4_M1`, `F4_M1`, etc.
+
+ - We specified required units (as a variable, e.g. `${uvolts}`) which requires that the physical dimension
+   field matches (case-insensitive) _one of these values_ but will then map it to the first (`uV`), thereby
+   harmonizing unit labels (in our walkthrough, we do not have the issue of different labels for the same unit,
+   so this step is not needed).  We also specify the preferred output unit and sample rates as variables.
+
+ - Note that the variable assignments (e.g. `${cm_label=M2}`) do not evaluate to any text, i.e. after
+   processing, the variables are set, but 
+   ```
+   apply: EEG_make_cm_referenced ${left} ${ref=${right_mastoid}} ${cm_label=M2}
+   ```
+   is subsequently passed as:
+   ```
+   apply: EEG_make_cm_referenced ${left} 
+   ```
+   However, the two variables used in the template (`${ref}` and `${cm_label}`) _do actually need to be defined
+   before the template can be expanded_ (Luna will complain otherwise); but they could have been set
+   _before_ the `apply:` keyword, which would have the same effect as setting them on the same line: e.g. 
+   ```
+   ${ref=${right_mastoid}}
+   ${cm_label=M2}
+   apply: EEG_make_cm_referenced ${left} 
+   ```
+   Note that we assign `${ref}` using another variable `${right_mastoid}` whereas we assign `${cm_label}` using plain text, thus the difference
+   in syntax between these two cases.
+
+ - Finally, we use Luna's [list expansion](https://zzz.bwh.harvard.edu/luna/luna/args/#variables) to write sets of labels more quickly:
+
+    - `[a][x,y,z]` is shorthand for `ax,ay,az`
+    - `[a,b,c][-REF]` is shorthand for `a-REF,b-REF,c-REF`
+    - `[a,b,c][x,y,z]` is shorthand for `ax,ay,az,bx,by,bz,cx,cy,cz`
+
+    Thus the terms:
+    ```
+    ${left_mastoid=M1,A1}
+    ${left_mastoid+=[EEG-][${left_mastoid}],[${left_mastoid}][ REF]}
+    ```
+    are a way of writing that `${left_mastoids}` equals
+    ```
+    M1,A1,EEG-M1,EEG-A1,M1 REF,A1 REF
+    ```
+    as `[EEG-][${left_mastoid}]` equals `EEG-M1,EEG-A1` and `[${left_mastoid}][ REF]` equals `M1 REF,A1 REF`.  Yes,
+    obviously in this example it is more text (and more complicated) to use the expansion, but this is not necessarily
+    the case if working with many more labels (e.g. the main set of hd-EEG channels)
+
+
+## Summary
+
+Although this may all seem a little involved on first blush, the above
+syntax can be a convenient way to harmonize different datasets
+(e.g. especially PSG studies with many labels or conventions)...
+

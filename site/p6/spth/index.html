@@ -1,0 +1,2030 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p6/spth/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>Spindle thresholds - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spindle-thresholds" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spindle thresholds
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p1/" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p2/" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p3/" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p5/" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/valid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/pops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/macro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/peri/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../canonical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#detection-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detection thresholds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#individual-level-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Individual-level profiles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modal-spindle-frequency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modal spindle frequency
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detection-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detection parameters
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="spindle-thresholds">Spindle thresholds</h1>
+<h2 id="detection-thresholds">Detection thresholds</h2>
+<p>dur/amp</p>
+<h2 id="individual-level-profiles">Individual-level profiles</h2>
+<p>The above plots pool values from different individuals.  To study
+between-person differences better, we'll generate topo-plots
+per-individual, for two metrics: spindle density and frequency.
+(Note that the following plots do not have standardized
+<em>z</em>-axes (heat/color) between different individuals.)</p>
+<!---
+
+png(file="vig/docs/imgs/indiv-topos-ss.png" , res=150, width=1000, height=250 )
+png(file="vig/docs/imgs/indiv-topos-fs.png" , res=150, width=1000, height=250 )
+
+png(file="vig/docs/imgs/indiv-topos-ss-freq.png" , res=150, width=1000, height=250 )
+png(file="vig/docs/imgs/indiv-topos-fs-freq.png" , res=150, width=1000, height=250 )
+
+par(mfrow=c(2,10) , mar=c(0,0,0,0))
+
+dev.off()
+--->
+
+<p>First, we'll look at <strong>slow spindle densities</strong> (top row: females <code>F01</code> through <code>F10</code>; bottom row males <code>M01</code> through <code>M10</code>):
+<div class="highlight"><pre><span></span><code>ids &lt;- unique( d$ID) 
+for (id in ids)
+ ltopo.heat(d$CH[d$ID==id &amp; d$F==11], d$DENS[d$ID==id &amp; d$F==11], sz=1.2, show.leg=F)
+</code></pre></div>
+<img alt="img" src="../../imgs/indiv-topos-ss.png" /></p>
+<p>Next, <strong>fast spindle densities</strong>:
+<div class="highlight"><pre><span></span><code>for (id in ids)
+  ltopo.heat(d$CH[d$ID==id &amp; d$F==15], d$DENS[d$ID==id &amp; d$F==15], sz=1.2, show.leg=F)
+</code></pre></div></p>
+<p><img alt="img" src="../../imgs/indiv-topos-fs.png" /></p>
+<p>Althought there is some variability, all 20 individuals generally show qualitatively similar profiles (frontal slow spindles and central/parietal fast spindles).</p>
+<p>Now we'll instead consider <strong>spindle frequency, first for slow spindles</strong>:</p>
+<div class="highlight"><pre><span></span><code>for (id in ids)
+  ltopo.heat(d$CH[d$ID==id &amp; d$F==11], d$FRQ[d$ID==id &amp; d$F==11], sz=1.2, show.leg=F)
+</code></pre></div>
+<p><img alt="img" src="../../imgs/indiv-topos-ss-freq.png" /></p>
+<p>Finally, for <strong>fast spindle frequency</strong>:</p>
+<div class="highlight"><pre><span></span><code>for (id in ids)
+  ltopo.heat(d$CH[d$ID==id &amp; d$F==15], d$FRQ[d$ID==id &amp; d$F==15], sz=1.2, show.leg=F)
+</code></pre></div>
+<p><img alt="img" src="../../imgs/indiv-topos-fs-freq.png" /></p>
+<p>In contrast to the plots for spindle density, there is arguably a greater extent of
+diversity between individuals in terms of the topographies of spindle frequencies.   We'll
+follow this up below, where we use a different visualization approach to look at the same data.</p>
+<hr />
+<p>Instead of topo-plots, it can sometimes be convenient (especially in a
+small dataset) to plot values different, as it can sometimes be
+difficult to appreciate quantitative differences (within- and
+between-individuals) when looking at color-coded z-axes (although this
+likely reflects personal preference).  In this context where most
+topographic effects are largely captured by a simple
+anterior-posterior gradient, we'll adopt the following approach.</p>
+<p>First, we'll also force an ordering of channels, ensuring they are in
+an anterior-posterior axis; following the general logic of <a href="../../p4/hjorth/#matrix-plots-20">this
+section</a>, we'll use the coordinates in
+this <code>clocs</code> file to order the rows in data frame <code>d</code> and merge this
+with <code>d</code> (linking by channel label <code>CH</code>) and then order the rows
+(channels) of <code>d</code> by this new value <code>N</code> (within each individual):</p>
+<div class="highlight"><pre><span></span><code>clocs &lt;- read.table( &quot;work/data/aux/clocs&quot;, header=T, stringsAsFactors=F)
+
+d$CH &lt;- toupper( d$CH )
+d &lt;- merge( d , clocs[, c(&quot;CH&quot;,&quot;N&quot;) ] , by=&quot;CH&quot; )
+d &lt;- d[ order( d$ID , d$N ) , ]
+</code></pre></div>
+<p>Second, we'll first add a <code>male</code> variable (based on the ID starting
+with the character <code>M</code> in this instance) and make 
+a palette that identifies the females (red/pink)
+and males (blues), with values ordered by individual, then by
+channel. Note, the two shades of red (or blue) in the images below
+reflect only odd-vs-even numbered individuals, i.e. purely
+to visually delineate each individual:</p>
+<div class="highlight"><pre><span></span><code>d$male &lt;- grepl(&quot;^M&quot;,d$ID)
+
+pal &lt;- c( rep( c( &quot;red2&quot; , &quot;plum1&quot; ) , each=57 , times = 5 ) ,
+          rep( c( &quot;royalblue3&quot; , &quot;steelblue1&quot; ) , each=57 ,times = 5 ) )
+</code></pre></div>
+<p>We can then define a simple plot function:</p>
+<div class="highlight"><pre><span></span><code>f1 &lt;- function(v,ylim = range(d[,v]) ) { 
+ par(mfcol=c(2,1), mar=c(0.5,5,0.5,0.5) )
+ plot( d[ d$F == 11 , v], col=pal, pch=18, xlab=&quot;&quot; , ylab = paste(&quot;SS&quot;,v), ylim=ylim, xaxt=&#39;n&#39;)
+ plot( d[ d$F == 15 , v], col=pal, pch=20, xlab=&quot;&quot; , ylab = paste(&quot;FS&quot;,v), ylim=ylim, xaxt=&#39;n&#39; )
+}
+</code></pre></div>
+<p>First, we'll apply it to spindle density:</p>
+<!--
+png(file="vig/docs/imgs/spin2-dens.png",res=150,width=1000,height=400)
+f1("DENS")
+dev.off()
+
+png(file="vig/docs/imgs/spin2-amp.png",res=150,width=1000,height=400)
+f1("AMP")
+dev.off()
+
+png(file="vig/docs/imgs/spin2-dur.png",res=150,width=1000,height=400)
+f1("DUR")
+dev.off()
+
+png(file="vig/docs/imgs/spin2-frq.png",res=150,width=1000,height=400)
+f1("FRQ")
+dev.off()
+
+png(file="vig/docs/imgs/spin2-frq-b.png",res=150,width=1000,height=400)
+f1("FRQ",NULL)
+dev.off()
+
+png(file="vig/docs/imgs/spin2-nosc.png",res=150,width=1000,height=400)
+f1("NOSC")
+dev.off()
+
+png(file="vig/docs/imgs/spin2-chirp.png",res=150,width=1000,height=400)
+f1("CHIRP")
+dev.off()
+-->
+
+<div class="highlight"><pre><span></span><code>f1(&quot;DENS&quot;)
+</code></pre></div>
+<p><img alt="img" src="../../imgs/spin2-dens.png" /></p>
+<p>Broadly, we see roughly similar rates of spindles between individuals,
+although within each individual there are quite pronounced differences
+in spindle rate, that broadly follow the known topographical features
+for spindles (given we've ordered the channels for each individual in
+an anterior-to-posterior ordering).  That is, as seen above, slow
+spindles (SS) are more frontal, fast spindles (FS) are more
+central/parietal.  Given we've familiarized ourselves with this type
+of presentation, we can plot the remaining five metrics too.</p>
+<p><div class="highlight"><pre><span></span><code>f1(&quot;AMP&quot;)
+</code></pre></div>
+<img alt="img" src="../../imgs/spin2-amp.png" /></p>
+<p><div class="highlight"><pre><span></span><code>f1(&quot;DUR&quot;)
+</code></pre></div>
+<img alt="img" src="../../imgs/spin2-dur.png" /></p>
+<p><div class="highlight"><pre><span></span><code>f1(&quot;NOSC&quot;)
+</code></pre></div>
+<img alt="img" src="../../imgs/spin2-nosc.png" /></p>
+<p><div class="highlight"><pre><span></span><code>f1(&quot;FRQ&quot;)
+</code></pre></div>
+<img alt="img" src="../../imgs/spin2-frq.png" /></p>
+<p><div class="highlight"><pre><span></span><code>f1(&quot;CHIRP&quot;)
+</code></pre></div>
+<img alt="img" src="../../imgs/spin2-chirp.png" /></p>
+<p>That is, overall, we see difference both between and
+within individuals, with many metrics showing anterior-posterior
+gradients.  In particular, mean spindle frequency (of the <em>spindles
+detected given a fixed target frequency</em>) shows the greatest
+extent of variability, with some individuals effectively having
+non-overlapping distributions.  Here we plot the same values
+without constraining the y-axes to be similar for fast and
+slow spindles (i.e. by setting the second <code>ylim</code> argument to <code>NULL</code>):</p>
+<div class="highlight"><pre><span></span><code>f1(&quot;FRQ&quot;,NULL)
+</code></pre></div>
+<p><img alt="img" src="../../imgs/spin2-frq-b.png" /></p>
+<p>For example, the first two males (<code>M01</code> and <code>M02</code> as well as <code>M04</code>,
+<code>M06</code> and <code>M10</code>) have patterns of <em>slow spindle frequency</em> that are a)
+higher than expected and b) track in a revesred posterior-to-anterior
+direction, unlike that seen in most other individuals.  In fact, the
+gradients of spindle frequency in these males look closer to those seen
+for fast spindles - which may be consistent with the generally higher
+average frequency too.  We'll return to these issues below.</p>
+<h2 id="modal-spindle-frequency">Modal spindle frequency</h2>
+<p>As spindle activity is often evident as sigma-band "peaks" in the
+power spectra, it can be useful to review those too.  Although we've
+used a one-size-fits-all approach above, people are known to vary in
+their modal spindle frequencies (among other spindle attributes), and
+so we'll plot individual-level spectra for this small dataset.
+Further, as spindles reflecting periodic (oscillatory) activity, we'll
+use the IRASA approach that attempts to separate our periodic activity
+from the background (1/f-style) aperiodic EEG.</p>
+<p>Here we attempt to find the peak N2 sigma-range frequencies for each
+individual:</p>
+<p><div class="highlight"><pre><span></span><code>luna c.lst  -o out/spectral-n2-all-chs.db \
+ -s &#39; FILTER bandpass=0.3,60 tw=0.3,5 ripple=0.01,0.01
+      MASK ifnot=N2 &amp; RE
+      CHEP-MASK ep-th=3,3
+      CHEP epochs &amp; RE
+      IRASA dB &#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>destrat out/spectral-n2-all-chs.db +IRASA -r F CH -v PER &gt; o.1
+</code></pre></div></p>
+<p>Loading these outputs into R:</p>
+<div class="highlight"><pre><span></span><code>d &lt;- read.table( &quot;o.1&quot; , header=T, stringsAsFactors=F)
+</code></pre></div>
+<p>To plot power spectra with channels colored with respect to the
+anterior-posterior axis, we'll again attach the <code>clocs</code> information (with the <code>N</code> variable
+reflecting this) and make a palette for channels:</p>
+<div class="highlight"><pre><span></span><code>clocs &lt;- read.table( &quot;work/data/aux/clocs&quot; , header=T, stringsAsFactors=F)
+clocs$CH &lt;- toupper( clocs$CH )
+d$CH &lt;- toupper( d$CH )
+d &lt;- merge( d , clocs[ , c(&quot;CH&quot;,&quot;N&quot;) ] , by=&quot;CH&quot; )
+d &lt;- d[ order(d$ID,d$N,d$F) , ]
+pal &lt;- lturbo(nchs)
+</code></pre></div>
+<p>For reference, these are the colors assigned (in <code>pal</code>) to each channel, as will be used in the IRASA power spectra below:</p>
+<!---
+png(file="vig/docs/imgs/clocs-topo.png",res=150,width=200,height=200)
+par(mar=c(0,0,0,0))
+dev.off()
+--->
+
+<div class="highlight"><pre><span></span><code>ltopo.heat( clocs$CH[ clocs$CH %in% d$CH ] ,
+            clocs$N[ clocs$CH %in% d$CH ] , sz=1.5 )
+</code></pre></div>
+<p><img alt="img" src="../../imgs/clocs-topo.png" /></p>
+<p>We'll make one plot for each individual, plotting frequency (<code>fx</code> on the <em>x</em>-axis)
+against the periodic component of the power spectrum from IRASA (<code>PER</code> on the <em>y</em>-axis).</p>
+<div class="highlight"><pre><span></span><code>ids &lt;- unique( d$ID )
+fx  &lt;- unique( d$F )
+chs &lt;- unique( d$CH )
+nchs &lt;- length( chs )
+</code></pre></div>
+<p>These are the plots for females (<code>F01</code> through <code>F05</code> in the first column, <code>F06</code> through <code>F10</code>
+in the second column).  For reference, we've added a vertical line in the middle of the sigma range, at 13.5 Hz:</p>
+<!---
+png(file="vig/docs/imgs/irasa-females.png",res=100,width=800,height=1000)
+
+dev.off()
+--->
+
+<div class="highlight"><pre><span></span><code>par(mfcol=c(5,2) , mar=c(3,1,1,0.5) )
+for (id  in ids[1:10] ) {
+ xx &lt;- d[ d$ID == id , ] 
+ plot( fx , fx , type=&quot;n&quot; , xlab = &quot;Frequency (Hz)&quot; , ylab = &quot;Power&quot; , ylim = range( d$PER ) , main = id  )
+ for (ch  in 1:nchs)
+  lines( fx , xx$PER[ xx$CH == chs[ch] ] ,  col = pal[ch] , lwd=1 )
+ abline(v=c(13.5))
+}
+</code></pre></div>
+<p><img alt="img" src="../../imgs/irasa-females.png" /></p>
+<p>Next, here are the equivalent plots for the 10 males:</p>
+<!---
+png(file="vig/docs/imgs/irasa-males.png",res=100,width=800,height=1000)
+
+dev.off()
+--->
+
+<div class="highlight"><pre><span></span><code>par(mfcol=c(5,2) , mar=c(3,1,1,0.5) )
+for (id  in ids[11:20] ) {
+ xx &lt;- d[ d$ID == id , ] 
+ plot( fx , fx , type=&quot;n&quot; , xlab = &quot;Frequency (Hz)&quot; , ylab = &quot;Power&quot; , ylim = range( d$PER ) , main = id  )
+ for (ch  in 1:nchs)
+  lines( fx , xx$PER[ xx$CH == chs[ch] ] ,  col = pal[ch] , lwd=1 )
+ abline(v=c(13.5))
+}
+</code></pre></div>
+<p><img alt="img" src="../../imgs/irasa-males.png" /></p>
+<p>There are a number of things one can note from the above plots</p>
+<ul>
+<li>
+<p><code>M01</code>, <code>M02</code> and some other males clearly have sigma peaks that are
+ below the mid-sigma value (13.5 Hz), whereas most feamles have
+ parietal (i.e. orange/red, fast spindle) peaks that are at or above
+ 13.5 Hz</p>
+</li>
+<li>
+<p>whereas some individuals have a clear secondary peak (e.g. <code>M05</code>) are
+ slower sigma frequencies for frontal (blue/green) channels , others
+ do not; for some individuals, the frontal peak appears to be largely overlapping the parietal peaks</p>
+</li>
+<li>
+<p>some individuals also have pronounced peaks of N2 oscillatory
+ activity (as estimated by IRASA) in the theta or low alpha (6-8 Hz)
+ range (e.g. <code>F04</code>, <code>M03</code> and <code>M09</code>), whereas most people do not;
+ these theta peaks typically involve both frontal and parietal
+ channels; they also appear independent of the "frontal slow sigma"
+ peaks in these indivdiduals, when they do occur.</p>
+</li>
+</ul>
+<p>Based on these types of observations, investigators have been
+motivated to fine-tuned spindle detection parameters for specific
+individuals.  There are some simple approaches to this that can be
+easily applied in Luna (e.g. peak finding for select channels from
+these types of power spectra, and then setting <code>fc</code> options to
+individual-specific values, attached via the <code>vars</code> special option).
+We note here that it can still be challenging if there are not
+distinct peaks or if frontal/parietal peaks have essentially
+overlapping spectra.  <em>It is beyond the scope of this walkthrough to
+consider these approaches, but we'll address these issues and
+alternate approachs in future work.</em></p>
+<!---
+
+## Individual spindle modal frequencies
+
+<div class="highlight"><pre><span></span><code>fchs  &lt;- c( &quot;AFZ&quot;,&quot;AF3&quot;,&quot;AF4&quot;,&quot;FZ&quot;,&quot;F1&quot;,&quot;F2&quot;,&quot;F4&quot;,&quot;F3&quot;) 
+cpchs &lt;- c( &quot;CPZ&quot;,&quot;CP1&quot;,&quot;CP2&quot;,&quot;CP3&quot;,&quot;CP4&quot;,&quot;PZ&quot;,&quot;P1&quot;,&quot;P2&quot;,&quot;P3&quot;,&quot;P4&quot; )
+fx2 &lt;- fx[ fx &gt;= 7 &amp; fx &lt;= 16 ]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>ssf &lt;- fsf &lt;- numeric(0)
+for (id in ids ) {
+ xx &lt;- d[ d$ID == id &amp; d$F %in% fx2 &amp; d$CH %in% fchs , ] 
+ ssf &lt;- c(ssf, mean( fx2[ tapply( xx$PER, xx$CH, function(x) { which(max(x) == x ) } ) ] ) )
+ xx &lt;- d[ d$ID == id &amp; d$F %in% fx2 &amp; d$CH %in% cpchs , ] 
+ fsf &lt;- c(fsf, mean( fx2[ tapply( xx$PER, xx$CH, function(x) { which(max(x) == x ) } ) ] ) )
+}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>cbind( ids , ssf, fsf )
+</code></pre></div>
+
+Females:
+<div class="highlight"><pre><span></span><code>par(mfcol=c(5,2) , mar=c(3,1,1,0.5) )
+for (id  in ids[1:10] ) {
+ xx &lt;- d[ d$ID == id , ]
+ plot( fx , fx , type=&quot;n&quot; , xlab = &quot;Frequency (Hz)&quot; , ylab = &quot;Power&quot; , ylim = range( d$PER ) , main = id  )
+ for (ch  in 1:nchs)
+   lines( fx , xx$PER[ xx$CH == chs[ch] ] ,  col = pal[ch] , lwd=1 )
+ pf &lt;- fsf[ which( ids == id ) ] 
+ abline(v=c(pf-2,pf))
+}
+</code></pre></div>
+
+Males:
+<div class="highlight"><pre><span></span><code>par(mfcol=c(5,4) , mar=c(3,1,1,0.5) )
+for (id  in ids[11:20] ) {
+ xx &lt;- d[ d$ID == id , ]
+ plot( fx , fx , type=&quot;n&quot; , xlab = &quot;Frequency (Hz)&quot; , ylab = &quot;Power&quot; , ylim = range( d$PER ) , main = id  )
+ for (ch  in 1:nchs)
+   lines( fx , xx$PER[ xx$CH == chs[ch] ] ,  col = pal[ch] , lwd=1 )
+ for (ch  in 1:nchs)
+ pf &lt;- c( ssf[ which( ids == id ) ] , fsf[ which( ids == id ) ]  )
+ abline(v=pf)
+}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>selchs &lt;- chs
+selchs &lt;- fchs
+selchs &lt;- cpchs 
+
+par(mfcol=c(5,2) , mar=c(3,1,1,0.5) )
+for (id  in ids[11:20] ) {
+ xx &lt;- d[ d$ID == id , ]
+ plot( fx , fx , type=&quot;n&quot; , xlab = &quot;Frequency (Hz)&quot; , ylab = &quot;Power&quot; , ylim = range( d$PER ) , main = id  )
+ for (ch  in 1:nchs)
+  if ( chs[ch] %in% selchs ) 
+   lines( fx , xx$PER[ xx$CH == chs[ch] ] ,  col = pal[ch] , lwd=1 )
+ for (ch  in 1:nchs)
+ pf &lt;- c( ssf[ which( ids == id ) ] , fsf[ which( ids == id ) ]  )
+ abline(v=pf)
+}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>df &lt;- data.frame( ID = ids , SSF = fsf - 2 , FSF = fsf )
+write.table( df, file = &quot;spindle-freqs.txt&quot; , col.names=T , row.names=F, quote=F , sep=&quot;\t&quot; )
+</code></pre></div>
+
+Re-run spindle detection:
+
+<div class="highlight"><pre><span></span><code>luna c.lst id=M01 \
+  vars=spindle-freqs.txt \
+  -o  out/indiv-spindles.db \
+  -s &#39; MASK ifnot=N2 &amp; RE
+       CHEP-MASK sig=${eeg} ep-th=3,3
+       CHEP sig=${eeg} epochs &amp; RE
+       TAG stype/SS
+       SPINDLES sig=${eeg} fc=${SSF} cycles=18 q=-9 so mag=2 nreps=1000
+       TAG stype/FS
+       SPINDLES sig=${eeg} fc=${FSF} cycles=18 q=-9 so mag=2 nreps=1000 &#39;
+</code></pre></div>
+
+--->
+
+<h2 id="detection-parameters">Detection parameters</h2>
+<p>To more concretely illustrate the behavior of the one-size-fits-all
+detector implemented here, it is useful to use the <a href="https://zzz.bwh.harvard.edu/luna/ref/power-spectra/#cwt-design"><code>--cwt</code>
+command</a>,
+which produces analytic output on the properties of a continuous
+wavelet transform (CWT) given the design parameters.</p>
+<p>By default, the <code>SPINDLES</code> command uses a wavelet with 7 cycles (although there are alternate
+ways to define wavelets that are <a href="https://zzz.bwh.harvard.edu/luna/vignettes/rcox/#wavelets">also supported</a>.</p>
+<p>We specify the center frequency, number of cycles and also sample rate (<code>fs</code>) as follows:</p>
+<div class="highlight"><pre><span></span><code>echo &quot;fc=11 cycles=7 fs=200&quot;  | luna --cwt -o out.db 
+echo &quot;fc=11 cycles=12 fs=200&quot; | luna --cwt -a out.db
+echo &quot;fc=11 cycles=18 fs=200&quot; | luna --cwt -a out.db
+echo &quot;fc=15 cycles=7 fs=200&quot;  | luna --cwt -a out.db 
+echo &quot;fc=15 cycles=12 fs=200&quot; | luna --cwt -a out.db
+echo &quot;fc=15 cycles=18 fs=200&quot; | luna --cwt -a out.db
+</code></pre></div>
+<p>Looking at the output in R:</p>
+<div class="highlight"><pre><span></span><code>library(luna)
+k &lt;- ldb(&quot;out.db&quot;)
+k$CWT_DESIGN$PARAM
+</code></pre></div>
+<p>Here we see summaries for these six scenarios: either for slow
+or fast spindles, with increasing number of cycles (which corresponds to a
+tighter delineation in the frequency domain, at the expense of blurring in the time domain):</p>
+<div class="highlight"><pre><span></span><code>     PARAM   FWHM_F  FWHM_LWR FWHM_UPR
+  11_7_200 3.516484  9.230769 12.74725
+ 11_12_200 2.197802  9.890110 12.08791
+ 11_18_200 1.318681 10.329670 11.64835
+
+  15_7_200 4.804805 12.612613 17.41742
+ 15_12_200 3.003003 13.513514 16.51652
+ 15_18_200 1.801802 14.114114 15.91592
+</code></pre></div>
+<p>The <code>FWHM_F</code> gives a sense of the span (full-width half-max) of each wavelet in terms of the frequencies
+to which the wavelet is sensitive.  It is also possible to plot these response curves more directly:</p>
+<!---
+library(luna)
+k <- ldb("out.db")
+
+d <- k$CWT_DESIGN$F_PARAM
+d <- d[ d$F < 20 , ]
+params <- unique( d$PARAM ) 
+
+png(file="vig/docs/imgs/cwt-design.png",res=150,width=1000,height=400)
+par(mfcol=c(1,3))
+plot( d$F[ d$PARAM == "11_7_200" ] , d$MAG[ d$PARAM == "11_7_200" ] , lwd=2 , type="l" , col = "darkorange" , main = "7 cycles" ,
+  xlab="Frequency (Hz)" , ylab = "Wavelet spectra" )
+lines( d$F[ d$PARAM == "15_7_200" ] , d$MAG[ d$PARAM == "15_7_200" ] , lwd=2 , col="cadetblue" )
+abline( v=c(11,13.5,15))
+
+plot( d$F[ d$PARAM == "11_12_200" ] , d$MAG[ d$PARAM == "11_12_200" ] , lwd=2 , type="l" , col = "darkorange" , main = "12 cycles" ,
+   xlab="Frequency (Hz)" , ylab = "Wavelet spectra" )
+lines( d$F[ d$PARAM == "15_12_200" ] , d$MAG[ d$PARAM == "15_12_200" ] , lwd=2 , col="cadetblue" )
+abline( v=c(11,13.5,15))
+
+plot( d$F[ d$PARAM == "11_18_200" ] , d$MAG[ d$PARAM == "11_18_200" ] , lwd=2 , type="l" , col = "darkorange" , main = "18 cycles" ,
+  xlab="Frequency (Hz)" , ylab = "Wavelet spectra" )
+lines( d$F[ d$PARAM == "15_18_200" ] , d$MAG[ d$PARAM == "15_18_200" ] , lwd=2 , col="cadetblue" )
+abline( v=c(11,13.5,15))
+
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/cwt-design.png" /></p>
+<p>The defaults of 11 Hz and 15 Hz with 7 cycles was selected to a)
+broadly span the sigma band with approximately even total coverage
+(i.e. the two curves meet at around the 0.5 value), and b) still
+preserve the distinction between "slower" and "faster" spindles, even
+though, as we've seen, spindles do not truely come in two completely
+distinct frequency classes, and even though fast spindles typically
+have modal frequencies below 15 Hz.</p>
+<p>For fine-grained analyses of spindle classes and the relationships
+between a) fast and slow spindles, and b) the different spindle
+metrics, at both the per individual-level and per-spindle level, if
+nothing else, it will be important to consider the impact of these
+reified parameter settings, as noted above.  For the purposes of this
+walkthrough, however, we'll stick to the spindle metrics as derived
+above.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

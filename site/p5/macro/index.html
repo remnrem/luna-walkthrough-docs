@@ -1,0 +1,2321 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p5/macro/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../tf/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>5.1 Macro-architecture - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#51-macro-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5.1 Macro-architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p1/" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p2/" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p3/" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p6/" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/valid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/pops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-hypno" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running HYPNO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#baseline-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Baseline metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-specific-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage-specific metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bouttransition-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bout/transition metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nrem-cycle-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      NREM cycle metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hypnogram-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hypnogram visualization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../peri/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/canonical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-hypno" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running HYPNO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#baseline-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Baseline metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-specific-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage-specific metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bouttransition-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bout/transition metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nrem-cycle-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      NREM cycle metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hypnogram-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hypnogram visualization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="51-macro-architecture">5.1. Macro-architecture</h1>
+<p>We've previously reviewed the
+<a href="https://zzz.bwh.harvard.edu/luna/ref/hypnograms/#hypno"><code>HYPNO</code></a>
+command in the context of <a href="../../p3/hypno/">QC</a>.  Here we'll output a
+range of macro-architecture metrics, testing for sex differences.</p>
+<p>Unlike the previous steps where we typically used a single temporary
+output database (<code>out.db</code>) here we'll archive outputs more
+systematically, as we'll compile some of these outputs for
+<a href="../assoc/">association analyses</a> in subsequent steps.  We'll make two
+folders: <code>out/</code> for all Luna <code>.db</code> files generated, and <code>res/</code> for the
+text files extracted from those output databases:</p>
+<div class="codeL highlight"><pre><span></span><code>mkdir out res
+</code></pre></div>
+<h2 id="running-hypno">Running HYPNO</h2>
+<p>All metrics generated in this section are from the <a href="https://zzz.bwh.harvard.edu/luna/ref/hypnograms/#hypno"><code>HYPNO</code></a>
+command.  We'll run with the <code>epoch</code> option to request epoch-level outputs:</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>c.lst<span class="w"> </span>-o<span class="w"> </span>out/hypno.db<span class="w"> </span>-s<span class="w"> </span>HYPNO<span class="w"> </span>epoch
+</code></pre></div>
+<p>For the subsequent <a href="../assoc/">association analyses</a> we'll extract
+three result files from <code>out/hypno.db</code>: first, the <em>base-line</em>
+per-individual metrics:</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w">  </span>out/hypno.db<span class="w"> </span>+HYPNO<span class="w"> </span>&gt;<span class="w"> </span>res/hypno.base
+</code></pre></div>
+<p>Second, metrics stratified by sleep stage:</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w">  </span>out/hypno.db<span class="w"> </span>+HYPNO<span class="w"> </span>-r<span class="w"> </span>SS/N1,N2,N3,R,W<span class="w"> </span>&gt;<span class="w"> </span>res/hypno.stage
+</code></pre></div>
+<p>Third, metrics stratified by NREM cycle, considering only cycles 1
+through 4 (as we'll see below, not many individuals in this sample had more than 4
+cycles):</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w">  </span>out/hypno.db<span class="w"> </span>+HYPNO<span class="w"> </span>-r<span class="w"> </span>C/1,2,3,4<span class="w">  </span>&gt;<span class="w"> </span>res/hypno.cycle
+</code></pre></div>
+<h2 id="baseline-metrics">Baseline metrics</h2>
+<p>In R, we'll review the outputs, loading the full database (although we
+could equivalently have loaded the text file <code>res/hypno.base</code> here
+instead):</p>
+<div class="codeR highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">luna</span><span class="p">)</span>
+<span class="n">k</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ldb</span><span class="p">(</span><span class="s">&quot;out/hypno.db&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>We extract the <em>baseline</em> (<code>BL</code>) strata of results into a data-frame <code>d</code>:
+<div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">k</span><span class="o">$</span><span class="n">HYPNO</span><span class="o">$</span><span class="n">BL</span>
+</code></pre></div></p>
+<p>and then merge this table with the demographic data:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;work/data/aux/master.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<p>The base-line variables are represented in the columns of <code>d</code>:
+<div class="codeR highlight"><pre><span></span><code><span class="nf">names</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[1] &quot;ID&quot;                  &quot;CONF&quot;                &quot;E0_START&quot;           
+ [4] &quot;E1_LIGHTS_OFF&quot;       &quot;E2_SLEEP_ONSET&quot;      &quot;E3_SLEEP_MIDPOINT&quot;  
+ [7] &quot;E4_FINAL_WAKE&quot;       &quot;E5_LIGHTS_ON&quot;        &quot;E6_STOP&quot;            
+[10] &quot;EINS&quot;                &quot;FIXED_LIGHTS&quot;        &quot;FIXED_SLEEP&quot;        
+[13] &quot;FIXED_WAKE&quot;          &quot;FWT&quot;                 &quot;HMS0_START&quot;         
+[16] &quot;HMS1_LIGHTS_OFF&quot;     &quot;HMS2_SLEEP_ONSET&quot;    &quot;HMS3_SLEEP_MIDPOINT&quot;
+[19] &quot;HMS4_FINAL_WAKE&quot;     &quot;HMS5_LIGHTS_ON&quot;      &quot;HMS6_STOP&quot;          
+[22] &quot;LOST&quot;                &quot;LOT&quot;                 &quot;LZW&quot;                
+[25] &quot;LZW3&quot;                &quot;NREMC&quot;               &quot;NREMC_MINS&quot;         
+[28] &quot;OTHR&quot;                &quot;POST&quot;                &quot;PRE&quot;                
+[31] &quot;REM_LAT&quot;             &quot;REM_LAT2&quot;            &quot;SE&quot;                 
+[34] &quot;SFI&quot;                 &quot;SINS&quot;                &quot;SME&quot;                
+[37] &quot;SOL&quot;                 &quot;SOL_PER&quot;             &quot;SPT&quot;                
+[40] &quot;SPT_PER&quot;             &quot;T0_START&quot;            &quot;T1_LIGHTS_OFF&quot;      
+[43] &quot;T2_SLEEP_ONSET&quot;      &quot;T3_SLEEP_MIDPOINT&quot;   &quot;T4_FINAL_WAKE&quot;      
+[46] &quot;T5_LIGHTS_ON&quot;        &quot;T6_STOP&quot;             &quot;TGT&quot;                
+[49] &quot;TIB&quot;                 &quot;TI_RNR&quot;              &quot;TI_S&quot;               
+[52] &quot;TI_S3&quot;               &quot;TRT&quot;                 &quot;TST&quot;                
+[55] &quot;TST_PER&quot;             &quot;TWT&quot;                 &quot;WASO&quot;               
+[58] &quot;male&quot;                &quot;age&quot;                
+</code></pre></div></p>
+<p>Plotting an initial representative metric, the sleep period time (SPT), the time between sleep onset and final wake), by males and females:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="nf">boxplot</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SPT</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Female&quot;</span><span class="p">,</span><span class="s">&quot;Male&quot;</span><span class="p">),</span><span class="n">each</span><span class="o">=</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="s">&quot;blue&quot;</span><span class="w"> </span><span class="p">),</span><span class="w"> </span>
+<span class="w">         </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sex&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sleep Period Time (SPT)&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<!---
+png(file="vig/docs/imgs/spt1.png",width=600,height=500,res=100)
+boxplot( d$SPT ~ rep(c("Female","Male"),each=10) , xlab = "Sex" , ylab = "Sleep Period Time (SPT)" , col = c("red","blue" ))
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/spt1.png" /></p>
+<p>There appears to be evidence for a sex difference, which we can formally test, for example via a simple linear regression also controlling for age (and
+removing any potential outliers (default +/- 3 SD units) from the dependent variable):</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="w"> </span><span class="nf">outliers</span><span class="p">(</span><span class="w"> </span><span class="n">SPT</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">male</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 479.9224    32.0737  14.963 3.22e-11 ***
+age          -1.9894     0.8839  -2.251 0.037936 *  
+male         38.1819     9.5082   4.016 0.000896 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 20.99 on 17 degrees of freedom
+Multiple R-squared:  0.5252,    Adjusted R-squared:  0.4693 
+F-statistic: 9.402 on 2 and 17 DF,  p-value: 0.00178
+</code></pre></div></p>
+<p>We see that males have significantly longer SPTs in this small sample: 7.4 hrs versus 6.8 hrs (with 0 and 1 indicating female and male below):</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SPT</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">male</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="m">60</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0        1 
+6.821667 7.401667 
+</code></pre></div></p>
+<!---
+
+f1a <- function( v, d , t = NULL ) {
+
+ # get y
+ y <- d[,v] 
+
+ # test y is a variable numeric 
+ if ( ! is.numeric(y) ) return(NA)
+ if ( sum( is.finite( y ) ) < 5 ) return(NA)
+ if ( sd( y , na.rm=T ) < 1e-4 ) return(NA)
+
+ # optionally, outlier removal at +/- t SDs
+ if ( ! is.null( t ) ) y <- outliers( y , t = t ) 
+
+ # fit linear model, predictors = age + sex
+ m1 <- summary( lm( y ~ age + male , data = d ) ) 
+
+ # return beta, p-value and signed Z for a) age, b) sex(M)
+ res <- c( as.vector(m1$coef[2,c(1,4)]) , sign(  m1$coef[2,1] ) * -log10( m1$coef[2,4] ) ) 
+ res <- c( res , as.vector(m1$coef[3,c(1,4)]) , sign(  m1$coef[3,1] ) * -log10( m1$coef[3,4] ) ) 
+# cat( v , res, "\n" )
+ res
+}
+
+f1 <- function( vars, d , t = NULL ) {
+ res <- sapply( vars , f1a, d = d , t = t )
+ df <- as.data.frame(t( as.data.frame( res )  ))
+ names( df ) <- c( "B_AGE", "P_AGE", "Z_AGE" , "B_M", "P_M", "Z_M" ) 
+ df <- df[ complete.cases(df) , ] 
+ df
+}
+
+vars <- c("TRT","TIB","SPT","TST","TST_PER","TWT", "WASO", "SE", "SME", "SOL", "REM_LAT", "REM_LAT2")
+
+f1( vars , d ) 
+--->
+
+<p>We can continue to test a range of key sleep metrics, applying the
+same linear model with the results tabulated here:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Metric</th>
+<th>Beta</th>
+<th>P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRT</code></td>
+<td>Total recording time (mins)</td>
+<td>35.26</td>
+<td><strong>0.004</strong></td>
+</tr>
+<tr>
+<td><code>TIB</code></td>
+<td>Time-in-bed, here = TRT (mins)</td>
+<td>35.26</td>
+<td><strong>0.004</strong></td>
+</tr>
+<tr>
+<td><code>SPT</code></td>
+<td>Sleep period time (mins)</td>
+<td>38.18</td>
+<td><strong>0.001</strong></td>
+</tr>
+<tr>
+<td><code>TST</code></td>
+<td>Total sleep time (mins)</td>
+<td>23.61</td>
+<td>0.19</td>
+</tr>
+<tr>
+<td><code>TST_PER</code></td>
+<td>Persistent sleep time (mins)</td>
+<td>-4.98</td>
+<td>0.84</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>TWT</code></td>
+<td>Total wake time (mins)</td>
+<td>11.66</td>
+<td>0.62</td>
+</tr>
+<tr>
+<td><code>WASO</code></td>
+<td>Wake after sleep onset (mins)</td>
+<td>14.57</td>
+<td>0.48</td>
+</tr>
+<tr>
+<td><code>SE</code></td>
+<td>Sleep efficiency (%)</td>
+<td>-1.35</td>
+<td>0.78</td>
+</tr>
+<tr>
+<td><code>SME</code></td>
+<td>Sleep maintenance efficiency (%)</td>
+<td>-2.48</td>
+<td>0.58</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SOL</code></td>
+<td>Sleep onset latency (mins)</td>
+<td>-1.23</td>
+<td>0.88</td>
+</tr>
+<tr>
+<td><code>REM_LAT</code></td>
+<td>REM latency, includes WASO (mins)</td>
+<td>-16.32</td>
+<td>0.38</td>
+</tr>
+<tr>
+<td><code>REM_LAT2</code></td>
+<td>REM latency, excludes WASO (mins)</td>
+<td>-13.18</td>
+<td>0.38</td>
+</tr>
+</tbody>
+</table>
+<p>That is, although males have significantly longer SPT and also longer
+time in bed (TIB) and total recording time (TRT), there are actually
+no (significant) group differences in total sleep time (TST) or wake
+times (TWT or WASO), nor on sleep efficiency or onset latencies.</p>
+<p>As we don't have explicit lights-off and lights-on annotations
+present, the TRT and TIB metrics are identical here (i.e. lights off
+is assumed to be the start of the recording, etc).</p>
+<h2 id="stage-specific-metrics">Stage-specific metrics</h2>
+<p>Next, we'll look at stage-specific metrics, including stage duration.
+Above, these metrics were saved in the file <code>res/hypno.stage</code>, but
+we can also extract them from the attached database (<code>k</code>), and merge
+with the demographic data as before:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">k</span><span class="o">$</span><span class="n">HYPNO</span><span class="o">$</span><span class="n">SS</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<p>The absolute stage duration is encoded by the <code>MINS</code> variable, which
+is defined for each stage (N1, N2, N3, R as well as W and WASO) but
+also for combined stages: (NR: all NREM, S: all sleep).  The
+left/right columns give the means (in minutes) for females and males
+respectively:</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">MINS</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SS</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">male</span><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>          0      1
+?      0.00   0.00
+L      0.00   0.00
+N1    30.00  41.15
+N2   195.75 233.55
+N3    60.10  51.40
+N4     0.00   0.00
+NR   285.85 326.10
+R     68.50  49.20
+S    354.35 375.30
+W     78.15  91.90
+WASO  54.95  68.80
+</code></pre></div></p>
+<p>These appear broadly as expected, e.g. the majority of time asleep is spent in N2 (over 3 hours), with a
+average total sleep time around 6 hours (note, these were recorded in a hospital sleep lab, and so
+for a variety of reasons,  sleep durations will likely be shorter then natural sleep time).</p>
+<!--
+d$PCT <- d$PCT * 100
+for (v in c("MINS","PCT") )
+ for (ss in c("N1","N2","N3","NR","R","S","W","WASO") )
+  cat( v , ss , round( as.numeric( f1( v , d[ d$SS == ss , ]  )[,4:5]) , 3 ) , "\n" )
+--->
+
+<p>Fitting the same linear models as above, we see there appears to be some suggestion of sex differences in a number of stage-specific metrics:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Metric</th>
+<th>Beta</th>
+<th>P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MINS N1</code></td>
+<td>N1 duration (mins)</td>
+<td>11.377</td>
+<td>0.145</td>
+</tr>
+<tr>
+<td><code>MINS N2</code></td>
+<td>N2 duration (mins)</td>
+<td>39.591</td>
+<td><strong>0.038</strong></td>
+</tr>
+<tr>
+<td><code>MINS N3</code></td>
+<td>N3 duration (mins)</td>
+<td>-8.832</td>
+<td>0.514</td>
+</tr>
+<tr>
+<td><code>MINS NR</code></td>
+<td>NREM duration (mins)</td>
+<td>42.136</td>
+<td><strong>0.015</strong></td>
+</tr>
+<tr>
+<td><code>MINS R</code></td>
+<td>REM duration (mins)</td>
+<td>-18.529</td>
+<td><strong>0.024</strong></td>
+</tr>
+<tr>
+<td><code>PCT N1</code></td>
+<td>Relative N1 duration (%)</td>
+<td>2.384</td>
+<td>0.254</td>
+</tr>
+<tr>
+<td><code>PCT N2</code></td>
+<td>Relative N2 duration (%)</td>
+<td>7.412</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><code>PCT N3</code></td>
+<td>Relative N3 duration (%)</td>
+<td>-3.738</td>
+<td>0.294</td>
+</tr>
+<tr>
+<td><code>PCT NR</code></td>
+<td>Relative NREM duration (%)</td>
+<td>6.059</td>
+<td><strong>0.003</strong></td>
+</tr>
+<tr>
+<td><code>PCT R</code></td>
+<td>Relative REM duration (%)</td>
+<td>-6.059</td>
+<td><strong>0.003</strong></td>
+</tr>
+</tbody>
+</table>
+<p>That is, males in this sample appear to have more NREM but less REM
+sleep, in both absolute and relative senses.  The effect is primarily
+due to more N2 (almost 40 minutes more) and about 20 minutes less REM.
+Of course, whether or not these differences generalize to the larger
+GRINS sample, let alone to other samples from other comparable,
+independent populations, is a separate question.</p>
+<h2 id="bouttransition-metrics">Bout/transition metrics</h2>
+<p>As well as stage durations, the stage-stratified (<code>SS</code>) outputs also
+contain some simple summaries of the number and length of contiguous
+<em>bouts</em> of each stage, as well as metrics that attempt to quantify the
+rate and nature of inter-stage transitions.</p>
+<!--
+for (v in c("BOUT_N" ))
+ for (ss in c("N1","N2","N3","NR","R","S","W","WASO") )
+  cat( v , ss , round( as.numeric( f1( v , d[ d$SS == ss , ]  )[,4:5]) , 3 ) , "\n" )
+
+for (v in c("BOUT_10" ))
+ for (ss in c("N1","N2","N3","NR","R","S","W","WASO") )
+  cat( v , ss , round( as.numeric( f1( v , d[ d$SS == ss , ]  )[,4:5]) , 3 ) , "\n" )
+--->
+
+<p>Some of these are listed below, with the same beta/p-value estimates from the linear
+model testing for sex differences (beta: effect in males versus females):</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Metric</th>
+<th>Beta</th>
+<th>P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SFI</code></td>
+<td>Sleep Fragmentation Index (sleep to W count / <code>TST</code>)</td>
+<td>0.022</td>
+<td>0.068</td>
+</tr>
+<tr>
+<td><code>TI_S</code></td>
+<td>Transition Index (excludes W) N1-N2-N3-R (count / <code>TST</code>)</td>
+<td>-0.0058</td>
+<td>0.82</td>
+</tr>
+<tr>
+<td><code>TI_S3</code></td>
+<td>3-class Transition Index (NR,R,W (count / <code>SPT</code>)</td>
+<td>0.023</td>
+<td>0.13</td>
+</tr>
+<tr>
+<td><code>TI_RNR</code></td>
+<td>REM-NREM transitions (count / <code>TST</code>)</td>
+<td>-0.013</td>
+<td><strong>0.048</strong></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>BOUT_N N1</code></td>
+<td>Number of N1 bouts</td>
+<td>12.087</td>
+<td>0.13</td>
+</tr>
+<tr>
+<td><code>BOUT_N N2</code></td>
+<td>Number of N2 bouts</td>
+<td>5.668</td>
+<td>0.344</td>
+</tr>
+<tr>
+<td><code>BOUT_N N3</code></td>
+<td>Number of N3 bouts</td>
+<td>-3.372</td>
+<td>0.323</td>
+</tr>
+<tr>
+<td><code>BOUT_N NR</code></td>
+<td>Number of NR bouts</td>
+<td>6.858</td>
+<td>0.062</td>
+</tr>
+<tr>
+<td><code>BOUT_N R</code></td>
+<td>Number of REM bouts</td>
+<td>-0.592</td>
+<td>0.836</td>
+</tr>
+<tr>
+<td><code>BOUT_N S</code></td>
+<td>Number of sleep bouts</td>
+<td>10.609</td>
+<td><strong>0.006</strong></td>
+</tr>
+<tr>
+<td><code>BOUT_N W</code></td>
+<td>Number of wake bouts</td>
+<td>10.405</td>
+<td><strong>0.007</strong></td>
+</tr>
+<tr>
+<td><code>BOUT_N WASO</code></td>
+<td>Number of WASO bouts</td>
+<td>10.609</td>
+<td><strong>0.006</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="codeR highlight"><pre><span></span><code><span class="nf">boxplot</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">BOUT_N</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;S&quot;</span><span class="w"> </span><span class="p">]</span><span class="w">  </span><span class="o">~</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Female&quot;</span><span class="p">,</span><span class="s">&quot;Male&quot;</span><span class="p">),</span><span class="n">each</span><span class="o">=</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">,</span>
+<span class="w">         </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="s">&quot;blue&quot;</span><span class="w"> </span><span class="p">),</span>
+<span class="w">         </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sex&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;# of sleep bouts&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!---
+png(file="vig/docs/imgs/sbout1.png",width=600,height=500,res=100)
+boxplot( d$BOUT_N[ d$SS == "S" ]  ~ rep(c("Female","Male"),each=10) ,
+         xlab = "Sex" , ylab = "# of sleep bouts" , col = c("red","blue" ))
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/sbout1.png" /></p>
+<p>That is, males have a greater number of sleep bouts (i.e. periods of
+contiguous sleep), or, correspondingly, more wake/WASO) bouts.  Given
+that males and females have approximately equal TSTs, this implies a
+more fragmented (more sleep-wake changes) in males.  This is reflected
+in the slightly higher sleep fragmentation index (SFI), although that
+is not significant in this (small) sample.  In general, this speaks to
+the utility in querying multiple related metrics (when coupled with
+<a href="../assoc/">appropriate correction for multiple testing</a>) in the
+context of biomarker discovery, when there is no strong <em>a priori</em> and
+specific reason for any one particular metric.</p>
+<h2 id="nrem-cycle-metrics">NREM cycle metrics</h2>
+<p>Next, we'll pull out the cycle-specific metrics: primarily just
+(REM/NREM) duration per cycle.</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">k</span><span class="o">$</span><span class="n">HYPNO</span><span class="o">$</span><span class="n">C</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<p>After merging the demographic data, we can compute a table of means (in minutes) </p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">NREMC_MINS</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">male</span><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0         1
+1 125.15000 109.35000
+2  93.60000 114.00000
+3  87.45000  97.72222
+4  67.42857  65.00000
+5  44.33333  52.12500
+6        NA  56.00000
+</code></pre></div></p>
+<p>It is important to remember that not all individuals will have all six cycles: </p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">NREMC_MINS</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">C</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">male</span><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>   0  1
+1 10 10
+2 10 10
+3 10  9
+4  7  9
+5  3  4
+6 NA  1
+</code></pre></div>
+i.e. we see that <em>N</em> = 19 people have at least 3 NREM cycles defined, and everybody has at least two.  Analyses based on the 5th cycle would not be representative
+of the whole sample, however.</p>
+<p>From the baseline metrics (as extracted <a href="#baseline-metrics">above</a>),
+the variables <code>NREMC</code> and <code>NREMC_MINS</code> give the count and average
+duration of NREM cycles per individual; applying the same linear model
+as above, we can confirm there are no significant differences between
+males and females for either metric:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Metric</th>
+<th>Beta</th>
+<th>P-value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NREMC</code></td>
+<td>Number of NREM cycles</td>
+<td>0.3</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td><code>NREMC_MINS</code></td>
+<td>Average NREM cycle duration (mins)</td>
+<td>4.32</td>
+<td>0.72</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hypnogram-visualization">Hypnogram visualization</h2>
+<p>Finally, as we extracted epoch-level data with the <code>epoch</code> option, we can view epoch-level metrics and plot hypnograms, etc.  For example:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">k</span><span class="o">$</span><span class="n">HYPNO</span><span class="o">$</span><span class="n">E</span>
+<span class="nf">lhypno</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">STAGE</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F01&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!--
+png(file="vig/docs/imgs/hypno-f01.png",res=100,width=800,height=300)
+lhypno( d$STAGE[ d$ID == "F01" ] )
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/hypno-f01.png" /></p>
+<p>As we've <a href="../../p3/hypno/#hypnogram-visualization">previously reviewed</a>
+visualizing hypnograms earlier in this walkthrough, we'll not repeat
+those steps here.</p>
+<h2 id="summary">Summary</h2>
+<p>Based on extracting a set of common hypnogram-derived metrics
+describing sleep macro-architecture in males and females, we can
+conclude that:</p>
+<ul>
+<li>
+<p>males spent more time in bed, despite not showing significant
+   differences in TST, sleep onset latency, sleep efficiency or WASO</p>
+</li>
+<li>
+<p>males had relatively more NREM sleep, females had relatively more
+   REM</p>
+</li>
+<li>
+<p>there were no obvious differences in NREM cycle structure</p>
+</li>
+</ul>
+<p>Even here, given the small sample it would be incautious to make
+strong conclusions, due to the threat of both false positive (multiple
+testing) and false negative (low power) errors.  We'll address both
+issues later, by a) using methods to correct for multiple testing, and
+b) querying the larger remaining GRINS control sample for the same
+tests.</p>
+<hr />
+<p>In the next section we'll consider <a href="../tf/">time/frequency (spectral)
+analysis</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

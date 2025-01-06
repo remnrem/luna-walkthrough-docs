@@ -1,0 +1,265 @@
+# 1.6. Reviewing and harmonizing annotation labels
+
+We now have a set of EDFs in `work/harm1` that should all have similar
+labels, units, sampling rates and referencing schemes (we'll check
+this later).  Next, we turn to harmonizing the annotations.
+
+## Tabulating annotations
+
+Although Luna internally treats all annotations similarly once
+loaded, it can be advantageous to have similar file formats across
+different annotation files (e.g. if you want to load them into other
+software).  We use the standard `.annot` format, so one step will involve
+reading then writing annotations to this format in a uniform manner.
+
+We also need to handle the arbitrary differences in stage labels
+across the different studies use, adopting an approach conceptually
+similar to the aliasing done for channel labels.
+
+We can look at the list of annotations by using the `ANNOTS` command:
+```
+luna s1.lst -o out.db -s ANNOTS
+```
+```
+destrat out.db +ANNOTS -r ANNOT  | head
+```
+```
+ ID    ANNOT  COUNT     DUR
+F01  Arousal     26   255.2
+F01       N2    361   10830
+F02  Arousal     97  1096.6
+F02       N2    431   12930
+F02       N1     36    1080
+F02       N3    145    4350
+F02        R    180    5400
+F02        W     69    2070
+F03       N2     40    6720
+...
+```
+
+The following extracts the class labels from all 20 individuals
+(column 2) and enumerates them: (output ordered by stage)
+
+```
+destrat out.db +ANNOTS -r ANNOT | cut -f2 | sort | uniq -c
+```
+```
+  15 N1
+  16 N2
+  15 N3
+  13 R
+  13 W
+  
+   2 0
+   2 1
+   2 2
+   2 3
+   2 5
+
+   2 SR
+   2 SW
+
+   2 SlpStg1
+   2 SlpStg2
+   2 SlpStg3
+   2 SlpStgREM
+   2 SlpStgWake
+
+  10 Arousal
+
+```
+
+That is, we see the most common forms are `N1`, `N2`, `N3`, `R` and
+`W`, where the last two are REM and wake respectively, seen in more
+than half the individuals.  We then see some alternate forms: e.g
+`SlpStg1` which is equivalent to `N1`, etc.  We also see a commonly
+used numeric encoding of sleep stage: 1,2,3 as N1, N2, N3, 5 as REM,
+and 0 as wake.
+
+When we look at the individual annotation files, we might notice some things missing, however.  For example,
+`M05` has lower-case stage annotations in an .eannot file:
+
+```
+head work/data/annots/M05.eannot
+```
+```
+n2
+n2
+n3
+w
+n1
+w
+n2
+n2
+```
+
+We also see that `F08.annot` has `S1`, `S2` and `S3` encodings too:
+```
+...
+S2      .       .       01:26:30        01:27:00        .
+S2      .       .       01:27:00        01:27:30        .
+SW      .       .       01:27:30        01:28:00        .
+Arousal .       .       01:27:32.5      01:27:49.7      .
+S2      .       .       01:28:00        01:28:30        .
+S2      .       .       01:28:30        01:29:00        .
+S2      .       .       01:29:00        01:29:30        .
+S2      .       .       01:29:30        01:30:00        .
+S2      .       .       01:30:00        01:30:30        .
+SR      .       .       01:30:30        01:31:00        .
+SR      .       .       01:31:00        01:31:30        .
+SR      .       .       01:31:30        01:32:00        .
+SR      .       .       01:32:00        01:32:30        .
+SR      .       .       01:32:30        01:33:00        .
+SR      .       .       01:33:00        01:33:30        .
+...
+```
+
+## Automatic stage remapping
+
+What happened to those other stage annotations above (e.g. `S1` etc)?
+This reflects a default feature of Luna, to map some commonly
+encountered terms to the standard stage labels `N1`, `N2`, `N3`, `R`
+and `W`.  The mapping is hard-coded and so naturally is not able to
+guess all possible terms (e.g. why `SW` and `SlpStg1` etc are not
+mapped).  For example, the current set of automatic terms that are
+mapped to `N1` include:
+
+```
+ NREM1
+ Stage1
+ S1
+ Stage 1 sleep|1
+ SRO:Stage1Sleep
+ SDO:NonRapidEyeMovementSleep-N1  
+```
+
+These are largely based off terms encountered across various NSRR
+studies.  Mappings are case-insensitive too, which is why `n1` is
+mapped to `N1` internally.
+
+You can turn off this behavior by setting the `annot-remap=F` special
+variable (again, the output below has been sorted to group things logically):
+
+```
+luna s1.lst -o out.db annot-remap=F -s ANNOTS
+```
+```
+destrat out.db +ANNOTS -r ANNOT | cut -f2 | sort | uniq -c
+```
+```
+   8 N1   
+   6 S1
+   2 SlpStg1
+   2 1
+   1 n1
+   
+   9 N2   
+   6 S2   
+   2 SlpStg2
+   2 2
+   1 n2
+   
+   8 N3
+   6 S3
+   2 SlpStg3
+   2 3
+   1 n3
+   
+   8 R
+   4 REM
+   2 SR
+   2 SlpStgREM
+   2 5
+   1 r
+   
+   8 W
+   2 SW
+   2 SlpStgWake
+   4 Wake
+   2 0
+   1 w
+```
+
+Now we see the original labels (i.e. identical to the input files) which makes the structure clearer.
+
+!!!info "Arousals and multiple annotation files"
+    Note, there is also an `Arousal` annotation in some individuals,
+    denoting manually scored arousals.  These annotations are lost in the
+    .eannot format, which only accepts epoch-level codes, however.  Note that
+    multiple annotation files (potentially of different formats) can be
+    associated with the same EDF however, and so using .eannot to
+    represent staging doesn't preclude including other information too.
+
+## New annotation files
+
+Next, we'll generate a mapping file to make all annotations consistent
+across individuals.  Although some (e.g. `S1`) are mapped
+automatically, we'll include the terms here for reference anyway; we
+won't add the lower-case variants however, as all annotation labels
+are case-insentive.
+
+Using the same `primary|alt1|alt2|...` form, we'll make a two-column
+tab-delimited file (which should already exist in the demonstration
+folder: `work/data/aux/amaps`) to read as follows:
+
+```
+remap   N1|1|S1|SlpStg1
+remap   N2|2|S2|SlpStg2
+remap   N3|3|S3|SlpStg3
+remap   R|REM|5|SR|SlpStgREM
+remap   W|Wake|0|SW|SlpStgWake
+```
+
+The `remap` special option is the equivalent for `alias` but for
+annotation labels.  _(Note: if an alternate annotation itself has a `|`
+character, you need to quote (`"`) the entire annotation, as pipes are
+used as delimiters in the above.)_
+
+We can check this works as expected (ignoring the `Arousal` annotation in the output here). First
+we re-run `ANNOTS` but including the remapping definitions from `amaps`:
+
+```
+luna s1.lst -o out.db @work/data/aux/amaps -s ANNOTS
+```
+and then we extract, tabulate and count the class labels across all 20 individuals:
+```
+destrat out.db +ANNOTS -r ANNOT | cut -f2 | sort | uniq -c
+```
+```
+  19 N1
+  20 N2
+  19 N3
+  19 R
+  19 W
+```
+
+That is, we now see only five distinct stage annotation labels;
+whereas the `N2` label is present in all 20 individuals, the other
+labels are only present in 19 of the 20.  For typical whole-night
+PSGs, this would presumably be strange: one would expect at least some
+wake and other stages including REM.  As we'll see later, this in fact
+reflects one of the [_manipulations_](../data.md#signal-manipulations)
+of this dataset (for `F01`), so we'll revisit this observation later.
+
+We can now make a set of new reformated and remapped annotation files,
+which we'll write to the same `work/harm1` folder as the EDFs.  We do
+this by combining the remapping stage (the `remap` terms @-included
+from `amaps`) with the [`WRITE-ANNOTS`
+command](https://zzz.bwh.harvard.edu/luna/ref/annotations/#write-annots),
+which ensures a consistent (.annot) format is applied across
+recordings:
+
+```
+luna s1.lst @work/data/aux/amaps -o out.db -s ' WRITE-ANNOTS file=work/harm1/^.annot '
+```
+
+(As a reminder, the `^` character swaps in the ID of that dataset; as
+some shells (e.g. `zsh`) interpret it as a special character, we've
+put the Luna command within single-quotes, which stops the shell from
+interpreting it -- more details can be [found here](../prep.md#shell-orientation).)
+
+---
+
+At this stage, we've now populated the `work/harm1/` folder with 20
+new EDFs and 20 new .annot annotation files, and are ready to
+[generate a new sample list for this project](gen.md) next.

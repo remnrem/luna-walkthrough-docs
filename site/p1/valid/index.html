@@ -1,0 +1,1795 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p1/valid/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../filefix/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>1.1 File validation - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11-file-validation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.1 File validation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p2/" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p3/" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p5/" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p6/" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-sample-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building a sample list
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validating-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validating files
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/pops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/macro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/peri/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/canonical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-sample-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building a sample list
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validating-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validating files
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="11-file-validation">1.1. File validation</h1>
+<h2 id="building-a-sample-list">Building a sample list</h2>
+<p>If you've downloaded the data and followed <a href="../../prep/#project-set-up">this
+step</a> to create and populate the
+working directory for this walkthrough, you should see the following:</p>
+<p><div class="codeL highlight"><pre><span></span><code>ls<span class="w"> </span>work/data/
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>annots  aux edfs
+</code></pre></div></p>
+<p>Of initial focus here are the 20 EDFs in <code>work/data/edfs/</code> and 20
+corresponding annotation files in <code>work/data/annots</code>:</p>
+<p><div class="codeL highlight"><pre><span></span><code>ls<span class="w"> </span>work/data/edfs
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>F01.edf F03.edf F05.edf F07.edf F09.edf M01.edf M03.edf M05.edf M07.edf M09.edf
+F02.edf F04.edf F06.edf F08.edf F10.edf M02.edf M04.edf M06.edf M08.edf M10.edf
+</code></pre></div>
+and
+<div class="codeL highlight"><pre><span></span><code>ls<span class="w"> </span>work/data/annots
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>F01.annot   F05.annot   F09.annot   M03.tsv     M07.eannot
+F02.annot   F06.annot   F10.annot   M04.tsv     M08.eannot
+F03.annot   F07.annot   M01.csv     M05.eannot  M09.xml
+F04b.annot  F08.annot   M02.csv     M06.eannot  M10.xml
+</code></pre></div></p>
+<p>We see a range of different annotation file extensions/formats:
+<code>.annot</code>, <code>.eannot</code>, <code>.csv</code>, <code>.tsv</code> and <code>.xml</code> annotation files; see
+<a href="../../data/#example-annotations">here</a> for examples (and notes on
+which formats <em>aren't</em> valid).</p>
+<hr />
+<p>To build an initial sample list <code>s1.lst</code>, we can run the following <code>--build</code> command,
+which recursively searches one or more folders, and matches EDFs and annotation files based on
+(by default) root file names.  Here we explicitly specify the annotation extensions we encountered:</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>--build<span class="w"> </span>work/data<span class="w"> </span>-ext<span class="o">=</span>csv,annot,eannot,xml,tsv<span class="w"> </span>&gt;<span class="w"> </span>s1.lst
+</code></pre></div>
+<p>The message in the console indicates that 19 of the 20 individuals were matched:
+<div class="highlight"><pre><span></span><code>wrote 20 EDFs to the sample list
+  1 of which had 0 linked annotation files
+  19 of which had 1 linked annotation files
+
+Warning: also found 1 annotation files without a matching EDF:
+work/data/annots/F04b.annot
+</code></pre></div></p>
+<p>It also lists that one annotation file wasn't matched: <code>F04b.annot</code>:
+this is perhaps the simplest form of error, inconsistent naming of
+files, which was one of the <a href="../../data/#annotation-manipulations">manipulations described
+here</a>.</p>
+<p>The sample list generated is a simple text file (we tend to use <code>.lst</code> extension by default, but this is arbitrary: it could be <code>.txt</code>, any other extension, or nothing).  Using <code>cat</code> to view the contents of the file:</p>
+<p><div class="codeL highlight"><pre><span></span><code>cat<span class="w"> </span>s1.lst
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>F01 work/data/edfs/F01.edf  work/data/annots/F01.annot
+F02 work/data/edfs/F02.edf  work/data/annots/F02.annot
+F03 work/data/edfs/F03.edf  work/data/annots/F03.annot
+F04 work/data/edfs/F04.edf  .
+F05 work/data/edfs/F05.edf  work/data/annots/F05.annot
+F06 work/data/edfs/F06.edf  work/data/annots/F06.annot
+F07 work/data/edfs/F07.edf  work/data/annots/F07.annot
+F08 work/data/edfs/F08.edf  work/data/annots/F08.annot
+F09 work/data/edfs/F09.edf  work/data/annots/F09.annot
+F10 work/data/edfs/F10.edf  work/data/annots/F10.annot
+M01 work/data/edfs/M01.edf  work/data/annots/M01.csv
+M02 work/data/edfs/M02.edf  work/data/annots/M02.csv
+M03 work/data/edfs/M03.edf  work/data/annots/M03.tsv
+M04 work/data/edfs/M04.edf  work/data/annots/M04.tsv
+M05 work/data/edfs/M05.edf  work/data/annots/M05.eannot
+M06 work/data/edfs/M06.edf  work/data/annots/M06.eannot
+M07 work/data/edfs/M07.edf  work/data/annots/M07.eannot
+M08 work/data/edfs/M08.edf  work/data/annots/M08.eannot
+M09 work/data/edfs/M09.edf  work/data/annots/M09.xml
+M10 work/data/edfs/M10.edf  work/data/annots/M10.xml
+</code></pre></div></p>
+<p>We see that all files except one have been matched; the sample list
+format is simply ID, EDF, then annotation files(s).  We could have
+made this file by hand, or via Excel, etc, but it is often easier to
+use <code>--build</code>.</p>
+<p>To handle the issue with the mislablled file: we could manually edit
+<code>s1.lst</code> and enter the path for <code>F04b.annot</code>, which would be perfectly
+legitimate, as all core Luna commands don't require that the EDF and
+annotation names actually match - this is only a requirement for the
+<code>--build</code> convenience feature (i.e. how else would it know what to
+match with what?).</p>
+<p>Instead, we'll rename <code>F04b.annot</code> to <code>F04.annot</code>:
+<div class="codeL highlight"><pre><span></span><code>mv<span class="w"> </span>work/data/annots/F04b.annot<span class="w"> </span>work/data/annots/F04.annot
+</code></pre></div>
+and rebuild the sample-list:
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>--build<span class="w"> </span>work/data<span class="w"> </span>-ext<span class="o">=</span>csv,annot,eannot,xml,tsv<span class="w"> </span>&gt;<span class="w"> </span>s1.lst
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> wrote 20 EDFs to the sample list
+   20 of which had 1 linked annotation files
+</code></pre></div></p>
+<p>Good, you can check but we now appear to have a complete sample list <code>s1.lst</code>.</p>
+<h2 id="validating-files">Validating files</h2>
+<p>The next step is to verify that all files are in fact valid files,
+i.e. that can be opened by Luna as either an EDF or an annotation
+file.  Here we use the <code>--validate</code> option, saving the output to a
+database <code>out.db</code> and passing as an option the name of the sample-list (<code>slist=s1.lst</code>):</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>--validate<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span>--options<span class="w"> </span><span class="nv">slist</span><span class="o">=</span>s1.lst
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> validating files in sample list s1.lst
+
+problem: [F06] corrupt EDF: expecting 370214400 but observed 370210000 bytes: work/data/edfs/F06.edf
+problem: [F08] corrupt EDF, file &lt; header size (256 bytes): work/data/edfs/F08.edf
+problem: [M01] did not recognize annotation file extension: work/data/annots/M01.csv
+problem: [M02] did not recognize annotation file extension: work/data/annots/M02.csv
+problem: [M03] bad format for class/inst pairing: 22:00:00
+problem: [M04] bad format for class/inst pairing: 22:00:00
+
+  6 of 20 observations scanned had corrupt/missing EDF/annotation files
+</code></pre></div>
+<p>Overall, the console log notes that 6 of 20 observations had
+corrupt/missing data.  (Recall that these files were <a href="../../data/">deliberately
+manipulated for didactic purposes</a>, thus the high failure
+rate is expected.)</p>
+<p>As well as console output, the <code>--validate</code> command saves further information in the output database.  See
+<a href="https://zzz.bwh.harvard.edu/luna/luna/destrat/">here</a> for notes on the syntax of <code>destrat</code>, the tool that accompanies Luna
+and is designed to extract information from Luna output databases in various text formats:
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+VALIDATE
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ID  ANNOTS  EDF
+F01 1   1
+F02 1   1
+F03 1   1
+F04 1   1
+F05 1   1
+F06 1   0
+F07 1   1
+F08 1   0
+F09 1   1
+F10 1   1
+M01 0   1
+M02 0   1
+M03 0   1
+M04 0   1
+M05 1   1
+M06 1   1
+M07 1   1
+M08 1   1
+M09 1   1
+M10 1   1
+</code></pre></div></p>
+<p>The table above shows which individuals/files failed (i.e. a <code>0</code> in
+the output, indicating no valid file was found). We can also output a
+list of the actual files (i.e. the same information as given in the
+console output):</p>
+<p><div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+VALIDATE<span class="w"> </span>-r<span class="w"> </span>FILE
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ID  FILE    EXC
+F06 work/data/edfs/F06.edf  1
+F08 work/data/edfs/F08.edf  1
+M01 work/data/annots/M01.csv    1
+M02 work/data/annots/M02.csv    1
+M03 work/data/annots/M03.tsv    1
+M04 work/data/annots/M04.tsv    1
+</code></pre></div></p>
+<p>In the <a href="../filefix/">next section</a> we'll therefore examine these files to see a)
+what the issues were, and b) whether we can fix them.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

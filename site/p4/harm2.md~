@@ -1,0 +1,115 @@
+# 4.1. Revising the current QC+ project
+
+We've [already](../p2/revised.md) handled the issues detected with
+`F01`, `F10` and `M10` (gapped EDFs) and `F05` (pre-filtered), and
+generated linked-mastoid, resampled versions in the `harm1.lst`
+project. Here we'll create a new project (`harm2`), address the remaining
+issues, and then perform a final step of epoch-level artifact
+detection and interpolation.
+
+!!!info "Alternate approaches to multi-step workflows"
+    This approach -- of
+    generating multiple copies of a project -- may not be optimal for
+    all studies, especially large studies: we are separating steps in
+    this walkthrough for didactic purposes.  For example, one could
+    instead create a new sample list `harm1.lst` that retained the old
+    EDFs from `harm1` that would not otherwise change, or use
+    symlinks, etc.
+
+## Signals
+
+We'll start by copying all `harm1` EDFs and then update the subset
+that need specific changes (from the `harm1` to the `harm2` set).
+Assuming you've created the `work/harm2/` folder as required above:
+
+```{ .sh .codeL }
+cp work/harm1/*edf  work/harm2/
+```
+
+Studies with known issues remaining:
+
+ -  `F04`: wrong units
+ -  `F07`, `F09`: flipped EEG polarity
+ -  `M01`: flat (midlines)
+ -  `M03`: dupes (CZ C3 C4 F3 F4 P3 P4)
+ -  `M04`: dropped (CZ)
+ -  _various_: varying levels of artifact based on the [Hjorth signal reviews](../p2/stats.md)
+
+There is not much we can do about those duplicate/flat, or dropped
+channels except try to interpolate them, giving the neighboring
+channels.  We'll handle that step [below](interp.md).  Here we'll
+address the other issues that can be addressed here:
+
+### Rescaling units
+
+```{ .sh .codeL }
+luna harm1.lst id=F04 -s ' SET-HEADERS unit=mV & uV & WRITE edf-dir=work/harm2 ' 
+```
+
+### Flipping EEGs
+
+```{ .sh .codeL }
+luna harm1.lst id=F07,F09 -s ' FLIP & WRITE edf-dir=work/harm2 ' 
+```
+
+Note, for a larger study, one might want to store IDs in a file
+(e.g. `file1.txt`) for processing steps such as this and use
+`include=file1.txt` instead of `id=ID1,ID2,...`
+
+### Adding CZ for `M04`
+
+Finally, CZ does not exist for `M04` but we nonetheless want to
+interpolate it.  We therefore need to create that slot, i.e. as a
+dummy channel, in the EDF (as well as flagging that the channel is to
+be interpolated when we get to that step below).
+
+The actual values set now don't matter, so we arbitrarily make a copy
+of C1, introducing the generic _transform_ command
+[`TRANS`](https://zzz.bwh.harvard.edu/luna/ref/evals/#trans).
+
+```{ .sh .codeL }
+luna harm1.lst id=M04 \
+  -s ' TRANS sig=CZ expr=" CZ = C1 "
+       WRITE edf-dir=work/harm2 '
+```
+
+
+## Annotations
+
+In terms of annotations, we have detected all of the injected
+[manipulations](../data.md#annotation-manipulations).  Thus at this point
+we'll simply correct these by copying all `v1` (original) annotation
+files over, which fixes the issues of swapped, scrambled and truncated
+stage annotations.  POPS staging effectively seemed to solve these
+issues also, but we'll ignore that for now and use the available
+manual staging in this walkthrough.
+
+```{ .sh .codeL }
+cp orig/v1/annots/* work/harm2/
+```
+
+## Sample list
+
+We should now have populated `work/harm2/` with 20 EDFs and 20
+matching `.annot` files.
+
+ - 16 EDFs are copied directly from `work/harm1`, whereas 4 were updated (i.e. rescaled, flipped EEGs, channel added)
+
+ - 20 annotation files have been copied from the original `v1` (unmanipulated) dataset (from `orig/v1/annots/`) 
+ 
+For the pipeline in this walkthrough, the only remaining QC step is
+to apply epoch-level interpolation, as [previously described
+here](https://zzz.bwh.harvard.edu/luna/vignettes/chep/).
+
+To that end, we'll build a new sample-list, on which we'll base all
+parts of this step:
+
+```{ .sh .codeL }
+luna --build work/harm2 > harm2.lst
+```
+```
+ wrote 20 EDFs to the sample list
+   20 of which had 1 linked annotation files
+```
+
+Now let's move on to [interpolation](interp.md)

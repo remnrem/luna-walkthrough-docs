@@ -1,0 +1,11 @@
+# 4.4. Generating an analysis-ready project
+
+
+EDFs -> done by INTERPOLATE
+
+# only need to copy as is again
+
+cp orig/v1/annots/* work/clean/
+
+luna --build work/clean > c.lst
+

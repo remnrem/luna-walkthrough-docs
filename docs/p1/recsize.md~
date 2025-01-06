@@ -1,0 +1,53 @@
+# 1.4. Manipulating EDF record size
+
+As [previously noted](hdr.md), `M06` had an unusual (and large) EDF record size (17s).
+Although it is perfectly valid to have an EDF record size of 17s _per se_, it can make
+working with EDFs harder, e.g.  if wanting to distribute variant forms
+of the file, e.g. restricted to sleep intervals only, etc.  This is
+because an EDF record is the _atomic unit_ of the EDF - a whole record
+is either included or excluded, partial records are not allowed.
+
+Also, with many signals and/or high sampling rates, a large EDF record
+duration may lead to an EDF record size (in bytes) larger than the
+[EDF specification](https://www.edfplus.info/specs/edf.html) allows:
+although Luna is permissive in this regard, other tools may not be
+able to open an EDF with excessively large record sizes, and so it can
+be useful to alter this.
+
+## Changing record size
+
+There is an easy fix: we can use the `RECORD-SIZE` command to alter it, here to enforce
+1-second records. The command below also writes a new EDF (`M06-v2.edf`)
+with this altered record size:
+
+```
+luna s1.lst id=M06 -s RECORD-SIZE dur=1 edf-dir=work/data/edfs/ edf=M06-v2
+```
+
+You can test this worked, e.g. here with the `SUMMARY` command:
+```
+luna work/data/edfs/M06-v2.edf -s SUMMARY
+```
+```
+EDF filename   : work/data/edfs/M06-v2.edf
+Patient ID     : M06                                                                             
+Recording info : .                                                                               
+Start date     : 01.01.85
+Start time     : 22.00.00
+
+# signals      : 59
+# records      : 27404
+Rec. dur. (s)  : 1
+...
+```
+
+In practice, we may want to confirm that the new file is valid a little more, or at least to keep a backup of the original.  But
+here, we'll directly swap this file back in, overwriting the 17s `M06.edf`:
+
+```
+mv work/data/edfs/M06-v2.edf work/data/edfs/M06.edf
+```
+
+---
+
+Having taken care of this one (potential) issue, we can now [turn to reviewing the channels present](chs.md) across the EDFs.

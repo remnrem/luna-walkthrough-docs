@@ -1,0 +1,171 @@
+# 2.4. EEG polarity checks
+
+Below we apply three methods to flag possible reversed EEG polarity, all based on some
+expected properties of typical (human) NREM sleep, in which we leverage either:
+
+ - the asymmetry in spectral content of positive and negative EEG components
+
+ - the asymmetry of the NREM slow oscillations, based on the duration of negative versus positive halfwaves
+
+ - the typical timing of spindles relative to the phase of slow oscillations 
+
+These are _heuristics_ that may not work in all populations or EEG
+montages, etc, so you may want to do some exploratory work if
+resolving phase is important to your research question (many analyses
+of the sleep EEG do not depend on polarity of the signal).  The good news is
+that it is easy to generate flipped signals, and then see if the methods are able to
+recover who is versus who isn't flipped.
+
+As a reminder, we [flipped](../data.md#signal-manipulations) the sign of
+_all_ EEG signals for two individuals, `F07` and `F09`.  EEG polarity
+flips can occur because of incorrect re-referencing, etc.  Certainly
+in the case of standard, limited-montage polysomnography, it is [not
+unusual](https://zzz.bwh.harvard.edu/luna/vignettes/nsrr-polarity/) to
+observe flipped EEGs.
+
+---
+
+To speed up this demonstration, here we restrict analyses to two
+channels only, `C3` and `C4`. This is the Luna script we'll use that
+supports all three approaches above, here constrained to just the two
+signals (set via the variable `s`):
+
+```{ .sh .codeL }
+luna harm1.lst  s=C3,C4 -o out.db \
+ -s ' MASK ifnot=N2,N3
+      RE
+      FILTER sig=${s} bandpass=0.3,18 tw=1 ripple=0.02
+      CHEP-MASK sig=${s} ep-th=3
+      CHEP sig=${s} epochs
+      RE
+      POL sig=${s}
+      SPINDLES sig=${s} fc=15 so mag=2 all-spindles ignore-neg-peak nreps=1000 '
+```
+
+In brief,
+
+ - this retains only N2 and N3 epochs
+
+ - it then band-pass filters the EEG, between 0.3 and 18 Hz
+
+ - we remove likely aberrant epochs with the [CHEP-MASK](https://zzz.bwh.harvard.edu/luna/ref/artifacts/#chep-mask) and
+   [CHEP](https://zzz.bwh.harvard.edu/luna/ref/masks/#chep) commands (that are more than 3 SD units from the mean for that channel,
+   in terms of any of the three Hjorth parameters; you will learn more about it in the following section on the artifact removal)
+
+ - we then run a special [POL](https://zzz.bwh.harvard.edu/luna/vignettes/nsrr-polarity/) heuristic based on the different spectral content of
+   positive and negative components of the EEG during NREM sleep (for typical scalp electrodes)
+
+  - we then detect fast (target frequency of 15Hz) spindles and slow
+    oscillations using the
+    [SPINDLES](https://zzz.bwh.harvard.edu/luna/ref/spindles-so/#spindles)
+    command
+
+  - specifically, adding `SPINDLES so` estimates the mean phase angle
+    for slow/delta oscillation at fast (15 Hz) spindle peaks
+
+  - and adding `SPINDLES so` also outputs the average duration of
+    positive and negative slow oscillation half-waves
+
+
+The main Luna documentation can give more information on how spindles
+and SO are detected.  Of note here, we pass `ignore-neg-peak` as an
+option that impacts how SO are detected, i.e. we don't want to assume
+we know the correct polarity here, and some heuristics impose
+thresholds differentially for positive and negative SO halfwaves.
+
+
+__Method 1: spectral content__
+
+We extratct two summary statistics from the [`POL` command](https://zzz.bwh.harvard.edu/luna/ref/exp/#pol) for each individual/channel:
+
+```{ .sh .codeL }
+destrat out.db +POL -r CH -v T_DIFF T_H1 > tmp/pol.1
+```
+
+__Method 2: SO morphology__
+
+We extract the average duration of positive and negative SO halfwaves:
+
+```{ .sh .codeL }
+destrat out.db +SPINDLES -r CH -v SO_DUR SO_DUR_POS SO_DUR_NEG > tmp/pol.2
+```
+
+__Method 3: spindle/SO phase coupling angle__
+
+We extract the average phase angle of spindle peaks with respect to the slow/delta rhythm: 
+
+```{ .sh .codeL }
+destrat out.db +SPINDLES -r F CH -v COUPL_ANGLE  > tmp/pol.3
+```
+
+---
+
+We'll analyse these outputs in `R`:
+
+```{ .R .codeR }
+p1 <- read.table("tmp/pol.1", header=T, stringsAsFactors=F) 
+p2 <- read.table("tmp/pol.2", header=T, stringsAsFactors=F) 
+p3 <- read.table("tmp/pol.3", header=T, stringsAsFactors=F)  
+```
+
+Perhaps confusingly, the _T_ statistic from `POL` is oriented such
+that (large) _positive_ values imply a (possible/likely) flipped
+polarity.  We'll plot the negative of this, so that it aligns with
+the other methods (i.e. flipped polarity corresponds to a lower/negative value):
+
+<!---
+png(file="vig/docs/imgs/pol1.png", res=150, width=800, height=500)
+dev.off()
+--->
+
+```{ .R .codeR }
+# as we know the expected answer in this walkthrough,
+# select colors to highlight F07 and F09 (who have flipped EEG)
+# (nb. assumes all dataframes have similar structure, which they do here)
+pal <- rep( "gray" , dim(p1)[1] )
+pal[ p1$ID == "F07" ] <- "orange"
+pal[ p1$ID == "F09" ] <- "purple"
+
+par(mfcol=c(1,3))
+
+plot( -1 * p1$T_DIFF , col=pal, pch=20, xaxt='n',
+      xlab="Individuals/channels", ylab="POL statistic" )
+abline( h = 0 ) 
+
+plot( log2(p2$SO_DUR_POS / p2$SO_DUR_NEG ) , col=pal , pch=20 , xaxt='n',
+      ylab="log2( positive/negative SO duration )" , xlab="Individuals/channels" )
+abline( h = 0 )
+
+plot( p3$COUPL_ANGLE , col=pal , pch=20 , ylim=c(0,360), xaxt='n',
+      ylab="SO phase angle" , xlab="Individuals/channels" ) 
+abline( h = 180 )  
+```
+
+![img](../imgs/pol1.png)
+
+
+The subplots above show the means of these three statistics for C3 and
+C4 channel, with the colored points indicating the two people (`F07`
+in orange and `F09` in purple) who we know were manipulated to have
+[flipped EEGs](../data.md#signal-manipulations). We can clearly see
+that for all three metrics these two individuals are outliers with
+respect to all other individuals. __The natural conclusion would be to
+flip the EEG (e.g. with Luna's
+[`FLIP`](https://zzz.bwh.harvard.edu/luna/ref/manipulations/#flip)
+command prior to making a final dataset (we'll do this later).__
+
+!!!warn "Limits on resolving EEG polarity"
+    As noted above, these approaches may work
+    less well in unusual samples, e.g. with low spindle rates, or
+    samples without accurate sleep staging, etc.  These methods also
+    assume that polarity is constant across the entire recording.
+    Also, in practice, only some channels may be reversed.  The choice
+    of reference electrode could influence these statistics; further,
+    you may find individuals with ambiguous values. Also, the 
+    spindle/SO phase coupling metric may perform less well for channels that
+    have lower rates of fast spindles, etc.
+
+---
+
+Next, we've move on to [reviewing annotations](../p3/index.md),
+including the existing (manual) staging.

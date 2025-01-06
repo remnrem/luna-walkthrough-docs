@@ -1,0 +1,1969 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p3/pops/">
+      
+      
+        <link rel="prev" href="../soap/">
+      
+      
+        <link rel="next" href="../../p4/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>3.4 POPS - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#34-automated-staging-pops" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.4 POPS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p1/" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p2/" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p5/" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p6/" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/valid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#single-channel-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single channel prediction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple channels
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewing-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reviewing outputs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/macro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/peri/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/canonical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#single-channel-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single channel prediction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple channels
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewing-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reviewing outputs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="34-automated-staging-pops">3.4. Automated staging (POPS)</h1>
+<p>The recordings in this walkthorugh have been manually staged and we'll
+use those stagings for all subsequent analyses). However, if manual
+staging did not exist, rather than performing the <a href="../soap/">previous SOAP
+step</a> one would instead need to generate stage labels per
+epoch.  Luna offers the POPS stager, which can be (re)trained on
+various different montages and using different feature sets. Here we
+focus on the default single central EEG adult model (called <code>s2</code>),
+which is included in the <code>aux/</code> folder of this walkthrough. For this
+example, we'll only work with the <code>s2</code> model, which was trained on
+over 3000 central EEG leads from <a href="https://sleepdata.org">NSRR</a>
+recordings.</p>
+<!--
+
+## Obtaining the POPS model(s)
+
+If you are running Luna in a Docker/Jupyter lab environment, you
+likely already have POPS models available. If not, downloaded
+them from
+[http://zzz.bwh.harvard.edu/dist/luna/pops.zip](http://zzz.bwh.harvard.edu/dist/luna/pops.zip).
+Here we use `wget`, but you can also download them via your browser and save `pops.zip` to the current folder:
+
+<div class="codeL highlight"><pre><span></span><code>wget<span class="w"> </span>http://zzz.bwh.harvard.edu/dist/luna/pops.zip<span class="w"> </span>
+</code></pre></div>
+
+If you've downloaded `pops.zip` into the current working directory and `unzip` it, you should see the following files, or something like this: 
+
+<div class="codeL highlight"><pre><span></span><code>unzip<span class="w"> </span>pops.zip<span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Archive:  pops.zip
+   creating: pops/
+  inflating: pops/s2.ftr             
+  inflating: pops/s2.conf            
+  inflating: pops/s2.spec2a.svd      
+  inflating: pops/s2.spec2c.svd      
+  inflating: pops/s2.rspec1.svd      
+  inflating: pops/s2.spec1.svd       
+  inflating: pops/s2.priors          
+  inflating: pops/s2.mod             
+  inflating: pops/s2.spec2b.svd      
+  inflating: pops/s2.rspec2.svd      
+  inflating: pops/s2.ranges          
+  inflating: pops/s2.spec2.svd       
+</code></pre></div>
+
+--->
+
+<h2 id="single-channel-prediction">Single channel prediction</h2>
+<p>We can use the <code>RUN-POPS</code> Luna command to apply this model to our
+sample. <code>RUN-POPS</code> currently assumes the <code>s2</code> model by default,
+so we only need to point to the folder we've just created with the <code>s2</code>
+model files and tell it to use the EEG <code>C4</code> channel.
+(This model was trained on <code>C3</code> and <code>C4</code> channels.)</p>
+<p><strong>To clarify the presentation and evaluation of POPS, we'll apply it
+to the original (<code>v1</code>) dataset rather than the manipulated <code>v2</code>
+dataset</strong>.  Also, the <code>s2</code> model was trained on central EEGs with
+contra-lateral mastoid rereferencing whereas the <code>harm1.lst</code> datasets
+are now linked-mastoid referenced (although we don't expect this
+to make any major differences in performance).</p>
+<p>We'll use <code>s.lst</code> that points to the <code>v1</code> data and
+tell <code>RUN-POPS</code> to re-reference to contra-lateral mastoids (i.e. to use C4-A1):</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>s.lst<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span>-s<span class="w"> </span>RUN-POPS<span class="w"> </span><span class="nv">sig</span><span class="o">=</span>C4<span class="w"> </span><span class="nv">ref</span><span class="o">=</span>A1<span class="w"> </span><span class="nv">path</span><span class="o">=</span>work/data/aux/pops
+</code></pre></div>
+<p>This runs quite quickly: on this laptop, for all 20 individuals the
+above completed in 44 seconds, or 2.2 seconds per EDF, when based on
+this single EEG channel.</p>
+<p>For each individual, the console log will report key summaries of the
+staging: e.g. a confusion matrix and kappa statistic:</p>
+<div class="highlight"><pre><span></span><code>  running POPS
+  reading feature specification from ./pops/s2.ftr
+   396 level-1 features, 109 level-2 features
+   113 of 505 features selected in the final feature set
+  ...
+  feature matrix: 951 rows (epochs) and 113 columns (features)
+  set 20 ( prop = 0.000186111) data points to missing
+  adding POPS annotations (pN1, pN2, pN3, pR, pW, p?)
+
+  kappa = 0.792083; 3-class kappa = 0.883651 (n = 951 epochs)
+  Confusion matrix: 
+         Pred:      W      R      N1      N2      N3     Tot
+  Obs:  W         218      5      11      10       1     0.26
+        R           0    100       0       3       0     0.11
+        N1          8     13      15      62       1      0.1
+        N2          2      5       2     319      16     0.36
+        N3          0      0       0       7     153     0.17
+        Tot:     0.24   0.13    0.03    0.42    0.18     1.00
+</code></pre></div>
+<p>We can retrieve the summaries across all individuals:</p>
+<p><div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+RUN-POPS<span class="w"> </span>-v<span class="w"> </span>K<span class="w"> </span>K3<span class="w"> </span>ACC<span class="w"> </span>ACC3<span class="w"> </span>-p<span class="w"> </span><span class="m">2</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ID      ACC    ACC3       K      K3
+F01    0.86    0.90    0.80    0.80
+F02    0.85    0.92    0.79    0.82
+F03    0.80    0.90    0.74    0.79
+F04    0.79    0.87    0.73    0.78
+F05    0.76    0.91    0.68    0.83
+F06    0.82    0.91    0.73    0.78
+F07    0.71    0.83    0.60    0.73
+F08    0.84    0.93    0.78    0.86
+F09    0.84    0.94    0.75    0.87
+F10    0.87    0.96    0.81    0.93
+M01    0.76    0.83    0.59    0.50
+M02    0.81    0.91    0.68    0.80
+M03    0.83    0.90    0.77    0.80
+M04    0.85    0.94    0.79    0.88
+M05    0.84    0.89    0.71    0.70
+M06    0.88    0.93    0.82    0.88
+M07    0.82    0.86    0.74    0.75
+M08    0.85    0.92    0.79    0.84
+M09    0.77    0.86    0.66    0.56
+M10    0.73    0.86    0.62    0.70
+</code></pre></div></p>
+<p>Overall, performance is good: the median (mean) 5-class kappa is 0.74 (0.73).
+The median (mean) 3-class kappa is 0.80 (0.78).</p>
+<div class="admonition info">
+<p class="admonition-title">Kappas and automated staging</p>
+<p>Remember that the primary use
+case of automated staging will be when prior (manual) staging data
+do not exist.  As such, Luna will naturally not be able to output
+any kappa/accuracy statistics.  When manual staging doesn't exist,
+it can be useful to visually review the hypnograms and hypnodensity
+plots generated.  In particular, very fragemented hypnograms, or
+cases of low <em>confidence</em> (i.e. the maximum posterior probabilities
+tend to be relatively low across many epochs, i.e. rather than all near 1.0) are signs
+that the automated staging is less likely to be accurate.  In these
+circumstances it can be worth checking the original signal data
+(i.e. are the signals massively corrupt), ensuring that excess
+wake/artifact periods have been trimmed (i.e. if getting data from
+24 hour recordings), and/or using more than one stager.  At least
+for POPS, most errors will be in the classification of REM and N1 -
+confident assignments of NREM (N2 or N3) sleep are likely to be
+highly specific.</p>
+</div>
+<h2 id="multiple-channels">Multiple channels</h2>
+<p>Although all features in this model are based on a single EEG channel,
+you can still apply it (sequentially) to muliple, broadly comparable
+channels. Luna does this automatically and compiles the results across
+channels, to provide a single set of predictions.  By default, Luna
+reports the mean of the posterior probabilities, each weighted by the
+confidence for that channel.</p>
+<p>Given we have hd-EEG, we'll apply the same model to six channels per
+individual: in addition to C4, we will add the adjacent FC4 and CP4
+channels, as well as the corresponding contra-lateral left hemisphere
+channels:</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>s.lst<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; RUN-POPS sig=C4,CP4,FC4,C3,CP3,FC3 ref=A1,A1,A1,A2,A2,A2 path=work/data/aux/pops args=&quot;mean&quot; &#39;</span><span class="w"> </span>
+</code></pre></div>
+<p>Here <code>sig</code> and <code>ref</code> take a vector of channels, where the
+<em>i<sup>th</sup></em> <code>sig</code> is referenced against the <em>i<sup>th</sup></em>
+<code>ref</code>. This takes a little longer (now 10 seconds per study).
+Is it worth the extra effort?  We can review the kappa statistics as
+before:</p>
+<p><div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+RUN-POPS<span class="w"> </span>-v<span class="w"> </span>K<span class="w"> </span>K3<span class="w"> </span>ACC<span class="w"> </span>ACC3<span class="w"> </span>-p<span class="w"> </span><span class="m">2</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ID    ACC  ACC3       K    K3
+F01  0.86  0.91    0.82  0.83
+F02  0.85  0.91    0.78  0.81
+F03  0.81  0.90    0.74  0.80
+F04  0.83  0.91    0.78  0.85
+F05  0.77  0.91    0.69  0.83
+F06  0.85  0.92    0.78  0.79
+F07  0.76  0.87    0.66  0.78
+F08  0.83  0.92    0.77  0.84
+F09  0.85  0.93    0.75  0.85
+F10  0.87  0.96    0.81  0.92
+M01  0.79  0.85    0.62  0.54
+M02  0.83  0.91    0.71  0.80
+M03  0.81  0.88    0.74  0.78
+M04  0.85  0.95    0.80  0.90
+M05  0.85  0.90    0.72  0.72
+M06  0.89  0.94    0.84  0.89
+M07  0.84  0.88    0.77  0.78
+M08  0.87  0.93    0.80  0.87
+M09  0.82  0.90    0.73  0.71
+M10  0.75  0.87    0.64  0.72
+</code></pre></div></p>
+<p>Preliminary analyses based on these samples would suggest so: the
+average kappa for this six-channel application of the same <code>s2</code>
+model is significantly higher than than kappa from the single-channel C4 model (paired
+<em>t</em>-test <em>p</em> = 0.002; <em>K</em> = 0.75 vs 0.73).</p>
+<!--
+
+luna s.lst -o out.db  -s ' RUN-POPS sig=C4,CP4,FC4,C3,CP3,FC3 ref=A1,A1,A1,A2,A2,A2 path=./pops args=" mean " '
+destrat out.db +RUN-POPS -v K K3 ACC ACC3 > tmp/pops.multi
+
+luna s.lst -o out.db -s RUN-POPS sig=C3 ref=A2 path=./pops
+destrat out.db +RUN-POPS -r E  > o.c3
+
+destrat out.db +RUN-POPS -v K K3 ACC ACC3 > tmp/pops.c4
+destrat out.db +RUN-POPS -v K K3 ACC ACC3 > tmp/pops.c3
+R
+d3 <- read.table( "tmp/pops.c3", header=T, stringsAsFactors=F)
+d4 <- read.table( "tmp/pops.c4", header=T, stringsAsFactors=F)
+dm <- read.table( "tmp/pops.multi", header=T, stringsAsFactors=F)
+
+t.test( d3$K , d4$K , paired=T )
+t.test( d3$K , dm$K , paired=T )
+t.test( d4$K , dm$K , paired=T )
+
+t.test( d3$K3 , d4$K3 , paired=T )
+t.test( d3$K3 , dm$K3 , paired=T )
+t.test( d4$K3 , dm$K3 , paired=T )
+
+summary( d3$K )
+summary( d4$K )
+summary( dm$K )
+
+summary( d3$K3 )
+summary( d4$K3 )
+summary( dm$K3 )
+
+-->
+
+<h2 id="reviewing-outputs">Reviewing outputs</h2>
+<p>We can extract epoch-level predictions from the previous multi-channel run:</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+RUN-POPS<span class="w"> </span>-r<span class="w"> </span>E<span class="w">  </span>&gt;<span class="w"> </span>o.1
+</code></pre></div>
+<p>In R:
+<div class="codeR highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">luna</span><span class="p">)</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;o.1&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+<span class="n">ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div></p>
+<p>We can generate plots for each individual, e.g. via a simple loop:</p>
+<!---
+png(file=paste( "vig/docs/imgs/pops-" , id , ".png" , sep="") , res=150 , width=1000, height=400 )
+dev.off()
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="nf">for </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w"> </span><span class="n">dd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="w"> </span><span class="nf">lhypno</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">PRIOR</span><span class="w"> </span><span class="p">)</span>
+<span class="w"> </span><span class="nf">lhypno</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">PRED</span><span class="w"> </span><span class="p">)</span>
+<span class="w"> </span><span class="nf">lpp</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="w"> </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The plots generated are shown below.  For each individual, the top hypnogram
+shows the observed, manual staging; the lower hypnogram shows the POPS-predicted (most
+likely) staging; the bottom plot shows the posterior probabilities
+from POPS.</p>
+<p>From a cursory visual inspection, these predictions look highly consistent with
+the manual staging for these 20 recordings.</p>
+<p><strong>F01</strong>
+<img alt="img" src="../../imgs/pops-F01.png" />
+<strong>F02</strong>
+<img alt="img" src="../../imgs/pops-F02.png" />
+<strong>F03</strong>
+<img alt="img" src="../../imgs/pops-F03.png" />
+<strong>F04</strong>
+<img alt="img" src="../../imgs/pops-F04.png" />
+<strong>F05</strong>
+<img alt="img" src="../../imgs/pops-F05.png" />
+<strong>F06</strong>
+<img alt="img" src="../../imgs/pops-F06.png" />
+<strong>F07</strong>
+<img alt="img" src="../../imgs/pops-F07.png" />
+<strong>F08</strong>
+<img alt="img" src="../../imgs/pops-F08.png" />
+<strong>F09</strong>
+<img alt="img" src="../../imgs/pops-F09.png" />
+<strong>F10</strong>
+<img alt="img" src="../../imgs/pops-F10.png" /></p>
+<p><strong>M01</strong>
+<img alt="img" src="../../imgs/pops-M01.png" />
+<strong>M02</strong>
+<img alt="img" src="../../imgs/pops-M02.png" />
+<strong>M03</strong>
+<img alt="img" src="../../imgs/pops-M03.png" />
+<strong>M04</strong>
+<img alt="img" src="../../imgs/pops-M04.png" />
+<strong>M05</strong>
+<img alt="img" src="../../imgs/pops-M05.png" />
+<strong>M06</strong>
+<img alt="img" src="../../imgs/pops-M06.png" />
+<strong>M07</strong>
+<img alt="img" src="../../imgs/pops-M07.png" />
+<strong>M08</strong>
+<img alt="img" src="../../imgs/pops-M08.png" />
+<strong>M09</strong>
+<img alt="img" src="../../imgs/pops-M09.png" />
+<strong>M10</strong>
+<img alt="img" src="../../imgs/pops-M10.png" /></p>
+<p>POPS, by default, adds a set of annotations to the attached EDF, with
+the labels <code>pN1</code>, <code>pN2</code>, <code>pN3</code>, <code>pR</code> and <code>pW</code> in this case.  One could
+write those out by adding a <code>WRITE-ANNOTS</code> command after <code>RUN-POPS</code>,
+if one wanted to save and use those stagings downstream.</p>
+<h2 id="summary">Summary</h2>
+<p>If it had been necessary, applying POPS to this set of individuals
+instead of manual staging would have been successful, based on the
+high kappa statistics and the review of hypnograms.  Visual
+inspection of manually and automatically staged hypnograms shows
+a fundamental alignment across all 20 individuals.</p>
+<p>We'll now move on to <a href="../../p4/">the final step of QC</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

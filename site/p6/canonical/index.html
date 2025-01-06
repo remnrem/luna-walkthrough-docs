@@ -1,0 +1,2144 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p6/canonical/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>Canonical signals - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#61-canonical-signal-definitions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Canonical signals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p1/" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p2/" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p3/" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p5/" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/valid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/pops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/macro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/peri/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#specifying-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specifying rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rule-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rule templates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applying-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applying templates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-canonical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running CANONICAL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-new-edfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating new EDFs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contra-latreral-mastoid-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contra-latreral mastoid example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#specifying-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specifying rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rule-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rule templates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applying-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applying templates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-canonical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running CANONICAL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-new-edfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating new EDFs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contra-latreral-mastoid-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contra-latreral mastoid example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="61-canonical-signal-definitions">6.1 Canonical signal definitions</h1>
+<p>The information in this section outlines the use of Luna's
+<a href="https://zzz.bwh.harvard.edu/luna/ref/canonical/"><code>CANONICAL</code> command</a>
+to provide a more structured way to harmonize files. As described in
+the <a href="../../p1/chs/">channel harmonization page</a>, we only had one
+special exception (<code>M09</code>) and so all files could be processed
+relatively straightforwardly.  However, it is not hard to imagine real
+datasets with more combinations of different types of exceptions.  In
+these cases, rather than performing one-off commands, it can be easier
+to adopt this approach.</p>
+<p>Instead of manually performing the above steps (separating out <code>M09</code>
+from the other studies), it can sometimes be easier to use Luna's
+<a href="https://zzz.bwh.harvard.edu/luna/ref/canonical/"><code>CANONICAL</code> command</a>, which is
+designed to help when harmonizing multiple sets of EDFs that have
+different labels and conventions.</p>
+<h2 id="specifying-rules">Specifying rules</h2>
+<p>We must first write a <a href="https://zzz.bwh.harvard.edu/luna/ref/canonical/#canonical-signal-definitions"><em>specification
+file</em></a>
+that describes a set of <em>rules</em> for finding (and converting) signals to a
+standardized (<em>canonical</em>) form.  We won't be able to
+describe the full syntax here, but we'll give a simple script that replicates the steps above.
+The full file is in <code>orig/aux/lm.sigs</code>.  We'll also give a second example (to implement
+contra-lateral mastoid referencing) in a second step below, to further showcase how <code>CANONICAL</code> works
+(although note: contra-lateral mastoid referenced data are not part of this walkthrough).</p>
+<p>The basic form of a <em>rule</em> is as follows, e.g. for the C3 channel:</p>
+<div class="highlight"><pre><span></span><code>C3
+ req:
+  sig = C3,EEG-C3,&quot;C3 REF&quot;
+  ref = &quot;A1,A2&quot;
+  ref = &quot;M1,M2&quot;
+  unit = uV
+  unit = mV
+ set:
+  unit = uV
+  sr = 128
+</code></pre></div>
+<p>This finds a channel that is labelled either <code>C3</code>, <code>EEG-C3</code> or <code>C3
+REF</code> (note the space is quoted here) and then looks for both <code>A1</code> and
+<code>A2</code> (or <code>M1</code> and <code>M2</code>) as reference channels.  A special syntax for <code>ref</code>
+of <code>"a,b"</code> means use the <em>average</em> of channels <code>a</code> and <code>b</code>,
+i.e. for linked mastoid referencing.  Note that <code>sig</code> and <code>ref</code> can take a single list, or
+you can list the entries on separate lines: i.e.
+<div class="highlight"><pre><span></span><code>  sig = C3
+  sig = EEG-C3
+  sig = &quot;C3 REF&quot;
+</code></pre></div></p>
+<p>has the same effect as <code>sig = C3,EEG-C3,"C3 REF"</code>.  Note that channel
+labels are <em>sanitized</em> and case-insensitive when we perform the
+matching for required signals.</p>
+<div class="admonition info">
+<p class="admonition-title">Aliases and canonical rules</p>
+<p>Note that <em>channel aliases</em> can perform some of the same logic as the <code>CANONICAL</code> command, albeit in a more limited fashion.  Although
+you could combine <em>aliases</em> (i.e. from the <code>cmaps</code> file) with these steps, it is probably clear to keep a single, self-contained canonical
+rule specification file that has all the mappings instead.</p>
+</div>
+<p>The above rule also requires that all channels have uV or mV units.  If we find
+channels that match these criteria, we make a new (or update the
+original) channel, with the name <code>C3</code> as the first (rule label) shows.
+We also resample to a desired sample rate of 128 Hz, if needed.</p>
+<h2 id="rule-templates">Rule templates</h2>
+<p>One could imagine typing out the above rules for all EEG channels, and
+also allowing for different reference labels (e.g. <code>EEG-M1</code> and
+<code>EEG-M2</code>), but that would quickly become tedious.   Therefore the <code>CANONICAL</code>
+command allows for <em>variables</em> and <em>templates</em> to aid this process.</p>
+<ul>
+<li>
+<p><em>variables</em> (using the same <a href="https://zzz.bwh.harvard.edu/luna/luna/args/#variables">variable syntax</a> as used
+   in Luna scripts)  are assigned with the syntax <code>${a=C3}</code> and referenced using
+   the syntax <code>${a}</code> (i.e. which would substitute the text <code>C3</code> in this
+   case).  You can use variables in variable assignments, but note
+   that Luna script variables work on simple text substitution: e.g. 
+   <div class="highlight"><pre><span></span><code>${a=1}
+${a=${a}+1}
+</code></pre></div>
+   will end up with <code>${a}</code> equaling the string <code>1+1</code> rather than the number 2.</p>
+</li>
+<li>
+<p><em>templates</em> can be defined for a single <em>type</em> of channel, and then
+    rules can be automatically generated for many actual channels
+    (e.g. C3, C4, F3, etc...)</p>
+</li>
+</ul>
+<p>The text file <code>lm.sigs</code> starts by defining the core EEG channels as variables (comment lines
+start with <code>%</code>):</p>
+<div class="highlight"><pre><span></span><code>% ------- core EEG labels and canonical targets
+
+${left=Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1}
+
+${right=Fp2 AF4 F2 F4 F6 F8 FC2 FC4 FC6 FT8 C2 C4 C6 T8 CP2 CP4 CP6 TP8 P2 P4 P6 P8 PO4 O2}
+
+${midline=FPZ AFZ FZ FCZ CZ CPZ PZ POz OZ}
+
+${eeg=${left},${midline},${right}}
+</code></pre></div>
+<p>Note that we've listed left, right and midline EEG channels separately, and
+then combined them in a single list (<code>${eeg}</code>).  <code>CANONICAL</code> can take lists of
+channels that are either comma- or space-delimited, as shown above (i.e. for <code>${left}</code> and <code>${right}</code>, we
+could be used either form equivalently). Although it
+doesn't matter in this example, we split EEGs in this way it simplifies the
+second contra-lateral mastoid example.</p>
+<p>The next step is to define mastoid channel labels, as we want to
+extract/generate linked mastoid channels:</p>
+<div class="highlight"><pre><span></span><code>% ------- mastoid labels
+
+${linked_mastoids=&quot;M1,M2&quot;}
+${linked_mastoids+=&quot;EEG-M1,EEG-M2&quot;}
+${linked_mastoids+=&quot;M1 REF,M2 REF&quot;}
+${linked_mastoids+=&quot;A1,A2&quot;}
+${linked_mastoids+=&quot;EEG-A1,EEG-A2&quot;}
+${linked_mastoids+=&quot;A1 REF,A2 REF&quot;}
+</code></pre></div>
+<p>The <code>+=</code> syntax means to append as a comma-delimited list, and so the <code>${linked_mastoids}</code> ends up being:
+<div class="highlight"><pre><span></span><code> &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;,&quot;A1,A2&quot;,&quot;EEG-A1,EEG-A2&quot;,&quot;A1 REF,A2 REF&quot;
+</code></pre></div></p>
+<p>We could have just written this out and made one assignment, but sometimes spreading
+definitions over lines can make the files easier to read.</p>
+<p>Next we <em>define a rule template</em> for the case where we have (unreferenced) EEG channels with both mastoid channels present separately in the EDF,
+i.e. given we know/assume that the channels haven't already ben re-referenced:</p>
+<div class="highlight"><pre><span></span><code>define: EEG_make_linked_mastoid
+ req:
+  sig = ^
+  sig = EEG-^
+  sig = &quot;^ REF&quot;
+  ref = ${linked_mastoids}
+ set:
+  unit = uV
+  sr = 128
+</code></pre></div>
+<p>This template is identical to the format of the rule above, except is
+starts with the <code>define:</code> keyword (indicating that we are defining a template) and
+has an arbitrary label (here <code>EEG_make_linked_mastoid</code>).  Templates use the special <code>^</code>
+character, which will be substituted for the actual channel labels when the
+template is applied.  Note we can have normal variables in template
+definitions too (e.g. <code>${linked_mastoids}</code>) rather than writing things
+out here in full.</p>
+<p>We also make a second template, to cover the case where (we know) the
+EEG are already referenced to linked mastoids:</p>
+<div class="highlight"><pre><span></span><code>define: EEG_is_linked_mastoid
+ req:
+  sig = ^-(M1+M2)/2
+ set:
+  unit = uV
+  sr = 128
+</code></pre></div>
+<p>i.e. here there is no separate <code>ref</code> category, and we require that
+channel labels must in the form <code>^-(M1+M2)/2</code> (where <code>^</code> will be C3,
+C4, etc).  This handles the <code>M09</code> case.  In practice, one would review
+a dataset as we've done, and generate/extend the templates above to
+match the data.</p>
+<h2 id="applying-templates">Applying templates</h2>
+<p>The final step is to <em>apply</em> these templates for the whole set of EEG channels, using the <code>apply:</code> keyword
+following by the template label:
+<div class="highlight"><pre><span></span><code>apply: EEG_make_linked_mastoid ${eeg}
+
+apply: EEG_is_linked_mastoid ${eeg}
+</code></pre></div>
+In both cases, the <code>${eeg}</code> variable (defined above) expands to the list of core EEG channels (we could have just typed them out here too -
+we don't <em>need</em> to use variables here, but it can often make life easier.)
+Note: when using <code>CANONICAL</code>, the variable <code>${eeg}</code> is <strong>not</strong> automatically populated with likely EEG channel
+labels based on the attached EDF header: here they must be specified
+explicitly, unlike in actual Luna scripts.</p>
+<p>The use of templates (<code>define:</code> / <code>apply:</code> keywords) essentially just
+preprocesses the file and expands out all templates to make a longer
+rules file.  To check things are working as expected, you can add the <code>dump</code> option
+to <code>CANONICAL</code> and it will print the processed script (to standard output) and then stop. Doing this 
+just for the first individual:</p>
+<div class="highlight"><pre><span></span><code>luna s1.lst 1 -s CANONICAL file=orig/aux/lm.sigs dump &gt; rules.txt
+</code></pre></div>
+<p>The console shows how the variables were set:</p>
+<p><div class="highlight"><pre><span></span><code>  setting variable ${left} = Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1
+  setting variable ${right} = Fp2 AF4 F2 F4 F6 F8 FC2 FC4 FC6 FT8 C2 C4 C6 T8 CP2 CP4 CP6 TP8 P2 P4 P6 P8 PO4 O2
+  setting variable ${midline} = FPZ AFZ FZ FCZ CZ CPZ PZ POz OZ
+  setting variable ${eeg} = Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1,FPZ AFZ FZ FCZ CZ CPZ PZ POz OZ,Fp2 AF4 F2 F4 F6 F8 FC2 FC4 FC6 FT8 C2 C4 C6 T8 CP2 CP4 CP6 TP8 P2 P4 P6 P8 PO4 O2
+  setting variable ${linked_mastoids} = &quot;M1,M2&quot;
+  appending variable ${linked_mastoids} = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;
+  appending variable ${linked_mastoids} = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;
+  appending variable ${linked_mastoids} = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;,&quot;A1,A2&quot;
+  appending variable ${linked_mastoids} = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;,&quot;A1,A2&quot;,&quot;EEG-A1,EEG-A2&quot;
+  appending variable ${linked_mastoids} = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;,&quot;A1,A2&quot;,&quot;EEG-A1,EEG-A2&quot;,&quot;A1 REF,A2 REF&quot;
+  defining template &#39;EEG_make_linked_mastoid&#39; with target form &#39;^&#39;
+  defining template &#39;EEG_is_linked_mastoid&#39; with target form &#39;^&#39;
+  expanding template &#39;EEG_make_linked_mastoid&#39; for 57 channels
+  expanding template &#39;EEG_is_linked_mastoid&#39; for 57 channels
+  read 114 rules from orig/aux/lm.sigs
+  in total, read 114 rules
+
+  running with &#39;dump&#39; option, will not attempt to apply rules
+</code></pre></div>
+The generated <code>rules.txt</code> contains a set of 114 (i.e. 2 times 57 channels) rules -- showing here just the first two -- along with the original
+template/variable lines of the <code>lm.sigs</code> commented out:
+<div class="highlight"><pre><span></span><code>Fp1
+ req:
+  sig = Fp1
+  sig = EEG-Fp1
+  sig = &quot;Fp1 REF&quot;
+  ref = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;,&quot;A1,A2&quot;,&quot;EEG-A1,EEG-A2&quot;,&quot;A1 REF,A2 REF&quot;
+ set:
+  unit = uV
+  sr = 128
+
+AF3
+ req:
+  sig = AF3
+  sig = EEG-AF3
+  sig = &quot;AF3 REF&quot;
+  ref = &quot;M1,M2&quot;,&quot;EEG-M1,EEG-M2&quot;,&quot;M1 REF,M2 REF&quot;,&quot;A1,A2&quot;,&quot;EEG-A1,EEG-A2&quot;,&quot;A1 REF,A2 REF&quot;
+ set:
+  unit = uV
+  sr = 128
+</code></pre></div></p>
+<h2 id="running-canonical">Running CANONICAL</h2>
+<p>If we omit the <code>drop</code> argument, Luna will try to enforce these rules
+and make new signals (note: we could have used <code>CANONICAL file=rules.txt</code> if we generated <code>rules.txt</code> as above,
+and the results would be the same; normally, Luna doesn't need to save this <em>intermediate</em> processed file):</p>
+<p><div class="highlight"><pre><span></span><code>luna s1.lst 1 -o out.db -s CANONICAL file=orig/aux/lm.sigs
+</code></pre></div>
+It shows its progress in the console:
+<div class="highlight"><pre><span></span><code>  59 signals from EDF
+  + generating canonical signal Fp1 from existing signal(s) FP1 / A1,A2
+  + generating canonical signal AF3 from existing signal(s) AF3 / A1,A2
+  + generating canonical signal F7 from existing signal(s) F7 / A1,A2
+  + generating canonical signal F5 from existing signal(s) F5 / A1,A2
+  + generating canonical signal F3 from existing signal(s) F3 / A1,A2
+  + generating canonical signal F1 from existing signal(s) F1 / A1,A2
+...
+</code></pre></div>
+and also gives information on the EDF channels used / canonical channels set in the output:
+<div class="highlight"><pre><span></span><code>destrat out.db +CANONICAL | behead
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>        ID   F01                 
+    CS_NOT   0
+    CS_SET   57                  
+ UNUSED_CH   0                   
+   USED_CH   59                  
+</code></pre></div></p>
+<p>Typically, one combines <code>CANONICAL</code> with <code>WRITE</code> to generate the new
+EDF; also, one usually wants to add <code>drop-originals</code> so that only the
+newly-generated canonical signals are left (i.e. in this instance,
+this drops the mastoid channels):</p>
+<div class="highlight"><pre><span></span><code>luna s1.lst 1 -o out.db \
+ -s &#39; CANONICAL file=orig/aux/lm.sigs drop-originals &amp; WRITE edf=new1 &#39; 
+</code></pre></div>
+<p>which makes a new file <code>new1.edf</code> here.</p>
+<h2 id="generating-new-edfs">Generating new EDFs</h2>
+<p>Putting this all together, to recapitulate the steps described
+<a href="../../p1/chs/">here</a> to make all 20 EDFs, given we have <code>lm.sigs</code>
+defining the rules.  So as not to overwrite the prior EDFs, we'll add
+these to a new folder (<code>harm1b</code>) but the EDFs generayed there should
+be effectively identical to those generated in <code>harm1/</code> (we'll leave
+checking this as an exercise for the reader: any minor differences are
+because <code>CANONICAL</code> also tidies up some of the other EDF header fields
+(e.g. transducer, pre-filtering)).</p>
+<div class="highlight"><pre><span></span><code>mkdir work/harm1b
+</code></pre></div>
+<p>We then run to convert all 20 files:</p>
+<div class="highlight"><pre><span></span><code>luna s1.lst -o out.db \
+ -s &#39; CANONICAL file=orig/aux/lm.sigs drop-originals &amp; WRITE edf-dir=work/harm1b/ &#39;
+</code></pre></div>
+<p>You can remove the <code>work/harm1b/</code> folder after confirming that the above command worked as expected.</p>
+<h2 id="contra-latreral-mastoid-example">Contra-latreral mastoid example</h2>
+<p>As a second (and more technical) example of <code>CANONICAL</code>, the script
+<code>orig/aux/cm.sigs</code> contains rules to make new datasets with
+contra-lateral mastoid references.  We use this as to illustrate a few
+other features of the <code>CANONICAL</code> syntax set.  </p>
+<p>Here is the full script:</p>
+<p><div class="highlight"><pre><span></span><code>cat orig/aux/cm.sigs
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>% ------- core EEG labels and canonical targets
+
+${left=Fp1,AF3,F7,F5,F3,F1,FT7,FC5,FC3,FC1,T7,C5,C3,C1,TP7,CP5,CP3,CP1,P7,P5,P3,P1,PO3,O1}
+
+${right=Fp2,AF4,F2,F4,F6,F8,FC2,FC4,FC6,FT8,C2,C4,C6,T8,CP2,CP4,CP6,TP8,P2,P4,P6,P8,PO4,O2}
+
+% ------- mastoid labels
+
+${left_mastoid=M1,A1}
+${left_mastoid+=[EEG-][${left_mastoid}],[${left_mastoid}][ REF]}
+
+${right_mastoid=M2,A2}
+${right_mastoid+=[EEG-][${right_mastoid}],[${right_mastoid}][ REF]}
+
+
+% ------- example unit mappings (first term in list is the final/preferred label, e.g. &#39;uV&#39;)
+
+${volts=V,volt}
+
+${mvolts=mV,millivolt,milli-volt,mvolt,m-volt}
+
+${uvolts=uV,microvolt,micro-volt,uvolt,u-volt}
+
+
+% ------- preferred SR and units as variables
+
+${pref_sr=128}
+
+${pref_unit=uV}
+
+
+% ------- template for contra-lateral mastoid channels
+
+%  the label after the template name gives the desired form
+%  of the target label, e.g. C3_M2 if ^ is C3 and ${cm_label} was set of M2
+
+%  definition uses $${x} variables, which are swapped in when applying the template,
+%  i.e. not when first reading the template definition (unlike ${x} would be)
+
+define: EEG_make_cm_referenced ^_$${cm_label}
+ req:
+  sig = ^,EEG-^,&quot;^ REF&quot;
+  ref = $${ref}
+  unit = ${uvolts}
+  unit = ${mvolts}
+  unit = ${volts}
+ set:
+  unit = ${pref_unit}
+  sr = ${pref_sr}
+
+% ------- apply rules for contra-lateral mastoid referencing
+
+apply: EEG_make_cm_referenced ${left} ${ref=${right_mastoid}} ${cm_label=M2}
+
+apply: EEG_make_cm_referenced ${right} ${ref=${left_mastoid}} ${cm_label=M1}
+</code></pre></div></p>
+<h2 id="extensions">Extensions</h2>
+<p>Key extensions here:</p>
+<ul>
+<li>
+<p>Template variables: when defining a template, variables in the form
+   <code>$${x}</code> are evaluated <em>not at the time the template is read</em> (as
+   <code>${x}</code> would be) <em>but later when it is applied</em>.  This allows
+   different values (other than <code>^</code>) to be passed into the template,
+   e.g. <code>$${ref}</code>, which is <em>either</em> a set of labels that match the
+   left <em>or</em> the right mastoids.</p>
+</li>
+<li>
+<p>Named templates: the <code>define:</code> keyword has a second label after
+   the template name (<code>EEG_make_cm_referenced</code>),
+   i.e. <code>^_$${cm_label}</code>, which specifies the name of the rule (and
+   thus the name of the channel that will be created in the new EDF).
+   If it is not specified, it is assumed to be <code>^</code> by default -
+   i.e. just the name of the channels in <code>${eeg}</code> etc.  Here we modify
+   it to have an underscore and then either <code>M1</code> or <code>M2</code> specified via
+   <code>$${cm_label}</code>.  Note that if <code>${ref}</code> was simply (e.g. <code>M1</code>) we
+   should not need to set the <code>${cm_label}</code>, we could just use that:
+   (<code>^_$${ref}</code>). However, here <code>${ref}</code> is a <em>list</em> of matching terms
+   (e.g. <code>M1,EEG-M1,A1,...</code>) and so the new channel needs a simpler
+   label.  So, as we first apply only to the left EEGs with
+   <code>${cm_label=M2}</code>, then only to the right EEGs with <code>${cm_label=M1}</code>
+   we end up with the desired labels in the form <code>C3_M2</code>, <code>F3_M2</code>, etc
+   matched with <code>C4_M1</code>, <code>F4_M1</code>, etc.</p>
+</li>
+<li>
+<p>We specified required units (as a variable, e.g. <code>${uvolts}</code>) which requires that the physical dimension
+   field matches (case-insensitive) <em>one of these values</em> but will then map it to the first (<code>uV</code>), thereby
+   harmonizing unit labels (in our walkthrough, we do not have the issue of different labels for the same unit,
+   so this step is not needed).  We also specify the preferred output unit and sample rates as variables.</p>
+</li>
+<li>
+<p>Note that the variable assignments (e.g. <code>${cm_label=M2}</code>) do not evaluate to any text, i.e. after
+   processing, the variables are set, but 
+   <div class="highlight"><pre><span></span><code>apply: EEG_make_cm_referenced ${left} ${ref=${right_mastoid}} ${cm_label=M2}
+</code></pre></div>
+   is subsequently passed as:
+   <div class="highlight"><pre><span></span><code>apply: EEG_make_cm_referenced ${left} 
+</code></pre></div>
+   However, the two variables used in the template (<code>${ref}</code> and <code>${cm_label}</code>) <em>do actually need to be defined
+   before the template can be expanded</em> (Luna will complain otherwise); but they could have been set
+   <em>before</em> the <code>apply:</code> keyword, which would have the same effect as setting them on the same line: e.g. 
+   <div class="highlight"><pre><span></span><code>${ref=${right_mastoid}}
+${cm_label=M2}
+apply: EEG_make_cm_referenced ${left} 
+</code></pre></div>
+   Note that we assign <code>${ref}</code> using another variable <code>${right_mastoid}</code> whereas we assign <code>${cm_label}</code> using plain text, thus the difference
+   in syntax between these two cases.</p>
+</li>
+<li>
+<p>Finally, we use Luna's <a href="https://zzz.bwh.harvard.edu/luna/luna/args/#variables">list expansion</a> to write sets of labels more quickly:</p>
+<ul>
+<li><code>[a][x,y,z]</code> is shorthand for <code>ax,ay,az</code></li>
+<li><code>[a,b,c][-REF]</code> is shorthand for <code>a-REF,b-REF,c-REF</code></li>
+<li><code>[a,b,c][x,y,z]</code> is shorthand for <code>ax,ay,az,bx,by,bz,cx,cy,cz</code></li>
+</ul>
+<p>Thus the terms:
+<div class="highlight"><pre><span></span><code>${left_mastoid=M1,A1}
+${left_mastoid+=[EEG-][${left_mastoid}],[${left_mastoid}][ REF]}
+</code></pre></div>
+are a way of writing that <code>${left_mastoids}</code> equals
+<div class="highlight"><pre><span></span><code>M1,A1,EEG-M1,EEG-A1,M1 REF,A1 REF
+</code></pre></div>
+as <code>[EEG-][${left_mastoid}]</code> equals <code>EEG-M1,EEG-A1</code> and <code>[${left_mastoid}][ REF]</code> equals <code>M1 REF,A1 REF</code>.  Yes,
+obviously in this example it is more text (and more complicated) to use the expansion, but this is not necessarily
+the case if working with many more labels (e.g. the main set of hd-EEG channels)</p>
+</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<p>Although this may all seem a little involved on first blush, the above
+syntax can be a convenient way to harmonize different datasets
+(e.g. especially PSG studies with many labels or conventions)...</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

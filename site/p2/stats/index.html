@@ -1,0 +1,2250 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p2/stats/">
+      
+      
+        <link rel="prev" href="../dupes/">
+      
+      
+        <link rel="next" href="../pol/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>2.3 Signal review - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#23-signal-review" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.3 Signal review
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p1/" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p3/" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p5/" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p6/" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/valid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#whole-night-hjorth-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Whole-night Hjorth statistics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n2-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      N2 statistics
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/pops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/macro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/peri/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p5/overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/canonical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#whole-night-hjorth-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Whole-night Hjorth statistics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n2-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      N2 statistics
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="23-signal-review">2.3. Signal review</h1>
+<p>Next, we'll calculate some summary statistics for the EEG, at this
+stage only for the purpose of general QC:</p>
+<ul>
+<li>
+<p>do the signals have numerical distributions/ranges broadly as expected for
+   micro-volt scaled human scalp sleep EEG (i.e. on the order of 10s to 100s of
+   units around a mean typically near zero)?</p>
+</li>
+<li>
+<p>are there obvious parts of the recording (signals and/or epochs)
+   that appear aberrant?</p>
+</li>
+<li>
+<p>as a first-pass frequency-based description of the data, do we
+   roughly see the expected 1/<em>f</em> pattern for the EEG power spectra?
+   Are there many obvious spikes or other signs of contamination,
+   e.g. due to electrical noise?</p>
+</li>
+</ul>
+<p>We'll approach this in two stages: first, with some whole-night
+visualizations based on <a href="https://en.wikipedia.org/wiki/Hjorth_parameters">Hjorth
+parameters</a>; second,
+looking only at epochs annotated as N2 sleep (i.e. to remove the often
+very large sources of variation in signals that arise from stage
+differences, especially if noisy leading/trailing wake epochs are
+included).</p>
+<h2 id="whole-night-hjorth-statistics">Whole-night Hjorth statistics</h2>
+<p>Hjorth statistics are simple and useful summaries for time-series data.  There are three parameters:</p>
+<ul>
+<li>
+<p><em>activity</em>: the typical amplitude of the signal (effectively similar to variance or root mean square)</p>
+</li>
+<li>
+<p><em>mobility</em>: a measure of modal frequency of the signal (based on the first derivative of the signal)</p>
+</li>
+<li>
+<p><em>complexity</em>: a measure of change in frequency of the signal (based on the second derivative), which can be indicative
+ of how variable/predictable a signal is </p>
+</li>
+</ul>
+<p>As a first pass to review signals, we will calculate these metrics per
+channel and per epoch for all recordings, using Luna's <code>SIGSTATS</code>
+command, from the first-round harmonized data (<code>harm1.lst</code>):</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>harm1.lst<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; SIGSTATS epoch sig=${eeg} &#39;</span>
+</code></pre></div>
+<p>This will take a minute or so to run for all subjects.  </p>
+<div class="admonition hint">
+<p class="admonition-title">Keeping track of output</p>
+<p>For simplicity, in this walkthorugh, we
+tend to overwrite a single <code>out.db</code>, which probably isn't the best
+practice for real, larger studies, where it might take a
+non-trivial time to generate the output, and where reproducibility is 
+important.  Feel free to swap in different outputs as desired, and
+amend the downstream steps accordingly, e.g. if we have a folder named <code>out</code>, one
+might instead have used <code>-o out/hjorth.db</code> here (and <code>destrat out/hjorth.db</code> below).</p>
+</div>
+<p>We can then extract all values from the output database to a single plaintext file (<code>hjorth.1</code>):
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+SIGSTATS<span class="w"> </span>-r<span class="w"> </span>E<span class="w"> </span>CH<span class="w">   </span>&gt;<span class="w"> </span>tmp/hjorth.1
+</code></pre></div></p>
+<hr />
+<p>Here we'll use <a href="https://www.r-project.org/">R</a> to visualize the output, along with the lunaR library for some
+convenience plot features used below.  Whether you're using a native terminal or JupyterLab, it is a good
+idea to keep a second window open for analyses in R (mainly visualization), ensuring it has the same working
+folder as the current main project.</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">luna</span><span class="p">)</span>
+</code></pre></div>
+<div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;tmp/hjorth.1&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>   ID  CH E        H1        H2        H3
+1 F01 Fp1 1 1504.2979 0.1250687 1.2803008
+2 F01 Fp1 2 2916.4841 0.1043487 1.1756639
+3 F01 Fp1 3  844.3133 0.1806248 1.1284717
+4 F01 Fp1 4 1041.5858 0.1365578 1.1829702
+5 F01 Fp1 5 1520.9025 0.1116944 1.1538875
+6 F01 Fp1 6  813.8810 0.1815717 0.9670462
+</code></pre></div></p>
+<p>The data frame <code>d</code> has 997,176 rows, which reflects the 20 people x 57
+EEG channels x 800-900 or so epochs each person has.</p>
+<p>The three Hjorth parameters are labelled <code>H1</code>, <code>H2</code> and <code>H3</code>, defined for every individual/channel/epoch.  We can review the
+broad distributions of each:</p>
+<!---
+png( file="imgs/hjorth1.png", width=1000, height=400 , res = 100 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
+<span class="nf">hist</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H1&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">hist</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H2&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">hist</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H3</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H3&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<!---
+dev.off()
+cp imgs/hjorth1.png vig/docs/imgs/
+--->
+
+<p><img alt="img" src="../../imgs/hjorth1.png" /></p>
+<p>It appears that <code>H1</code> (activity) is very skewed.  Often a
+log-transformation is applied to raw activity scores:</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+which yields this revised figure:</p>
+<!---
+png( file="imgs/hjorth2.png", width=1000, height=400 , res = 100 )
+---
+<div class="codeR highlight"><pre><span></span><code><span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
+<span class="nf">hist</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H1&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">hist</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H2&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">hist</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H3</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H3&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+
+<!---
+dev.off()
+cp imgs/hjorth2.png vig/docs/imgs/
+--->
+
+<p><img alt="img" src="../../imgs/hjorth2.png" /></p>
+<p>Of note, both (log-transformed) <code>H1</code> and <code>H3</code> metrics shows clear multi-modality,
+presumably reflecting differences between sleep stages as well as
+channels and/or individuals.</p>
+<p>We can review per individual:</p>
+<!---
+png( file="imgs/hjorth3.png", width=600, height=600 , res = 100 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="m">100</span><span class="p">),</span><span class="w"> </span><span class="n">las</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H1&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="m">100</span><span class="p">),</span><span class="w"> </span><span class="n">las</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H2&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H3</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="m">100</span><span class="p">),</span><span class="w"> </span><span class="n">las</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;H3&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<!---
+dev.off()
+cp imgs/hjorth3.png vig/docs/imgs/
+--->
+
+<p>Of note, <code>F04</code> appears to be a gross outlier for the <code>H1</code> (activity)
+metric (note, this is on a log-scale).  </p>
+<p><img alt="img" src="../../imgs/hjorth3.png" /></p>
+<p>We also see that <code>F05</code> perhaps appears to be a bit of an outlier.
+We'll see what is going on more directly via spectral analysis, but
+when we consult the <a href="../../data/#signal-manipulations">table of signal
+manipulations</a> we note that this was
+the only recording to be band-pass filtered (1-20 Hz).</p>
+<p>With respect to <code>F04</code> - we can confirm visually that the lower activity values hold for <em>all</em> channels, e.g.
+here averaging over epochs:</p>
+<!---
+png( file="imgs/hjorth4.png", width=1000, height=350 , res = 100 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">CH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">CH</span><span class="p">,</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">a</span><span class="o">$</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">as.factor</span><span class="p">(</span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="p">),</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;mean H1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Indiv/channel&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!---
+dev.off()
+cp imgs/hjorth4.png vig/docs/imgs/
+--->
+
+<p><img alt="img" src="../../imgs/hjorth4.png" /></p>
+<p>The points are ordered by individual, then channel (and colored by
+individual ID); we can clearly see the fourth (blue) set (<code>F04</code>) has
+low mean H1 values (across all epochs) for all channels.  (We could
+have simply looked at the output not stratified by epoch above too,
+i.e. <code>destrat out.db +SIGSTATS -r CH</code>).</p>
+<p>We can take a look at the EDF headers again to look at the range of
+EEG signals for <code>F04</code> (going back to command line):</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>harm1.lst<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span>-s<span class="w"> </span>HEADERS
+</code></pre></div>
+<p>Here we extract the physical units, minimum and maximum <em>based on the
+EDF headers</em> (i.e. technically, the smallest/largest <em>possible</em> values
+in the EDF, whether or not there is actually an instance that
+extreme), here only for channel FZ (to reduce output clutter):</p>
+<p><div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+HEADERS<span class="w"> </span>-r<span class="w"> </span>CH/FZ<span class="w"> </span>-v<span class="w"> </span>PDIM<span class="w"> </span>PMIN<span class="w"> </span>PMAX<span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ID   CH  PDIM      PMAX       PMIN
+F01  FZ   uV    223.325   -361.057
+F02  FZ   uV    1654.70   -1694.12
+F03  FZ   uV    1221.58   -466.484
+F04  FZ   uV    2.00623   -2.97696
+F05  FZ   uV    376.299   -452.115
+F06  FZ   uV    3502.42   -1607.19
+F07  FZ   uV    994.355   -799.459
+F08  FZ   uV    3663.41   -3002.94
+F09  FZ   uV    1704.35   -4028.45
+F10  FZ   uV    1747.34   -2111.80
+M01  FZ   uV    3436.70   -1238.57
+M02  FZ   uV    3350.84   -1933.89
+M03  FZ   uV    1658.28   -2111.74
+M04  FZ   uV    3856.32    -4326.5
+M05  FZ   uV    2782.60   -3417.32
+M06  FZ   uV    1074.79   -1703.58
+M07  FZ   uV    2401.71   -1082.80
+M08  FZ   uV    839.666   -559.385
+M09  FZ   uV    3380.85   -2664.17
+M10  FZ   uV    3958.20   -701.840
+</code></pre></div></p>
+<p>The range appears to be about three orders-of-magnitude smaller for
+<code>F04</code> than for all other recordings, <em>despite</em> all channels having
+nominally similar units (<code>uV</code>).  There is quite a lot of variability
+in the ranges (from ~200 to ~4000) but it is noteworthy that if
+multiplied by 1000 (i.e. the scaling difference between milli-volts
+and micro-volts, then <code>F04</code> would sit about right in the middle of all
+individuals, in terms of EDF header physical min/max for this channel.</p>
+<p>It is also worth noting, however, that EDF headers can have extreme
+values (e.g. 4000 uV) because they contain artifact, in the
+signal. etc.  Therefore, to more realistically compare distributions,
+it can be useful to a) restrict to parts of the signal scored as sleep
+if available (i.e. less artifact, movement, etc) and b) look at
+e.g. 5/95th percentile values rather than absolute (theoretical)
+min/max values.  We can do this with the <a href="https://zzz.bwh.harvard.edu/luna/ref/summaries/#stats"><code>STATS</code> command</a>
+(here just for FZ for simplicity):</p>
+<p><div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>harm1.lst<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;MASK ifnot=N2 &amp; RE &amp; STATS sig=FZ &#39;</span>
+</code></pre></div>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+STATS<span class="w"> </span>-r<span class="w"> </span>CH<span class="w"> </span>-v<span class="w"> </span>P05<span class="w"> </span>P95<span class="w"> </span>-p<span class="w"> </span><span class="m">4</span><span class="w"> </span>
+</code></pre></div>
+(Note that <code>-p 4</code> here specifies the number of digits displayed by
+<code>destrat</code>)</p>
+<div class="highlight"><pre><span></span><code>ID    CH         P05        P95
+F01   FZ    -13.1118    75.7381
+F02   FZ    -45.0810    94.6767
+F03   FZ    -36.4508    96.7964
+F04   FZ     -0.1658     0.2606
+F05   FZ    -28.4717    29.0819
+F06   FZ    -36.5317    94.8438
+F07   FZ    -76.2127    13.7586
+F08   FZ    -35.3029    94.9012
+F09   FZ    -78.6046    19.0196
+F10   FZ    -18.7311    82.4363
+M01   FZ    -75.6559    82.7190
+M02   FZ    -12.4852    87.0243
+M03   FZ    -24.2644    67.7210
+M04   FZ    -34.3746    63.3922
+M05   FZ    -28.8629    87.7847
+M06   FZ    -15.8691    71.9313
+M07   FZ    -75.0649    152.556
+M08   FZ    -29.6307    72.0292
+M09   FZ    -35.4833    82.8620
+M10   FZ    -103.682   133.1061
+</code></pre></div>
+<p>As before, we see these are still orders-of-magnitude lower than for
+the other individuals: <em>as we're blessed with omniscience for
+certain aspects of this walkthrough</em>, we in fact know that <code>F04</code> had
+<a href="../../data/#signal-manipulations">altered signal units</a>, i.e. it was
+actually recorded in milli-volts (<code>mV</code>) but incorrectly labelled as
+micro-volts (<code>uV</code>) which are 1000-times smaller.  Looking at strange
+(esp. order-of-magnitude off) ranges can be a clue to this type of
+issue.</p>
+<div class="admonition info">
+<p class="admonition-title">Multiple errors and dependencies in stages of QC</p>
+<p>As it turns out, <code>F04</code> has <strong>both</strong>
+<a href="../../data/#annotation-manipulations">manipulated (swapped)
+staging</a> <strong>as well as</strong>
+purposefully <a href="../../data/#signal-manipulations">altered signal
+units</a>.  This will impact the
+above comparison (i.e. although we don't know it at this stage of
+the walkthrough, the "N2" won't really be N2 for <code>F04</code> and so this
+procedure (of restricting to N2 epochs to evaluate signals) may
+have issues.  <em>However</em>, we've purposefully included both these
+issues together: a) in reality, there is nothing that precludes a
+single file from having multiple sources of error or bias,
+etc. and b) it underscores the more general point that there can
+be chicken-and-egg dependencies in the ordering of QC steps
+(e.g. if one requires valid signals in order to review/check
+staging annotations, and vice versa). </p>
+</div>
+<hr />
+<p>As the sleep EEG contains qualitatively distinct stages, whole-night
+summaries of metrics have limited value: we really want to see how
+things change, as well as channel-specific variation.  To this end,
+we'll go back to R to generate a series of plots that reflect the Hjorth statistics
+varying over time (epochs) and channel.</p>
+<div class="admonition hint">
+<p class="admonition-title">Interleaving R and command-line commands</p>
+<p>If you quit R to run the above Luna command, you can start up R again
+and type the following:
+<div class="codeR highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">luna</span><span class="p">)</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;tmp/hjorth.1&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+<span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+In general, it is a good idea to keep different terminal windows open (or, if using Jupyter notebooks, a seperate <em>Terminal</em> tab)
+to be able to go between different tools interactively.</p>
+</div>
+<p>We'll do this separately for each of the 20 individuals:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">ids</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<p>We can then make these plots for any individual, e.g. <code>F06</code>:
+And make a simple loop, e.g. for visual inspection</p>
+<!---
+png( file="vig/docs/imgs/hjorth5.png", width=800, height=800 , res = 100 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">dd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F06&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">           </span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">))</span>
+<span class="nf">lheatmap</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">lheatmap</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H2</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">lheatmap</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H3</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!---
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/hjorth5.png" /></p>
+<p>Above, we have three heatmaps for the three Hjorth parameters, with
+x-axes representing time (epochs) and y-axes representing channels.
+It is evident in these plots that there are a) clear vertical stripes (i.e. gross,
+global artifact for that epoch that impact most/all channels), b)
+horizontal stripes (i.e. channel-specific artifact that may impact
+some or all of the recording, but often (in this example) starts later
+in the night and continues to the end, as well as c) evidence of
+broader "banding", especially for the H3 metric, that likely track
+with true ultradian physiology, i.e. sleep cycles.  </p>
+<p>We'll be unpacking these components below.  This is not
+necessarily the most intuitive form of plot, however. In large part, this is because
+we've lost the information about channel position in the y-axes
+(i.e. is hard to add visible labels, but more importantly, the current
+order is arbitrary/alphabetical).  Note: if manual staging is present,
+it is always good to review these types of plots alongside the
+hypnograms, but we'll skip looking at hypnograms until a later section
+here.  Nonetheless, we can still make some more informative types of
+plot here.</p>
+<p>One simple extension is to use lunaR's <code>ltopo.xy()</code> convenience
+function, to make X-Y scatter plots for each channel, but present them
+in a layout consistent with the scalp topography (for the same file, <code>F06</code>):</p>
+<div class="codeR highlight"><pre><span></span><code><span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">))</span>
+<span class="nf">ltopo.xy</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Epoch&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;log(H1)&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">ltopo.xy</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Epoch&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;H2&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">ltopo.xy</span><span class="p">(</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H3</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H3</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Epoch&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;H3&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!---
+png( file= paste( "vig/docs/imgs/hjorth6a.png", sep="") , width=800, height=600 , res = 125 )
+par(mfcol=c(1,1), mar=c(0.5,0.5,0.5,0.5))
+ltopo.xy( dd$CH , dd$E , dd$H1 , z = dd$H1 , pch=20 , col = lturbo( 100 ) , cex=0.2 , xlab="Epoch", ylab="log(H1)" )
+dev.off()
+
+png( file= paste( "vig/docs/imgs/hjorth6b.png", sep="") , width=800, height=600 , res = 125 )
+par(mfcol=c(1,1), mar=c(0.5,0.5,0.5,0.5))
+ltopo.xy( dd$CH , dd$E , dd$H1 , z = dd$H2 , pch=20 , col = lturbo( 100 ) , cex=0.2 , xlab="Epoch", ylab="H2" )
+dev.off()
+
+
+png( file= paste( "vig/docs/imgs/hjorth6c.png", sep="") , width=800, height=600 , res = 125 )
+par(mfcol=c(1,1), mar=c(0.5,0.5,0.5,0.5))
+ltopo.xy( dd$CH , dd$E , dd$H1 , z = dd$H3 , pch=20 , col = lturbo( 100 ) , cex=0.2 , xlab="Epoch", ylab="H3" )
+dev.off()
+
+--->
+
+<p><img alt="img" src="../../imgs/hjorth6a.png" />
+<img alt="img" src="../../imgs/hjorth6b.png" />
+<img alt="img" src="../../imgs/hjorth6c.png" /></p>
+<p>The three plots are ordered for H1, H2 and H3 respectively. These
+plots make the topographical locations of the artifact much clearer,
+especially for H2 it is evident that FT7 has extreme values towards
+the end of the night.  Note that
+these plots will also reflect a degree of true sleep physiology
+dynamics, e.g. especially those that impact all/many channels and
+change slowly over the course of minutes/hours.</p>
+<p>As a further example of some potential artifact - and note, these
+factors <em>were not introduced in the manipulated dataset</em> -- this is
+all present from the original (<code>v1</code>) recording.  For <code>F10</code> we see that
+FC2 and FC6 look bad towards the end of the night, in particular for
+H2:</p>
+<!---
+png( file= paste( "vig/docs/imgs/hjorth-" , id , ".png", sep="") , width=1000, height=800 , res = 150 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">id</span><span class="o">=</span><span class="s">&quot;F10&quot;</span>
+<span class="n">dd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.5</span><span class="p">))</span>
+<span class="nf">ltopo.xy</span><span class="p">(</span><span class="n">dd</span><span class="o">$</span><span class="n">CH</span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">dd</span><span class="o">$</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="o">=</span><span class="n">dd</span><span class="o">$</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">lturbo</span><span class="p">(</span><span class="m">100</span><span class="p">),</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Epoch&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;H2&quot;</span><span class="p">)</span>
+</code></pre></div>
+<!---
+id="F10"
+dd <- d[ d$ID == id , ]
+png( file= paste( "vig/docs/imgs/hjorth-" , id , ".png", sep="") , width=1000, height=800 , res = 150 )
+par(mfcol=c(1,1), mar=c(0.5,0.5,0.5,0.5))
+ltopo.xy(dd$CH, dd$E, dd$H2, z=dd$H2, pch=20, col=lturbo(100), cex=0.2, xlab="Epoch", ylab="H2")
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/hjorth-F10.png" /></p>
+<p>We can use <code>lunapi</code> and <code>scope()</code> to view these signals at different
+points in the night: here looking at selected EEG channels 
+earlier in the night (see position of the dot
+at the top) where all channels appear of comparable, high quality
+(this shows a quarter-epoch view, 7.5 seconds):</p>
+<p><img alt="img" src="../../imgs/fc-art1.png" /></p>
+<p>In contrast, later in the same recording, some of the same channels show
+clear artifact, consistent with high frequency line noise:</p>
+<p><img alt="img" src="../../imgs/fc-art2.png" /></p>
+<p>Later in the walkthrough we'll revisit these types of plots to assess
+quality after interpolation, filtering (which will remove very high
+frequency artifact in any case), removing extreme/aberrant epochs and
+restricting to a single sleep stage.  In general, it can be useful to
+perform these types of plots/checks both on "original" signals (as
+that can more clearly point to the source/nature of artifact prior to
+altering the signals) but also the "final" analysis-ready datasets (as
+those, after all, are the ones on which analyses will be based...)</p>
+<h2 id="n2-statistics">N2 statistics</h2>
+<p>As a complement to the whole-night QC visualization, it can also be
+useful to restrict it to a single stage (or at least exclude
+leading/trailing wake/unknown periods if they are excessively long).
+In this way, differences between individuals and/or channels can
+become clearer, after removing one natural source of variation
+(differences in sleep stage).</p>
+<p>To this end, we'll return to the shell command line and run this
+script. It picks 10 N2 epochs at random, however, keep in mind, that
+we do this just to speed up analysis in the context of this
+walkthrough. Naturally, for real projects, you'd want to use all
+available data. This script also applies a bandpass filter before
+calculating spectral statistics per individual/channel (as noted
+above, if you want to save the prior output, use distinct filenames
+other than <code>out.db</code> - this holds throughout the walkthrough, but we
+won't repeat it going forward):</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>harm1.lst<span class="w"> </span>-o<span class="w"> </span>out.db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-s<span class="w"> </span><span class="s1">&#39; EPOCH align &amp; MASK ifnot=N2 &amp; MASK random=10 &amp; RE</span>
+<span class="s1">       FILTER bandpass=0.3,35 tw=0.5,5 ripple=0.01,0.01</span>
+<span class="s1">       PSD spectrum dB sig=${eeg} max=25 &#39;</span>
+</code></pre></div>
+<p>We'll extract this individual/channel level output to a text
+file containing power spectra for representative/random N2 epochs,
+calculated now for filtered signals:</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out.db<span class="w"> </span>+PSD<span class="w"> </span>-r<span class="w"> </span>F<span class="w"> </span>CH<span class="w"> </span>&gt;<span class="w"> </span>tmp/s.spec
+</code></pre></div>
+<p>In R, we'll now load these spectral statistics:</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;tmp/s.spec&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>   ID  CH    F      PSD
+1 F01 Fp1 0.50 20.57150
+2 F01 Fp1 0.75 21.23700
+3 F01 Fp1 1.00 20.23428
+4 F01 Fp1 1.25 18.31134
+5 F01 Fp1 1.50 16.94335
+6 F01 Fp1 1.75 15.76659
+</code></pre></div></p>
+<p>As we added <code>dB</code> to Luna's <a href="https://zzz.bwh.harvard.edu/luna/ref/power-spectra/#psd">PSD command</a> that implements the Welch spectral
+method, the output power density values will already be log-scaled.  The output contains frequency bins from 0.5 to 25 Hz in 0.25 Hz steps: </p>
+<!---
+png( file="vig/docs/imgs/psd1.png", width=600, height=600 , res = 150 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="p">)</span>
+<span class="n">fxs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="bp">F</span><span class="w"> </span><span class="p">)</span>
+<span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">setNames</span><span class="p">(</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">PSD</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="bp">F</span><span class="o">=</span><span class="n">d</span><span class="o">$</span><span class="bp">F</span><span class="p">),</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="p">),</span>
+<span class="w">               </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;ID&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;PSD&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+<span class="n">ylim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Frequency (Hz)&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;log(Power)&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">ids</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F04&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">255</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F05&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!---
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/psd1.png" /></p>
+<p>In this plot, we highlighted <code>F04</code> in maroon and <code>F05</code> in green, with the
+remaining individuals shown in blue. It’s clear that <code>F04</code> and <code>F05</code> are
+outliers, while the spectral power curves of the other individuals
+appear quite uniform. To examine this further, we will remove the two
+outliers and regenerate the plot:</p>
+<!---
+png( file="vig/docs/imgs/psd2.png", width=600, height=600 , res = 150 ) 
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">d2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F04&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F05&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>
+<span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">setNames</span><span class="p">(</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="w"> </span><span class="n">d2</span><span class="o">$</span><span class="n">PSD</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="n">d2</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="bp">F</span><span class="o">=</span><span class="n">d2</span><span class="o">$</span><span class="bp">F</span><span class="p">),</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="w"> </span><span class="p">),</span>
+<span class="w">               </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;ID&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;PSD&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="n">ylim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Frequency (Hz)&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;log(Power)&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<!---
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/psd2.png" /></p>
+<p>Alternatively, we can average over individuals to plot one line per channel:</p>
+<!---
+png( file="vig/docs/imgs/psd3.png", width=600, height=600 , res = 150 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">d2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F04&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;F05&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">setNames</span><span class="p">(</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="w"> </span><span class="n">d2</span><span class="o">$</span><span class="n">PSD</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="n">d2</span><span class="o">$</span><span class="n">CH</span><span class="p">,</span><span class="w"> </span><span class="bp">F</span><span class="o">=</span><span class="n">d2</span><span class="o">$</span><span class="bp">F</span><span class="p">),</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="bp">T</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span>
+<span class="w">               </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;CH&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;PSD&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="n">ylim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="w"> </span><span class="p">)</span>
+<span class="n">chs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">)</span>
+<span class="n">nchs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="w"> </span><span class="n">chs</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+<span class="n">pal</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lturbo</span><span class="p">(</span><span class="w"> </span><span class="n">nchs</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Frequency (Hz)&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;log(Power)&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">nchs</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">chs</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pal</span><span class="p">[</span><span class="w"> </span><span class="n">ch</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<!---
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/psd3.png" /></p>
+<p>In the above plot, now that outlier subjects have been removed, a
+1/<em>f</em> pattern in the EEG power spectra as well as clear sigma (11-15
+Hz) peaks are visible for all channels, consistent with typical N2 sleep EEG.</p>
+<p>Finally, having looked at the means, for a small sample size such as
+this, we can plot the full set of power spectra for each individual.
+Here, we'll generate a grid of 20 figures (per individual), in each
+plotting the mean power (across channels) in either red or blue (for
+female and male subjects) as well as the channel-specific N2 power
+spectra (remembering, this is based only on 10 randomly-selected epochs):</p>
+<!---
+png( file="vig/docs/imgs/psd4.png", width=800, height=800 , res = 150 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">setNames</span><span class="p">(</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="n">d</span><span class="o">$</span><span class="n">PSD</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="bp">F</span><span class="o">=</span><span class="n">d</span><span class="o">$</span><span class="bp">F</span><span class="p">),</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">mean</span><span class="p">),</span>
+<span class="w">               </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;ID&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;PSD&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="n">ylim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="w"> </span><span class="p">)</span>
+<span class="n">ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="p">)</span>
+
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">),</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">0.1</span><span class="p">))</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">ids</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">di</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>
+
+<span class="w">  </span><span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">main</span><span class="o">=</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">xaxt</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">yaxt</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">chs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">chs</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ch</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">,</span>
+<span class="w">           </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span>
+<span class="w">         </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span><span class="w"> </span><span class="nf">substr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;M&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">abline</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">15</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lightgray&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<!---
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/psd4.png" /></p>
+<p>These plots have the y-axes constrained to be equal across all individuals, which is useful for highlighting the differences between individuals.   We can
+alternatively make the same set but allow the y-axis to vary according to each individual's data, to make the between-channel effects clearer:</p>
+<!---
+png( file="vig/docs/imgs/psd5.png", width=800, height=800 , res = 150 )
+--->
+
+<div class="codeR highlight"><pre><span></span><code><span class="n">a</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">setNames</span><span class="p">(</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="n">d</span><span class="o">$</span><span class="n">PSD</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ID</span><span class="o">=</span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="p">,</span><span class="w"> </span><span class="bp">F</span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="bp">F</span><span class="p">),</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">mean</span><span class="p">),</span>
+<span class="w">               </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;ID&quot;</span><span class="p">,</span><span class="s">&quot;F&quot;</span><span class="p">,</span><span class="s">&quot;PSD&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">),</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">0.1</span><span class="p">))</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">ids</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">di</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">PSD</span><span class="w"> </span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;n&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">main</span><span class="o">=</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">xaxt</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">yaxt</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">chs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">chs</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">di</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ch</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">,</span>
+<span class="w">           </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">fxs</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">PSD</span><span class="p">[</span><span class="w"> </span><span class="n">a</span><span class="o">$</span><span class="n">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span>
+<span class="w">         </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span><span class="w"> </span><span class="nf">substr</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;M&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+
+<span class="w">  </span><span class="nf">abline</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">10</span><span class="p">,</span><span class="m">15</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lightgray&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<!---
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/psd5.png" /></p>
+<hr />
+<p>Having reviewed these EEG signals we've concluded the following:</p>
+<ul>
+<li>
+<p><code>F04</code> appears to have incorrect units (uV but should be mV) for raw
+   scalp EEG, relative to the other 19 individuals</p>
+</li>
+<li>
+<p>based on epoch-wise, channel-specific Hjorth statistics, we've
+   generated plots that indicate the likely presence of line-noise or
+   other types of extreme artifact</p>
+</li>
+<li>
+<p>focusing on N2 power spectra, we see the typical 1/f slope for the
+   log-scaled PSD curves as well as evidence of peaks around sigma
+   range, indicative of (true) physiological spindle activity</p>
+</li>
+<li>
+<p>when looking person-by-person at the power spectra, some
+   individuals appear to have spectral peaks at other modes (when
+   averaging over all channels); we'll return to these details later,
+   although for now we'll note that we have yet to confirm the
+   accuracy/correctness of sleep staging annotations, which could
+   naturally impact the interpretation of these plots</p>
+</li>
+</ul>
+<p>Next, we'll look at <a href="../pol/">EEG polarity</a> to scan for potentially flipped signals. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

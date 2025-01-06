@@ -1,0 +1,221 @@
+# Replication in N=106 GRINS
+
+<!--
+
+## Get N=20
+
+# load
+library(luna)
+k <- ldb( "out/gpa-full.db" )
+
+o <- k$GPA$X_Y
+o <- merge( o , read.table( "gpa/manifest" , header=T , stringsAsFactors=F , na.strings = "," ) , by.x = "Y" , by.y = "VAR" )
+
+
+## Overall results
+
+R
+d <- read.table( "n106/n106.gpa.full" , header=T, stringsAsFactors=F)
+d <- merge( d , read.table( "gpa/manifest" , header=T , stringsAsFactors=F , na.strings = "," ) , by.x = "Y" , by.y = "VAR" )  
+
+## PSD
+
+### N2
+
+par(mfcol=c(1,2))
+x <- d[ d$GRP == "spec" & d$stg == "N2" & d$F != ".", ] 
+x$F <- as.numeric( x$F )
+x <- x[ order( x$F ) , ] 
+ltopo.xy( x$CH , x$F , x$T , ylim = c(-8,3) , yline = 0 )
+
+x <- o[ o$GRP == "spec" & o$stg == "N2" & o$F != ".", ]
+x$F <- as.numeric( x$F )
+x <- x[ order( x$F ) , ]
+ltopo.xy( x$CH , x$F , x$T , ylim = c(-8,3) , yline = 0 )
+
+
+### REM
+
+
+par(mfcol=c(1,2))
+x <- d[ d$GRP == "spec" & d$stg == "R" & d$F != ".", ] 
+x$F <- as.numeric( x$F )
+x <- x[ order( x$F ) , ] 
+ltopo.xy( x$CH , x$F , x$T , ylim = c(-8,3) , yline = 0 )
+
+x <- o[ o$GRP == "spec" & o$stg == "R" & o$F != ".", ]
+x$F <- as.numeric( x$F )
+x <- x[ order( x$F ) , ]
+ltopo.xy( x$CH , x$F , x$T , ylim = c(-8,3) , yline = 0 )
+
+
+
+## PSI
+
+# line-up
+x <- d[ d$GRP == "psi" & d$stg == "N2" & d$CH == "." , ]
+x$F <- as.numeric( x$F )
+x <- x[ , c("Y","CH1","CH2","P.x", "PADJ", "T" , "F" ) ]
+x <- rbind( x ,
+            data.frame(  Y = x$Y , CH1 = x$CH2 , CH2 = x$CH1 , T = - x$T , P.x = x$P.x , PADJ = x$PADJ , F = x$F ) )
+
+m <- merge( x , o , by.x = "Y" , by.y = "Y" )
+dim(m)
+
+chisq.test( table( m$P.x.x < 0.05 , m$P.x.y < 0.05 )  ) 
+
+table( m$P.x.x < 0.01 , m$P.x.y < 0.01 ) 
+
+
+
+
+# plots
+x <- d[ d$GRP == "psi" & d$stg == "N2" & d$CH == "." , ]
+
+# x <- d[ d$GRP == "psi" & d$stg == "REM" & d$CH == "." , ]
+
+x$F <- as.numeric( x$F ) 
+x <- x[ , c("CH1","CH2","P.x", "PADJ", "T" , "F" ) ] 
+
+#head(x)
+#      CH1 CH2        P.x PADJ           T
+#11860 AF3 AF4 0.35296470    1 -0.93659962
+
+
+x <- rbind( x ,
+            data.frame(  CH1 = x$CH2 , CH2 = x$CH1 , T = - x$T , P.x = x$P.x , PADJ = x$PADJ , F = x$F ) )
+
+x$VAR <- paste( "PSI_stg_N2_CH1" , x$CH1 , "CH2" , x$CH2 , "F" , x$F , sep="_" )
+
+source( "arconn.R" )
+
+
+for ( f in sort( unique( x$F ) ) ) { 
+ arconn( chs1 = x$CH1 , chs2 = x$CH2 , z = x$T , directional = T , flt = x$P.x < 0.05 & x$F == f , title = f )
+ readline()
+}
+
+
+# goes back 1-sided anyway, but fine
+> m <- merge( x , o , by.x = "VAR" , by.y = "Y" ) 
+> dim(m)
+[1] 14364    16
+
+
+> inc <- m$P.x < 0.05 & m$P < 0.05 
+> plot( m$T.x , m$T.y ) 
+> cor.test( m$T.x , m$T.y ) 
+
+	Pearson's product-moment correlation
+
+data:  m$T.x and m$T.y
+t = 37.728, df = 14362, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.2853325 0.3150914
+sample estimates:
+     cor 
+0.300285 
+ 
+> cor.test( m$T.x[inc]  , m$T.y[inc] ) 
+
+	Pearson's product-moment correlation
+
+data:  m$T.x[inc] and m$T.y[inc]
+t = 36.046, df = 655, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.7880408 0.8395132
+sample estimates:
+      cor 
+0.8153822 
+ 
+> plot( m$T.x[inc]  , m$T.y[inc] ) 
+> plot( m$T.x[inc]  , m$T.y[inc] ) 
+
+
+## Spindles
+
+vars <- c( "DENS", "AMP", "DUR", "NOSC", "FRQ", "CHIRP" )
+
+par(mfrow=c(4,6) , mar=c(0,0,0,0) )
+
+
+x <- d[ d$GRP == "spso" & d$BASE.x %in% vars , ] 
+x$LP <- -log10( x$P.x ) 
+x$F <- as.numeric( x$F )
+x <- x[ order( x$F ) , ]
+
+xx <- o[ o$GRP == "spso" & o$BASE.x %in% vars , ] 
+xx$LP <- -log10( xx$P.x ) 
+xx$F <- as.numeric( xx$F )
+xx <- xx[ order( xx$F ) , ]
+
+for (f in c(11,15)) { 
+
+# N=20
+for (v in vars ) 
+  ltopo.rb( xx$CH , xx$T , f = xx$F == f & xx$BASE.x == v , th = 1.33 , th.z = xx$LP , sz=2) 
+
+# N=106
+for (v in vars ) 
+  ltopo.rb( x$CH , x$T , f = x$F == f & x$BASE.x == v , th = 1.33 , th.z = x$LP , sz=2) 
+
+}
+
+
+### SLOW OSC
+
+vars <- c( "SO_RATE", "SO_AMP_NEG", "SO_AMP_POS", "SO_AMP_P2P" , "SO_DUR", "SO_DUR_NEG", "SO_DUR_POS", "SO_SLOPE" )
+
+par(mfrow=c(2,8) , mar=c(0,0,0,0) )
+
+
+x <- d[ d$GRP == "spso" & d$BASE.x %in% vars , ]
+x$LP <- -log10( x$P.x )
+
+xx <- o[ o$GRP == "spso" & o$BASE.x %in% vars , ]
+xx$LP <- -log10( xx$P.x )
+
+# N=20
+for (v in vars )
+  ltopo.rb( xx$CH , xx$T , f = xx$BASE.x == v , th = 1.33 , th.z = xx$LP , sz=2)
+
+# N=106
+for (v in vars )
+  ltopo.rb( x$CH , x$T , f = x$BASE.x == v , th = 1.33 , th.z = x$LP , sz=2)
+
+
+
+### COUPL
+
+vars <- c( "CDENS", "UDENS", "COUPL_OVERLAP_Z" , "COUPL_MAG_Z" )
+
+par(mfrow=c(4,4) , mar=c(0,0,0,0) )
+
+
+x <- d[ d$GRP == "spso" & d$BASE.x %in% vars , ]
+x$LP <- -log10( x$P.x )
+x$F <- as.numeric( x$F )
+x <- x[ order( x$F ) , ]
+
+xx <- o[ o$GRP == "spso" & o$BASE.x %in% vars , ]
+xx$LP <- -log10( xx$P.x )
+xx$F <- as.numeric( xx$F )
+xx <- xx[ order( xx$F ) , ]
+
+for (f in c(11,15)) {
+
+# N=20
+for (v in vars )
+  ltopo.rb( xx$CH , xx$T , f = xx$F == f & xx$BASE.x == v , th = 1.33 , th.z = xx$LP , sz=2)
+
+# N=106
+for (v in vars )
+  ltopo.rb( x$CH , x$T , f = x$F == f & x$BASE.x == v , th = 1.33 , th.z = x$LP , sz=2)
+
+}
+
+
+
+-->

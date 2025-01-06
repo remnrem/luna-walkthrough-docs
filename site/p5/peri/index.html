@@ -1,0 +1,2093 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Demonstration of the Luna software">
+      
+      
+        <meta name="author" content="S. M. Purcell">
+      
+      
+        <link rel="canonical" href="http://zzz.bwh.harvard.edu/luna/p5/peri/">
+      
+      
+        <link rel="prev" href="../assoc/">
+      
+      
+        <link rel="next" href="../overlap/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>5.9 Peri-event statistics - Luna walkthrough</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#59-peri-event-statistics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Luna walkthrough" class="md-header__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Luna walkthrough
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5.9 Peri-event statistics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data/" class="md-tabs__link">
+        
+  
+    
+  
+  Data
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../prep/" class="md-tabs__link">
+        
+  
+    
+  
+  0-Prep
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p1/" class="md-tabs__link">
+          
+  
+  1-File QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p2/" class="md-tabs__link">
+          
+  
+  2-Signal QC
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p3/" class="md-tabs__link">
+          
+  
+  3-Staging
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p4/" class="md-tabs__link">
+          
+  
+  4-Artifacts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  5-Analysis
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../p6/" class="md-tabs__link">
+          
+  
+  6-Next steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Luna walkthrough" class="md-nav__button md-logo" aria-label="Luna walkthrough" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Luna walkthrough
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    0-Prep
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1-File QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            1-File QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/valid/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 File validation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/filefix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 Fixing files
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/hdr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 Header review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/recsize/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 EDF record size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/chs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.5 Channel labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/anns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.6 Annotation labels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p1/gen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.7 New project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2-Signal QC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            2-Signal QC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/edfd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 Gapped EDF+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/dupes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 Flat/duplicate channels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 Signal review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/pol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 EEG polarity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p2/revised/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.5 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3-Staging
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            3-Staging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/annots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 Annotation descriptives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/hypno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.2 Staging/hypnograms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/soap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.3 SOAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p3/pops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.4 POPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4-Artifacts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            4-Artifacts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/harm2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.1 Revised project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/interp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.2 Interpolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p4/hjorth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4.3 Hjorth plots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    5-Analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            5-Analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objectives
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../macro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.1 Macro-architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.2 Time/frequency analyses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.3 Ultradian dynamics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.4 Connectivity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../psc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.5 Dimension reduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spso/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.6 NREM transients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.7 Age prediction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.8 Linear models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    5.9 Peri-event statistics
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#slow-oscillation-morphology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slow oscillation morphology
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slow oscillation morphology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sex-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sex differences
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage transitions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overlap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5.10 Interval-based analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6-Next steps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            6-Next steps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../p6/canonical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canonical signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#slow-oscillation-morphology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slow oscillation morphology
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slow oscillation morphology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sex-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sex differences
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage transitions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="59-peri-event-statistics">5.9. Peri-event statistics</h1>
+<p>In this section we'll use the
+<a href="https://zzz.bwh.harvard.edu/luna/ref/intervals/#tlock"><code>TLOCK</code></a>
+command in combination with Luna's <em>cache</em> and <em>annotation</em> mechanisms, to generate
+and summarize time-locked, peri-event metrics in two contexts:</p>
+<ul>
+<li>
+<p>slow oscillation (SO) morphology, based on the filtered EEG trace time-locked to SO negative peaks </p>
+</li>
+<li>
+<p>EEG power dynamics around sleep onset  </p>
+</li>
+</ul>
+<p>The approaches described below are generic and can be applied (and
+modified) to address a wide range of questions.</p>
+<h2 id="slow-oscillation-morphology">Slow oscillation morphology</h2>
+<p>First, we'll look at SO morphology: in particular, we'll detect SO at
+the FZ channel, and then generate time-locked averaged waveforms
+around FZ-SO negative peaks (+/- 1 second), for FZ but also for three
+other midline channels:</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>c.lst<span class="w">   </span>-o<span class="w">  </span>out/slowosc.db<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; ${s1=FZ}</span>
+<span class="s1">      ${s2=FZ,CZ,PZ,OZ}</span>
+<span class="s1">      MASK ifnot=N2,N3 &amp; RE</span>
+<span class="s1">      CHEP-MASK  sig=${s2} ep-th=3,3</span>
+<span class="s1">      CHEP epochs &amp; RE</span>
+<span class="s1">      SO sig=${s1} cache-neg=c1  mag=2 f-lwr=0.5 f-upr=4 t-lwr=0.5 t-upr=2</span>
+<span class="s1">      FILTER sig=${s2} bandpass=0.5,4 tw=0.3 ripple=0.01 </span>
+<span class="s1">      TLOCK sig=${s2} cache=c1 w=1 &#39;</span>
+</code></pre></div>
+<p>Reviewing the script line-by-line:</p>
+<ul>
+<li>
+<p>we use the variable <code>${s1}</code> to designate which channel(s) to detect
+   SO at (i.e. the <em>seeds</em> for the subsequent time-locked summaries;
+   here we use a single channel to speed up processing, but there
+   could be multiple channels here too)</p>
+</li>
+<li>
+<p>we set the variable <code>${s2}</code> to the other channels we want to
+   generate averaged waveforms for (where the synchronizing event will
+   be a SO peak that may have been detected at another channel)</p>
+</li>
+<li>
+<p>we restrict the analysis to N2 and N3 epochs only with <code>MASK</code>/<code>RE</code></p>
+</li>
+<li>
+<p>we remove epochs with likely extreme artifact (at any of the four <code>${s2}</code> channels)</p>
+</li>
+<li>
+<p>we detect SO at <code>${s1}</code> using a relative amplitude criterion
+ (<code>mag=2</code>) and use a built-in option to <em>cache</em> the positions (sample
+ indexes) of negative peaks (<code>cache-neg=c1</code>), calling the cache <code>c1</code>; the cache is a
+ mechanism that lets different Luna commands to "speak" to each other</p>
+</li>
+<li>
+<p>we then band-pass filter the <code>${s2}</code> signals, using a similar band (0.5 - 4 Hz) as
+ in SO detection</p>
+</li>
+<li>
+<p>finally, we generate averaged waveforms (i.e. per channel/individual,
+   averaged over all SO events detected at the seed channel),
+   requesting a window of one second (<code>w=1</code>)</p>
+</li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">TLOCK options</p>
+<p>The <code>TLOCK</code> command has various other options,
+e.g. for normalization within windows, or for restricting analyses
+only to <em>seeds</em> (stored in the <em>cache</em>) that are associated with
+the same channel (by adding <code>same-channel</code>).  For example, if we
+detected SO at four channels instead of one using the code above,
+<code>TLOCK</code> would output 16 waveforms (all pairs); with <code>same-channel</code>
+it would only output four.  The ability to look at cross-channel
+peri-event statistics can be useful, e.g. for multi-modal analyses
+of PSG data, or to look at how waves propagate spatially, etc.</p>
+</div>
+<p>We'll extract the waveforms to a text file (<code>res/slowosc.1</code>), actually
+requesting the median (<code>MD</code>) rather than the mean here (as this is
+typically more robust to outliers):</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w">  </span>out/slowosc.db<span class="w"> </span>+TLOCK<span class="w"> </span>-r<span class="w"> </span>sCH<span class="w"> </span>SEC<span class="w"> </span>CH<span class="w"> </span>-v<span class="w"> </span>MD<span class="w"> </span>&gt;<span class="w"> </span>res/slowosc.1
+</code></pre></div>
+<p>We'll then read that file into R for visualization:</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;res/slowosc.1&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>   ID CH       SEC sCH       MD
+1 F01 FZ -1.000000  FZ 3.522898
+2 F01 FZ -0.992188  FZ 4.093180
+3 F01 FZ -0.984375  FZ 4.612769
+4 F01 FZ -0.976562  FZ 4.625442
+5 F01 FZ -0.968750  FZ 4.403666
+6 F01 FZ -0.960938  FZ 4.568414
+...
+</code></pre></div></p>
+<p>As seen above, this file contains one row for each
+individual/channel/SO for each sample point in the window. The <code>MD</code> is
+the median value of the waveform for channel <code>CH</code>.  The additional <code>sCH</code> is the
+channel at which the SO (seed event) was detected.   Therefore, given how we specified <code>${s1}</code>
+and <code>${s2}</code>, we have four combinations of <code>CH</code> and <code>sCH</code> here:</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">table</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">sCH</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>       FZ
+  CZ 5140
+  FZ 5140
+  OZ 5140
+  PZ 5140
+</code></pre></div></p>
+<p>The 5140 observations per condition reflect the 1-second window around
+each point (i.e, 1 + 128 * 2 = 257, given a sampling rate of 128 Hz)
+for 20 individuals (i.e. 20 * 257 = 5140).</p>
+<p>We'll take the mean over individuals, requesting a table of means 
+(the within-person median) for window samples (257 rows) by channels (4
+columns); in the second step, we order the columns as FZ, CZ, PZ and
+OZ (rather than alphabetically - naturally, there are more systematic
+ways to do this rather than hard-coding the values here that one would want to
+use in practice):</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">MD</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="p">)</span><span class="w"> </span>
+<span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>
+</code></pre></div>
+<p>The resulting table is as follows: </p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">head</span><span class="p">(</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>                FZ        CZ        PZ        OZ
+-1        1.071660 0.8729005 0.4579403 0.2566643
+-0.992188 1.387738 1.0972374 0.6263379 0.2729892
+-0.984375 1.718401 1.3466110 0.7455648 0.3643809
+-0.976562 1.944284 1.4922659 0.9152277 0.3915292
+-0.96875  2.101176 1.6374637 1.0336858 0.4497837
+-0.960938 2.248765 1.7776731 1.1124792 0.4866229
+</code></pre></div></p>
+<p>We can plot it, using a color palette whereby the seed channel (FZ) has
+the darkest shade, and more distal channels from FZ have progressively lighter
+shades:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">tx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">)</span><span class="w">  </span>
+<span class="n">pal</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">250</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">50</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="w"> </span><span class="p">)</span>
+<span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylim</span>
+<span class="w">      </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time from SO negative peak (s)&quot;</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;Filtered signal amplitude&quot;</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+</code></pre></div>
+<!---
+png(file="vig/docs/imgs/slow1.png",res=150,width=1000,height=600)
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/slow1.png" /></p>
+<p>That is, for FZ we see the typical (whole-sample) SO morphology, based
+on time-locking at the negative peak (also given the relative
+amplitude criterion used).  The average traces at other channels are
+not flat but do show attenuated waves, i.e. reflecting the average
+extent of global vs local SO as well as the (averaged) propagation
+over time and space. (Note: this is obviously different from looking
+at the propagation of individual SO events.)</p>
+<h3 id="sex-differences">Sex differences</h3>
+<p>As well as looking at whole-sample average waveforms, one could easily look at
+group differences in this dataset.  We'll merge in demographic data:</p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="n">phe</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;work/data/aux/master.txt&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">phe</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+We'll create two separate data frames from males and females respectively (<code>dm</code> and <code>df</code>):
+<div class="codeR highlight"><pre><span></span><code><span class="n">dm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">male</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">male</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+We'll repeat the steps above for the sex-specific datasets:
+<div class="codeR highlight"><pre><span></span><code><span class="n">res.m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">dm</span><span class="o">$</span><span class="n">MD</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">dm</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">dm</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="p">)</span>
+<span class="n">res.f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">MD</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="p">)</span><span class="w">  </span><span class="p">)</span>
+<span class="n">res.m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res.m</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="p">]</span>
+<span class="n">res.f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res.f</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+We'll also assign sex-specific color palettes to track visualize things:
+<div class="codeR highlight"><pre><span></span><code><span class="n">pal.f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">250</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">50</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="w"> </span><span class="p">)</span>
+<span class="n">pal.m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">250</span><span class="p">,</span><span class="m">150</span><span class="p">,</span><span class="m">100</span><span class="p">,</span><span class="m">50</span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="o">=</span><span class="m">255</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+And then remake the plot:
+<div class="codeR highlight"><pre><span></span><code><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">res.m</span><span class="p">,</span><span class="w"> </span><span class="n">res.f</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res.f</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time from SO negative peak (s)&quot;</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;M/F filtered signal amplitude&quot;</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w"> </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res.f</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pal.f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+<span class="w"> </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res.m</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pal.m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+</code></pre></div></p>
+<!---
+png(file="vig/docs/imgs/slow2.png",res=150,width=1000,height=600)
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/slow2.png" /></p>
+<p>From the plot above, SO for males (blues) appear to be generally of
+lower amplitude than for females, in the absolute amplitude of the
+negative peak.  We can attempt to formalize this observation by testing
+for statistically significant differences.  We'll first define a helper function
+to return the log10-scaled signed p-value for a sex difference,
+from a linear regression of the dependent variable on sex and age:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">f1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">male</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phe</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+<span class="w">  </span><span class="nf">sign</span><span class="p">(</span><span class="w"> </span><span class="nf">coef</span><span class="p">(</span><span class="n">m</span><span class="p">)[</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">-</span><span class="nf">log10</span><span class="p">(</span><span class="w"> </span><span class="n">m</span><span class="o">$</span><span class="n">coef</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We'll then applying this function <code>f1()</code> to the dataset, for all 257 sample points for each channel combination:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">MD</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">CH</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">sCH</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<p>The <code>res</code> table contains all results, with
+<div class="codeR highlight"><pre><span></span><code><span class="nf">head</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>               CZ.FZ     FZ.FZ      OZ.FZ      PZ.FZ
+-1        -0.2575600 0.2426469 -0.9014683 -0.7682403
+-0.992188 -0.3974117 0.1703103 -0.8772746 -1.0869878
+-0.984375 -0.4142547 0.1446481 -1.2098536 -1.5188755
+-0.976562 -0.5608471 0.1778370 -1.2885396 -2.0105747
+-0.96875  -0.5828373 0.1788817 -1.2701179 -1.9791697
+-0.960938 -0.4579240 0.1306156 -1.4289485 -1.8454957
+...
+</code></pre></div></p>
+<p>As above, we'll re-order columns to be FZ,CZ,PZ and OZ:
+<div class="codeR highlight"><pre><span></span><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span>
+</code></pre></div></p>
+<p>We can then plot these statistics, adding in visual markers for
+results that have nominal <em>P</em> &lt; 0.05 ( |log10(0.05)| = 1.33 ) and <em>P</em> &lt;
+0.01 ( |log10(0.01)| = 2 ); for clarity, we'll make these four plots
+separate rather than overlaid too:</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">)</span>
+<span class="n">tx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">)</span>
+<span class="n">chs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"> </span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="p">,</span>
+<span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time from FZ SO negative peak (s)&quot;</span><span class="w"> </span><span class="p">,</span>
+<span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;-log10(p) sex difference&quot;</span><span class="w"> </span><span class="p">,</span>
+<span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">v</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="p">,</span><span class="m">2</span><span class="p">),</span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-1.33</span><span class="p">,</span><span class="m">1.33</span><span class="p">),</span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s">&quot;lightgray&quot;</span><span class="p">)</span>
+
+<span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">points</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="p">[</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">])</span><span class="o">&gt;</span><span class="m">1.33</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[</span><span class="nf">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">])</span><span class="o">&gt;</span><span class="m">1.33</span><span class="w"> </span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span>
+<span class="w">        </span><span class="n">pch</span><span class="o">=</span><span class="m">21</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;darkgreen&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bg</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="nf">points</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="p">[</span><span class="nf">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">])</span><span class="o">&gt;</span><span class="m">2</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[</span><span class="nf">abs</span><span class="p">(</span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">])</span><span class="o">&gt;</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span>
+<span class="w">        </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;darkgreen&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">21</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">bg</span><span class="o">=</span><span class="w"> </span><span class="s">&quot;#abc3b0&quot;</span><span class="w"> </span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<!----
+png(file="vig/docs/imgs/slow3.png",res=120,width=1000,height=400)
+dev.off()
+--->
+
+<p><img alt="img" src="../../imgs/slow3.png" /></p>
+<p>That is, there appear to be nominally significant differences in the
+amplitude of slow oscillations: as positive means "higher in males"
+given the above framing, this implies attenuated negative and positive
+SO peaks in males versus females; further, the effect is more evident
+at parietal and occipital channels, perhaps reflecting either a
+restriction of range in the events (selected) at FZ, and/or sex
+differences in the extent to which SO are more global versus more
+local.</p>
+<h2 id="stage-transitions">Stage transitions</h2>
+<p>Changing gears to look at EEG dynamics around sleep onset in a very simple way,
+here we'll introduce the <em>generic epoch</em> feature of Luna.  This allows epochs to be
+specified based on one or more (possibly manipulated) annotations,
+rather than fixed time intervals.  Here's the code, which we'll break down line-by-line below:</p>
+<div class="codeL highlight"><pre><span></span><code>luna<span class="w"> </span>c.lst<span class="w"> </span>-o<span class="w">  </span>out/trans.db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-s<span class="w">  </span><span class="s1">&#39; ${s=FZ,CZ,PZ,OZ}</span>
+<span class="s1">        HYPNO annot &amp;</span>
+<span class="s1">        HILBERT sig=${s} f=0.5,4 tag=delta tw=0.5 ripple=0.01</span>
+<span class="s1">        HILBERT sig=${s} f=4,8   tag=theta tw=0.5 ripple=0.01</span>
+<span class="s1">        HILBERT sig=${s} f=10,15 tag=sigma tw=0.5 ripple=0.01</span>
+<span class="s1">        ${v=[${s}][_delta,_theta,_sigma]}</span>
+<span class="s1">        ${v=[${v}][_ht_mag]}</span>
+<span class="s1">        MOVING-AVERAGE sig=${v} hw=5</span>
+<span class="s1">        RESAMPLE sig=${v} sr=1</span>
+<span class="s1">        EPOCH annot=h_t2_sleep_onset w=60 </span>
+<span class="s1">        TLOCK  epoch  sig=${v} np=0.5 &#39;</span>
+</code></pre></div>
+<ul>
+<li>
+<p>this analysis is restricted to four midline channels, for
+   simplicity/to speed things up, assigned to the <code>${s}</code> variable</p>
+</li>
+<li>
+<p>we apply the <code>HYPNO</code> command adding the <code>annot</code> option to make Luna attach
+   hypnogram-based annotations to the dataset, as <a href="https://zzz.bwh.harvard.edu/luna/ref/hypnograms/#annotations">described here</a></p>
+</li>
+<li>
+<p>we then use the <a href="https://zzz.bwh.harvard.edu/luna/ref/power-spectra/#hilbert"><code>HILBERT</code>
+   command</a>
+   to apply the filter-Hilbert transform to each channel, for three
+   frequency bands (slow/delta, theta and sigma, set here as
+   <code>f=0.5,4</code>, <code>f=4,8</code> and <code>f=10,15</code>); these commands generate new channels with the instantaneous amplitude (envelope) 
+   in the attached EDF, adding the <code>tag</code> value and <code>_ht_mag</code> to each new channel label, e.g. <code>FZ_delta_ht_mag</code> is the
+   envelope for FZ delta power</p>
+</li>
+<li>
+<p>we now have 12 new channels added to the in-memory EDF (three envelopes for each of four channels);
+   to work with these effectively, we use some Luna syntax to make an <em>expanded list</em>: anything in the form <code>[a,b,c][1,2]</code>
+   is expanded into <code>a1,b1,c1,a2,b2,c2</code>, for example.</p>
+</li>
+<li>
+<p>that is, taking <code>${s}</code> we first append the band tags (i.e. <code>FZ_delta</code>, <code>FZ_sigma</code>, etc) and store this in <code>${v}</code></p>
+</li>
+<li>
+<p>we then append <code>_ht_mag</code> to each of the twelve labels in <code>${v}</code></p>
+</li>
+<li>
+<p>using the new <code>${v}</code> set of signals, we smooth the amplitudes with <code>MOVING-AVERAGE</code></p>
+</li>
+<li>
+<p>for easier plotting, we then resample the instantaneous amplitudes to 1 Hz</p>
+</li>
+<li>
+<p>we then defined <em>epochs</em> based on the previously attached
+   <code>h_t2_sleep_onset</code> annotation, which is a 0-duration marker that
+   represents the start of the first sleep epoch; we add a window (+/-
+   1-minute) around the point, i.e. to span four traditional 30-second
+   epochs, centered around sleep onset</p>
+</li>
+<li>
+<p>finally, we run <code>TLOCK</code> but indicating that the intervals to be
+   extracted at based on the present epochs (here will be just one per
+   person, so now averaging is involved in this particular case), rather
+   than looking to a <em>cache</em> (as in the example above); we also add the <code>np=0.5</code>
+   to effectively normalize each trace to have similar means (of 1), as we're interested
+   here in relative change within each band</p>
+</li>
+<li>
+<p>in other words, this just conveniently extracts and normalizes the
+   power values around sleep onset (as defined by the 30-second
+   traditional staging, at least);</p>
+</li>
+</ul>
+<p>As above, we'll extract the outputs to the file <code>res/trans.1</code>:</p>
+<div class="codeL highlight"><pre><span></span><code>destrat<span class="w"> </span>out/trans.db<span class="w"> </span>+TLOCK<span class="w"> </span>-r<span class="w"> </span>SEC<span class="w"> </span>CH<span class="w"> </span>-v<span class="w"> </span>MD<span class="w"> </span>&gt;<span class="w"> </span>res/trans.1
+</code></pre></div>
+<p>In R, we'll load this file </p>
+<p><div class="codeR highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">luna</span><span class="p">)</span>
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;res/trans.1&quot;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">,</span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="bp">F</span><span class="p">)</span>
+</code></pre></div>
+and calculate the mean normalized power, using the same type of approach as above:
+<div class="highlight"><pre><span></span><code>res &lt;-  tapply( outliers( d$MD )  , list( d$SEC , d$CH )  , mean , na.rm=T )  
+colnames(res)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  &quot;CZ_delta_ht_mag&quot; &quot;CZ_sigma_ht_mag&quot; &quot;CZ_theta_ht_mag&quot;
+  &quot;FZ_delta_ht_mag&quot; &quot;FZ_sigma_ht_mag&quot; &quot;FZ_theta_ht_mag&quot;
+  &quot;OZ_delta_ht_mag&quot; &quot;OZ_sigma_ht_mag&quot; &quot;OZ_theta_ht_mag&quot;
+  &quot;PZ_delta_ht_mag&quot; &quot;PZ_sigma_ht_mag&quot; &quot;PZ_theta_ht_mag&quot;
+</code></pre></div></p>
+<p>That is, <code>res</code> is a matrix of 120 rows (a 120 second window at 1 Hz) by 12 columns (the three band powers for the four channels),
+where each cell is the mean over all 20 individuals.</p>
+<!---
+png(file="vig/docs/imgs/trans1.png" , width=1000, height=600 , res=150 ) 
+dev.off()
+--->
+
+<p>Plotting these means (assigning similar colors to the different
+channels, coloring delta, theta and sigma as navy, darkgreen and orange
+respectively):</p>
+<div class="codeR highlight"><pre><span></span><code><span class="n">pal</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;navy&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s">&quot;orange&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s">&quot;darkgreen&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="p">)</span>
+<span class="n">tx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">SEC</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">60</span><span class="w"> </span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">range</span><span class="p">(</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Time from sleep onset&quot;</span><span class="w"> </span><span class="p">,</span>
+<span class="w">      </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;Normalized band power&quot;</span><span class="w"> </span><span class="p">)</span>
+
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">12</span><span class="p">)</span>
+<span class="w"> </span><span class="nf">lines</span><span class="p">(</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="img" src="../../imgs/trans1.png" /></p>
+<p>Given the small sample there are some inevitable arbitrary/random
+fluctuations (e.g. around +30 seconds) reflecting outliers, but
+otherwise we see a clear trend in which faster frequencies (sigma) are
+muted and slower frequencies progressively increase in power across
+the first couple of epochs of sleep onset. (<em>Note: Naturally, this is
+not presented as an optimal way to study the sleep onset process:
+rather the goal here -- as with the entirety of this walkthrough -- is
+to showcase various Luna commands in a semi-realistic context.</em>)</p>
+<h2 id="summary">Summary</h2>
+<p>Here we've seen how to generate different forms of time-locked
+summaries, based either on cached time-points or annotations.  In the
+latter example, annotations were generated from the HYPNO command to
+reflect sleep onset, but they could of course be anything, attached
+via an external .annot file, etc. Luna also supports peri-event
+spectral analysis as well as simple signal-averaging, but that is
+beyond the scope of this walkthrough.</p>
+<hr />
+<p>In the final section we'll consider methods for <a href="../overlap/">interval-based
+analyses</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

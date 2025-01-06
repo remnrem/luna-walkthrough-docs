@@ -1,0 +1,105 @@
+site_name: 'Luna walkthrough'
+
+site_url: http://zzz.bwh.harvard.edu/luna
+
+site_description: Demonstration of the Luna software
+
+site_author: S. M. Purcell
+
+theme:
+    name: 'material'
+
+    features:
+        - navigation.tabs
+        - navigation.top 
+        - content.code.copy
+
+    palette:
+      primary: 'blue grey'
+      accent: 'blue'
+     
+    highlightjs: false
+
+    shortcuts:
+        help: 191    # ?
+        next: 78     # n
+        previous: 80 # p
+        search: 83   # s
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+
+extra_css:
+  - 'stylesheets/extra.css'
+
+plugins:
+  - search
+  - with-pdf:
+      enabled_if_env: ENABLE_PDF_EXPORT
+      author: luna.remnrem@gmail.com
+      copyright: CC BY-NC-ND 4.0
+      cover: true
+      back_cover: false
+      cover_subtitle: Version 1.0 (28-Sept-204)
+      
+
+nav:
+ - Overview: 'index.md'
+     
+ - Data: 'data.md'
+
+ - 0-Prep: 'prep.md'
+
+ - 1-File QC:
+     - 'Objectives': 'p1/index.md'
+     - '1.1 File validation': 'p1/valid.md'
+     - '1.2 Fixing files': 'p1/filefix.md'
+     - '1.3 Header review': 'p1/hdr.md'
+     - '1.4 EDF record size': 'p1/recsize.md'
+     - '1.5 Channel labels': 'p1/chs.md'
+     - '1.6 Annotation labels': 'p1/anns.md'
+     - '1.7 New project': 'p1/gen.md'
+
+ - 2-Signal QC:
+     - 'Objectives': 'p2/index.md'
+     - '2.1 Gapped EDF+': 'p2/edfd.md'
+     - '2.2 Flat/duplicate channels': 'p2/dupes.md'
+     - '2.3 Signal review': 'p2/stats.md'
+     - '2.4 EEG polarity': 'p2/pol.md'
+     - '2.5 Revised project': 'p2/revised.md'
+
+ - 3-Staging:
+     - 'Objectives': 'p3/index.md'
+     - '3.1 Annotation descriptives': 'p3/annots.md'
+     - '3.2 Staging/hypnograms': 'p3/hypno.md'
+     - '3.3 SOAP': 'p3/soap.md'
+     - '3.4 POPS': 'p3/pops.md'
+    
+ - 4-Artifacts:
+     - 'Objectives': 'p4/index.md'
+     - '4.1 Revised project': 'p4/harm2.md'
+     - '4.2 Interpolation': 'p4/interp.md'
+     - '4.3 Hjorth plots': 'p4/hjorth.md'
+
+ - 5-Analysis:
+     - 'Objectives': 'p5/index.md'
+     - '5.1 Macro-architecture': 'p5/macro.md'
+     - '5.2 Time/frequency analyses': 'p5/tf.md'
+     - '5.3 Ultradian dynamics': 'p5/dynam.md'
+     - '5.4 Connectivity': 'p5/conn.md'
+     - '5.5 Dimension reduction': 'p5/psc.md'
+     - '5.6 NREM transients': 'p5/spso.md'
+     - '5.7 Age prediction': 'p5/pad.md'
+     - '5.8 Linear models': 'p5/assoc.md'
+     - '5.9 Peri-event statistics': 'p5/peri.md'
+     - '5.10 Interval-based analysis': 'p5/overlap.md'
+
+ - 6-Next steps:
+     - 'Index': 'p6/index.md'
+     - 'Canonical signals': 'p6/canonical.md'
+
+ - Reference: 'run-through.md'

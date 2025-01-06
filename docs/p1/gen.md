@@ -1,0 +1,119 @@
+# 1.7. Generating the new sample-list
+
+Now that the issues of heterogeneous [file formats](filefix.md) and
+other conventions (including [EDF record size](recsize.md),
+[channel](chs.md) and [annotation](anns.md) properties) have been
+largely been resolved, we can now move on to look in more detail at
+the actual _information content_ of the dataset.
+
+Specifically, from following the previous steps, we've populated the
+`work/harm1` folder with an EDF and a single `.annot` file for each
+individual:
+
+```{ .sh .codeL }
+ls work/harm1/
+```
+```
+F01.annot	F06.annot	M01.annot	M06.annot
+F01.edf		F06.edf		M01.edf		M06.edf
+F02.annot	F07.annot	M02.annot	M07.annot
+F02.edf		F07.edf		M02.edf		M07.edf
+F03.annot	F08.annot	M03.annot	M08.annot
+F03.edf		F08.edf		M03.edf		M08.edf
+F04.annot	F09.annot	M04.annot	M09.annot
+F04.edf		F09.edf		M04.edf		M09.edf
+F05.annot	F10.annot	M05.annot	M10.annot
+F05.edf		F10.edf		M05.edf		M10.edf
+```
+
+We'll `--build` a sample list for these harmonized files:
+
+```{ .sh .codeL }
+luna --build work/harm1 > harm1.lst
+```
+```
+wrote 20 EDFs to the sample list
+  20 of which had 1 linked annotation files
+```
+
+---
+
+We can confirm that all steps proceeded as expected, e.g. via the `--validate` command again:
+```{ .sh .codeL }
+luna --validate --options slist=harm1.lst
+```
+```
+  validating files in sample list harm1.lst
+
+  all good, no problems detected in 20 observations scanned
+```
+
+Alternatively, the
+[`DESC`](https://zzz.bwh.harvard.edu/luna/ref/summaries/#desc) command
+is useful to check a new project (and will report any issues with
+invalid files by stopping with an error message):
+
+```{ .sh .codeL }
+luna harm1.lst -s DESC
+```
+e.g. for the first individual:
+```
+___________________________________________________________________
+Processing: F01 [ #1 ]
+ duration 03.00.30, 10830s | time 22.00.00 - 04.58.00 | date 01.01.85
+
+ signals: 58 (of 58) selected in an EDF+D file
+  Fp1 | Fp2 | AF3 | AF4 | F7 | F5 | F3 | F1
+  F2 | F4 | F6 | F8 | FT7 | FC5 | FC3 | FC1
+  FC2 | FC4 | FC6 | FT8 | T7 | C5 | C3 | C1
+  C2 | C4 | C6 | T8 | TP7 | CP5 | CP3 | CP1
+  CP2 | CP4 | CP6 | TP8 | P7 | P5 | P3 | P1
+  P2 | P4 | P6 | P8 | PO3 | PO4 | O1 | O2
+  AFZ | FZ | FCZ | CZ | CPZ | PZ | POz | OZ
+  FPZ | EDF Annotations
+  extracting 'EDF Annotations' track from EDF+
+
+ annotations:
+  Arousal (x86) | N1 (x55) | N2 (x361) | N3 (x148)
+  R (x118) | W (x161) | edf_annot (x0)
+
+ variables:
+  eeg=Fp1,Fp2,AF... | generic=EDF Annota... | id=F01
+ ..................................................................
+ CMD #1: DESC
+   options: sig=*
+
+EDF filename      : work/harm1/F01.edf
+ID                : F01
+Header start time : 22.00.00
+Last observed time: 04.58.00
+Duration          : 03:00:30  10830 sec
+Duration (w/ gaps): 06.58.00  25080 sec
+# signals         : 57
+# EDF annotations : 1
+Signals           : Fp1[128] Fp2[128] AF3[128] AF4[128] F7[128] F5[128]
+                    F3[128] F1[128] F2[128] F4[128] F6[128] F8[128]
+                    FT7[128] FC5[128] FC3[128] FC1[128] FC2[128] FC4[128]
+                    FC6[128] FT8[128] T7[128] C5[128] C3[128] C1[128]
+                    C2[128] C4[128] C6[128] T8[128] TP7[128] CP5[128]
+                    CP3[128] CP1[128] CP2[128] CP4[128] CP6[128] TP8[128]
+                    P7[128] P5[128] P3[128] P1[128] P2[128] P4[128]
+                    P6[128] P8[128] PO3[128] PO4[128] O1[128] O2[128]
+                    AFZ[128] FZ[128] FCZ[128] CZ[128] CPZ[128] PZ[128]
+                    POz[128] OZ[128] FPZ[128]
+
+
+___________________________________________________________________
+...processed 1 EDFs, done.
+...processed 1 command set(s),  all of which passed
+-------------------------------------------------------------------
+```
+
+(Note: an EDF annotation channel is present because all EDF+ files
+need at least one `EDF Annotations` channel to hold the time-track.)
+
+---
+
+We can now use the `harm1.lst` when embarking on the [next
+phase](../p2/index.md) of QC.
+
