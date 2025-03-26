@@ -242,12 +242,12 @@ well as `C3-(M1+M2)/2`, etc, as they are effectively equivalent
 here.  Likewise, as matching is case insensitive, `c3` will match the primary and be written as `C3`.
 This means that all these variants seen above will be relabelled as `C3`.
 
-The folder `work/data/aux/` should contain a premade plaintext file
+The folder `work/data/auxiliary/` should contain a premade plaintext file
 called `cmaps` that has the corresponding alias definitions for all
 channels:
 
 ```{ .sh .codeL }
-cat work/data/aux/cmaps 
+cat work/data/auxiliary/cmaps 
 ```
 ```
 alias    Fp1|Fp1-(M1+M2)/2|EEG-Fp1|"Fp1 REF"
@@ -356,7 +356,7 @@ If we additionally _@include_ the `cmaps` alias definitions, we see that the cha
 are now altered on loading. 
 
 ```{ .sh .codeL }
-luna s1.lst @work/data/aux/cmaps id=M09  -s DESC
+luna s1.lst @work/data/auxiliary/cmaps id=M09  -s DESC
 ```
 ```
 ___________________________________________________________________
@@ -389,7 +389,7 @@ Processing: M09 [ #19 ]
 We can also look at the sample rates and physical units of the EEGs.  Re-running the `HEADERS` command with the aliases:
 
 ```{ .sh .codeL }
-luna s1.lst @work/data/aux/cmaps -o out.db -s HEADERS
+luna s1.lst @work/data/auxiliary/cmaps -o out.db -s HEADERS
 ```
 ```{ .sh .codeL }
 destrat out.db +HEADERS -r CH -v SR PDIM | head
@@ -485,7 +485,7 @@ should have been previously created if you followed the [preparation steps](../p
 Handling `M09` separately (note the `skip` option below), here we perform the above steps:
 
 ```{ .sh .codeL }
-luna s1.lst @work/data/aux/cmaps skip=M09 \
+luna s1.lst @work/data/auxiliary/cmaps skip=M09 \
  -s ' RESAMPLE sr=128
       uV
       REFERENCE sig=${eeg} ref=A1,A2
@@ -511,7 +511,7 @@ It will take a minute or two, but hopefully, the above should process 19 of the 
 !!!info "Multi-line commands"
     Note how we've spread the command out on multiple lines.  We could also have written (with `&` delimiting commands instead of new-lines:
     ```{ .sh .codeL }
-    luna s1.lst @work/data/aux/cmaps skip=M09 -s ' RESAMPLE sr=128 & uV & REFERENCE sig=${eeg} ref=A1,A2 & SIGNALS drop=A1,A2 & WRITE edf-dir=work/harm1 '
+    luna s1.lst @work/data/auxiliary/cmaps skip=M09 -s ' RESAMPLE sr=128 & uV & REFERENCE sig=${eeg} ref=A1,A2 & SIGNALS drop=A1,A2 & WRITE edf-dir=work/harm1 '
     ```
     Alternatively, if the file `cmd.txt` contained the script:
     ```
@@ -523,7 +523,7 @@ It will take a minute or two, but hopefully, the above should process 19 of the 
     ```
     then we could write (i.e. _redirecting the file to the standard input stream for Luna_):
     ```{ .sh .codeL }
-    luna s1.lst @work/data/aux/cmaps skip=M09 < cmd.txt
+    luna s1.lst @work/data/auxiliary/cmaps skip=M09 < cmd.txt
     ```
     One advantage of using command files, especially for larger scripts, is that comments
     can be added (lines starting `%`), and it makes scripts more reusable:
@@ -550,7 +550,7 @@ re-reference -- or, as it turns out, change the units or resample, so
 this step only does the channel label mapping:
 
 ```{ .sh .codeL }
-luna s1.lst @work/data/aux/cmaps id=M09   -s WRITE edf-dir=work/harm1
+luna s1.lst @work/data/auxiliary/cmaps id=M09   -s WRITE edf-dir=work/harm1
 ```
 
 Let's check that we have the expected EDFs in the new folder:

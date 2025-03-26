@@ -66,7 +66,7 @@ d <- k$HYPNO$BL
 and then merge this table with the demographic data:
 
 ```{ .R .codeR }
-p <- read.table("work/data/aux/master.txt", header=T, stringsAsFactors=F)
+p <- read.table("work/data/auxiliary/master.txt", header=T, stringsAsFactors=F)
 d <- merge( d , p , by="ID" ) 
 ```
 

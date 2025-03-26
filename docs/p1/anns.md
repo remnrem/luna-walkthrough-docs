@@ -200,7 +200,7 @@ are case-insentive.
 
 Using the same `primary|alt1|alt2|...` form, we'll make a two-column
 tab-delimited file (which should already exist in the demonstration
-folder: `work/data/aux/amaps`) to read as follows:
+folder: `work/data/auxiliary/amaps`) to read as follows:
 
 ```
 remap   N1|1|S1|SlpStg1
@@ -219,7 +219,7 @@ We can check this works as expected (ignoring the `Arousal` annotation in the ou
 we re-run `ANNOTS` but including the remapping definitions from `amaps`:
 
 ```{ .sh .codeL }
-luna s1.lst -o out.db @work/data/aux/amaps -s ANNOTS
+luna s1.lst -o out.db @work/data/auxiliary/amaps -s ANNOTS
 ```
 and then we extract, tabulate and count the class labels across all 20 individuals:
 ```{ .sh .codeL }
@@ -250,7 +250,7 @@ which ensures a consistent (.annot) format is applied across
 recordings:
 
 ```{ .sh .codeL }
-luna s1.lst @work/data/aux/amaps -o out.db -s ' WRITE-ANNOTS file=work/harm1/^.annot '
+luna s1.lst @work/data/auxiliary/amaps -o out.db -s ' WRITE-ANNOTS file=work/harm1/^.annot '
 ```
 
 (As a reminder, the `^` character swaps in the ID of that dataset; as

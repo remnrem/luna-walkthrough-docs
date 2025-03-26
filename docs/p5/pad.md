@@ -13,7 +13,7 @@ walkthrough, using the linked mastoid data will be sufficient.
 ## Applying the basic model
 
 The model files are bundled with the walkthrough data, in the
-`work/data/aux/models/` folder:
+`work/data/auxiliary/models/` folder:
 
  - a Luna script that derives all 13 features and applies the model
 
@@ -40,7 +40,7 @@ You can review the steps in `m1-adult-age-luna.txt`:
 
 The script expects the following variables to be defined:
 
- - `${age}` which gives the observed age (in years) of each individual; these are defined in `work/data/aux/master.txt`
+ - `${age}` which gives the observed age (in years) of each individual; these are defined in `work/data/auxiliary/master.txt`
   and so we pass that file to Luna via the `vars` special command option, so Luna is able to define individual-specific variables
   (i.e. that are substituted in the script each time it is run for a given person)
 
@@ -54,9 +54,9 @@ The script expects the following variables to be defined:
 We can apply this model to all 20 individuals by executing the following:
 
 ```{ .sh .codeL }
-luna c.lst vars=work/data/aux/master.txt cen=C3,C4 th=3 \
- mpath=work/data/aux/models/ \
- -o out/pad.db < work/data/aux/models/m1-adult-age-luna.txt
+luna c.lst vars=work/data/auxiliary/master.txt cen=C3,C4 th=3 \
+ mpath=work/data/auxiliary/models/ \
+ -o out/pad.db < work/data/auxiliary/models/m1-adult-age-luna.txt
 ```
 
 We'll save the key predictions into `res/pad.base`:

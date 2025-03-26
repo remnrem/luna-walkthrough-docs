@@ -100,7 +100,7 @@ irasa <- read.table("res/spectral.irasa",header=T,stringsAsFactors=F)
 and merging with the demographic data:
 
 ```{ .R .codeR }
-p <- read.table("work/data/aux/master.txt",header=T, stringsAsFactors=F)
+p <- read.table("work/data/auxiliary/master.txt",header=T, stringsAsFactors=F)
 welch <- merge( welch , p , by="ID" )
 mtm   <- merge( mtm , p , by="ID" )
 irasa <- merge( irasa , p , by="ID" )

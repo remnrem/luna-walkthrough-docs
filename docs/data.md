@@ -30,7 +30,7 @@ GRINS dataset is as follows:
 
  - the 10 females have assigned IDs `F01` to `F10`; the 10 males have assigned IDs `M01` to `M10`
 
- - the tab-separated file `orig/aux/master.txt` contains the age (years) of each individual (27 - 45 years); the `orig/aux/` folder
+ - the tab-separated file `luna-grins/auxiliary/master.txt` contains the age (years) of each individual (27 - 45 years); the `luna-grins/auxiliary/` folder
  also contains some other helper files used throughout the demonstration
 
 This reduced subset of the original GRINS dataset is labelled `v1` in this demonstration. 

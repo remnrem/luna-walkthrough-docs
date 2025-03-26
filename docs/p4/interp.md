@@ -27,12 +27,12 @@ When we know, _a priori_ or based on other
 analyses, that a channel is bad, we can instruct the interpolation
 method to interpolate it no matter what.  To aid this step, given the
 observations made in prior QC steps, we've created a file
-`aux/badchs.txt` which is a `vars` (individual-variable) format file
+`auxiliary/badchs.txt` which is a `vars` (individual-variable) format file
 that defines a variable `${badchs}` for each individual,
 i.e. reflecting the above three observations.
 
 ```{ .sh .codeL }
-cat work/data/aux/badchs.txt
+cat work/data/auxiliary/badchs.txt
 ```
 ```
 ID	badch
@@ -94,7 +94,7 @@ statistics pre- and post-interpolation.
 
 
 ```{ .sh .codeL }
-luna harm2.lst vars=orig/aux/badchs.txt \
+luna harm2.lst vars=luna-grins/auxiliary/badchs.txt \
  -o int-out.db \
  -s ' SIGNALS drop=A1,A2
       TAG INTERPOLATE/0

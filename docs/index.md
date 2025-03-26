@@ -1,4 +1,4 @@
-# Luna walkthrough (v1.2 Dec-2024)
+# Luna walkthrough (v1.3 Mar-2025)
 
 ## Goals
 

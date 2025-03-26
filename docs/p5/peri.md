@@ -185,7 +185,7 @@ As well as looking at whole-sample average waveforms, one could easily look at
 group differences in this dataset.  We'll merge in demographic data:
 
 ```{ .R .codeR }
-phe <- read.table( "work/data/aux/master.txt",header=T,stringsAsFactors=F)
+phe <- read.table( "work/data/auxiliary/master.txt",header=T,stringsAsFactors=F)
 d <- merge( d , phe , by="ID" )
 ```
 We'll create two separate data frames from males and females respectively (`dm` and `df`):

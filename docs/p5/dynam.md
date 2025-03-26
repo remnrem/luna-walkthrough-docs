@@ -151,7 +151,7 @@ homeostatic sleep pressure.
 Test, and control for age/sex, we'll merge in the demographic data:
 
 ```{ .R .codeR }
-d <- merge( d ,read.table( "work/data/aux/master.txt",header=T,stringsAsFactors=F), by="ID" )
+d <- merge( d ,read.table( "work/data/auxiliary/master.txt",header=T,stringsAsFactors=F), by="ID" )
 ```
 
 We can then apply simple linear models, confirming that the reduction

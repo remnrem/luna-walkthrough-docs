@@ -7,7 +7,7 @@ step](soap.md) one would instead need to generate stage labels per
 epoch.  Luna offers the POPS stager, which can be (re)trained on
 various different montages and using different feature sets. Here we
 focus on the default single central EEG adult model (called `s2`),
-which is included in the `aux/` folder of this walkthrough. For this
+which is included in the `auxiliary/` folder of this walkthrough. For this
 example, we'll only work with the `s2` model, which was trained on
 over 3000 central EEG leads from [NSRR](https://sleepdata.org)
 recordings.
@@ -71,7 +71,7 @@ We'll use `s.lst` that points to the `v1` data and
 tell `RUN-POPS` to re-reference to contra-lateral mastoids (i.e. to use C4-A1):
 
 ```{ .sh .codeL }
-luna s.lst -o out.db -s RUN-POPS sig=C4 ref=A1 path=work/data/aux/pops
+luna s.lst -o out.db -s RUN-POPS sig=C4 ref=A1 path=work/data/auxilary/pops
 ```
 
 This runs quite quickly: on this laptop, for all 20 individuals the
@@ -170,7 +170,8 @@ channels:
 
 ```{ .sh .codeL }
 luna s.lst -o out.db \
- -s ' RUN-POPS sig=C4,CP4,FC4,C3,CP3,FC3 ref=A1,A1,A1,A2,A2,A2 path=work/data/aux/pops args="mean" ' 
+ -s ' RUN-POPS sig=C4,CP4,FC4,C3,CP3,FC3 ref=A1,A1,A1,A2,A2,A2
+               path=work/data/auxiliary/pops args="mean" ' 
 ```
 
 Here `sig` and `ref` take a vector of channels, where the

@@ -146,7 +146,7 @@ Using `GPA` is a a two-step procedure:
 ### `--gpa-prep`
 
 Along with the spectral data in `res/spectral.welch.n2.allchs`,
-demographic data are in `work/data/aux/master.txt`.
+demographic data are in `work/data/auxiliary/master.txt`.
 
 There are two ways to specify these _inputs_ (datasets) for `GPA`:
 either on the command-line as a option (`inputs`), or via a separate
@@ -162,7 +162,7 @@ defining the dependent variable (`dvs`) and independent variable
 
 ```{ .sh .codeL }
 dvs="res/spectral.welch.n2.allchs|psd|CH|F"
-ivs="work/data/aux/master.txt|demo"
+ivs="work/data/auxiliary/master.txt|demo"
 ```
 
 Note that after the filename, we specify a _group_ label
@@ -235,7 +235,7 @@ The following output is sent to the console log on running the above command:
 ```
   preparing inputs...
   ++ res/spectral.welch.n2.allchs: read 20 indivs, 1 base vars --> 4503 expanded vars
-  ++ work/data/aux/master.txt: read 20 indivs, 2 base vars --> 2 expanded vars
+  ++ work/data/auxiliary/master.txt: read 20 indivs, 2 base vars --> 2 expanded vars
 
   checking for too much missing data ('retain-cols' to skip; 'verbose' to list dropped vars)
   nothing to check (n-rep and n-prop set to 0)
@@ -738,7 +738,7 @@ sleep, whereas the parietal delta difference is not (steps not shown):
 # REM analysis 
 
 f1="res/spectral.welch.rem.allchs|psd|CH|F"
-f2="work/data/aux/master.txt|demo"
+f2="work/data/auxiliary/master.txt|demo"
 
 echo " dat=gpa/b.rem.spec
        inputs=${f1},${f2}
@@ -897,7 +897,7 @@ not convenient to type a long list of IDs on the command line, if we
 have them stored in a text file we can use Luna's `@{include}` syntax
 to read them (one entry/ID per row) and make a comma-delimited list
 implicitly.  In this case, they are in the files `male.ids` and
-`females.ids` in the `aux/` folder.
+`females.ids` in the `auxiliary/` folder.
 
 We can get a list of the 69 expanded significant variables as follows: (i.e. column 3 is the `VAR` name, column 7 is `EMPADJ`):
 ```{ .sh .codeL }
@@ -934,13 +934,13 @@ We can then pass this to the `lvars` option using the same `@{include}` syntax, 
 ```
 luna --gpa -o females.db \
      --options dat=gpa/b.n2.spec stats \
-               lvars=@{hits.txt} inc-ids=@{work/data/aux/female.ids}
+               lvars=@{hits.txt} inc-ids=@{work/data/auxiliary/female.ids}
 ```
 And then for males:
 ```
 luna --gpa -o males.db \
      --options dat=gpa/b.n2.spec stats \
-               lvars=@{hits.txt} inc-ids=@{work/data/aux/male.ids}
+               lvars=@{hits.txt} inc-ids=@{work/data/auxiliary/male.ids}
 ```
 
 These can be extracted for plotting etc, via `destrat males.db +GPA -r
@@ -968,7 +968,7 @@ procedure, whereby we perform tests directly on the text input file(s):
 ```{ .sh .codeL }
 luna --cpt -o out/cpt-n2-spec.db \
      --options dv-file=res/spectral.welch.n2.allchs dv=PSD \
-               iv-file=work/data/aux/master.txt iv=male covar=age \
+               iv-file=work/data/auxiliary/master.txt iv=male covar=age \
                th-freq=0.5 th-spatial=0.5 th-cluster=3 \
                nreps=10000
 ```
@@ -1019,7 +1019,7 @@ Running this also takes about 8 seconds to do 10,000 replicates and
 clustering; it gives the following output to the console:
 
 ```
-  read 20 observations from work/data/aux/master.txt (of total 20 data rows)
+  read 20 observations from work/data/auxiliary/master.txt (of total 20 data rows)
   reading metrics from res/spectral.welch.n2.allchs
   converting input files to a single matrix
   found 20 rows (individuals) and 4503 columns (features)
@@ -1199,7 +1199,7 @@ The full plot for REM is:
 
 luna --cpt -o out/cpt-rem-spec.db --options nreps=10000 \
  dv-file=res/spectral.welch.rem.allchs dv=PSD \
- iv-file=work/data/aux/master.txt iv=male covar=age \
+ iv-file=work/data/auxiliary/master.txt iv=male covar=age \
  th-freq=0.5 th-spatial=0.5 th-cluster=3
 
 destrat out/cpt-rem-spec.db +CPT -r K
@@ -1279,7 +1279,7 @@ An example is simplest: for the case above where the `inputs` were passed via th
 
  - `res/spectral.welch.n2.allchs|psd|CH|F`
 
- - `work/data/aux/master.txt|demo`
+ - `work/data/auxiliary/master.txt|demo`
 
 The equivalent `specs.json` file would be: 
 
@@ -1287,7 +1287,7 @@ The equivalent `specs.json` file would be:
 {
   "inputs": [
     {
-      "file": "work/data/aux/master.txt",
+      "file": "work/data/auxiliary/master.txt",
       "group": "demo",
       "vars": [ "male", "age" ]
     },
@@ -1309,7 +1309,7 @@ and adjust it, as it likely won't need to change much when reused in different
 analyses.
 
 For our application, the full `specs.json` file is in
-`work/data/aux/specs.json` and you can also view it in full
+`work/data/auxiliary/specs.json` and you can also view it in full
 [here](specs.json). (Depending on your browser, it will likely open
 this link as a special JSON file, but you should be able to view its
 raw data also.)
@@ -1322,16 +1322,16 @@ With the datasets described in `specs.json`, we can now make the binary file and
 
 ```{ .sh .codeL }
 luna --gpa-prep --options dat=gpa/b.dat \
-                          spec=work/data/aux/specs.json > gpa/manifest
+                          spec=work/data/auxiliary/specs.json > gpa/manifest
 ```
 
 This should give the following output (scan this carefully when
 running, as it will note if certain files could not be found, etc).
 
 ```
-  parsing orig/aux/specs.json
+  parsing work/data/auxiliary/specs.json
   reading file specifications ('inputs') for 19 files:
-   work/data/aux/master.txt ( group = demo ): 
+   work/data/auxiliary/master.txt ( group = demo ): 
     expecting 0 factors, extracting 2 var(s)
    res/hypno.base ( group = hypno ): 
     expecting 0 factors, extracting 11 var(s)
@@ -1389,7 +1389,7 @@ running, as it will note if certain files could not be found, etc).
   ++ res/spso.coupl: read 20 indivs, 4 base vars --> 456 expanded vars
   ++ res/spso.slowosc: read 20 indivs, 8 base vars --> 456 expanded vars
   ++ res/spso.spindles: read 20 indivs, 6 base vars --> 684 expanded vars
-  ++ work/data/aux/master.txt: read 20 indivs, 2 base vars --> 2 expanded vars
+  ++ work/data/auxiliary/master.txt: read 20 indivs, 2 base vars --> 2 expanded vars
 
   checking for too much missing data ('retain-cols' to skip; 'verbose' to list dropped vars)
   requiring at least n-req=5 non-missing obs (as a proportion, at least n-prop=0.05 non-missing obs)
@@ -2154,7 +2154,7 @@ helper file previously used to help ordering channels by the antero-posterior
 axis:
 
 ```{ .r .codeR }
-clocs <- read.table( "work/data/aux/clocs"  ,header=T , stringsAsFactors=F ) 
+clocs <- read.table( "work/data/auxiliary/clocs"  ,header=T , stringsAsFactors=F ) 
 s$CH <- toupper( s$CH ) 
 s <- merge( s , clocs[ , c("CH","N" ) ] , by="CH" ) 
 chs <- unique( s$CH[ order( s$N.y ) ] )
@@ -2304,7 +2304,7 @@ Extracting the group means for males and females from the binary file:
 
 ```{ .sh .codeL }
 luna --gpa --options dat=gpa/b.dat stats \
-                     lvars=DIFF inc-ids=@{work/data/aux/male.ids}
+                     lvars=DIFF inc-ids=@{work/data/auxiliary/male.ids}
 ```
 ```
 GPA    VAR/DIFF    .    MEAN    2.07196
@@ -2314,7 +2314,7 @@ GPA    VAR/DIFF    .    NOBS         10
 
 ```{ .sh .codeL }
 luna --gpa --options dat=gpa/b.dat stats \
-                     lvars=DIFF inc-ids=@{work/data/aux/female.ids} 
+                     lvars=DIFF inc-ids=@{work/data/auxiliary/female.ids} 
 ```
 ```
 GPA    VAR/DIFF    .    MEAN   -6.21103
@@ -2403,11 +2403,11 @@ versus REM:
 
 ```{ .sh .codeL }
 awk '  NR == 1 { print $0,"N2" }  \
-       NR != 1 { print "n2_"$0,"1" } ' OFS="\t" work/data/aux/master.txt > res/demo-nr-rem.txt
+       NR != 1 { print "n2_"$0,"1" } ' OFS="\t" work/data/auxiliary/master.txt > res/demo-nr-rem.txt
 ```
 
 ```{ .sh .codeL }
-awk ' NR != 1 { print "r_"$0,"0" } ' OFS="\t" work/data/aux/master.txt >> res/demo-nr-rem.txt
+awk ' NR != 1 { print "r_"$0,"0" } ' OFS="\t" work/data/auxiliary/master.txt >> res/demo-nr-rem.txt
 ```
 
 This file now has 40 "observations":

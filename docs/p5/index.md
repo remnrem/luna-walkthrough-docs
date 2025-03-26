@@ -71,15 +71,15 @@ data](../data.md#manipulated-data-v2)), you can run the following to
 generate the `c.lst` (cleaned sample list) that will be used in the
 analytic steps here.
 
+
 This still assumes you've already copied the
-`orig/v1/data/aux` folder to `work/` and that
-`orig/` is still in your current working directory, as described in 
-[this preparatory step](../prep.md).
+`luna-grins/auxiliary` folder to `work/data/`
+as described in [this preparatory step](../prep.md).
 
 __Build a `v1` sample list (`s.lst`)__
 
 ```{ .sh .codeL }
-luna --build orig/v1/edfs orig/v1/annots/ > s.lst
+luna --build luna-grins/v1/edfs luna-grins/v1/annots/ > s.lst
 ```
 
 __Re-referencing and interpolation__
@@ -97,7 +97,7 @@ This takes just under a minute per subject to complete, so set it
 running and grab a coffee:
  
 ```{ .sh .codeL }
-luna s.lst vars=orig/aux/badchs.txt \
+luna s.lst vars=luna-grins/auxiliary/badchs.txt \
  -o cheat.db \
  -s ' REFERENCE sig=${eeg} ref=A1,A2
       SIGNALS drop=A1,A2

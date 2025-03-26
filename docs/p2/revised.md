@@ -55,39 +55,41 @@ data (note: up until this point, we haven't looked at any of these
 _original_ data before):
 
 ```{ .sh .codeL }
-luna --build orig/v1/edfs orig/v1/annots > s.lst
+luna --build luna-grins/v1/edfs luna-grins/v1/annots > s.lst
 ```
 ```{ .sh .codeL }
 cat s.lst
 ```
 ```
-F01	orig/v1/edfs/F01.edf	orig/v1/annots/F01.annot
-F02	orig/v1/edfs/F02.edf	orig/v1/annots/F02.annot
-F03	orig/v1/edfs/F03.edf	orig/v1/annots/F03.annot
-F04	orig/v1/edfs/F04.edf	orig/v1/annots/F04.annot
-F05	orig/v1/edfs/F05.edf	orig/v1/annots/F05.annot
-F06	orig/v1/edfs/F06.edf	orig/v1/annots/F06.annot
-F07	orig/v1/edfs/F07.edf	orig/v1/annots/F07.annot
-F08	orig/v1/edfs/F08.edf	orig/v1/annots/F08.annot
-F09	orig/v1/edfs/F09.edf	orig/v1/annots/F09.annot
-F10	orig/v1/edfs/F10.edf	orig/v1/annots/F10.annot
-M01	orig/v1/edfs/M01.edf	orig/v1/annots/M01.annot
-M02	orig/v1/edfs/M02.edf	orig/v1/annots/M02.annot
-M03	orig/v1/edfs/M03.edf	orig/v1/annots/M03.annot
-M04	orig/v1/edfs/M04.edf	orig/v1/annots/M04.annot
-M05	orig/v1/edfs/M05.edf	orig/v1/annots/M05.annot
-M06	orig/v1/edfs/M06.edf	orig/v1/annots/M06.annot
-M07	orig/v1/edfs/M07.edf	orig/v1/annots/M07.annot
-M08	orig/v1/edfs/M08.edf	orig/v1/annots/M08.annot
-M09	orig/v1/edfs/M09.edf	orig/v1/annots/M09.annot
-M10	orig/v1/edfs/M10.edf	orig/v1/annots/M10.annot
+F01	luna-grins/v1/edfs/F01.edf	luna-grins/v1/annots/F01.annot
+F02	luna-grins/v1/edfs/F02.edf	luna-grins/v1/annots/F02.annot
+F03	luna-grins/v1/edfs/F03.edf	luna-grins/v1/annots/F03.annot
+F04	luna-grins/v1/edfs/F04.edf	luna-grins/v1/annots/F04.annot
+F05	luna-grins/v1/edfs/F05.edf	luna-grins/v1/annots/F05.annot
+F06	luna-grins/v1/edfs/F06.edf	luna-grins/v1/annots/F06.annot
+F07	luna-grins/v1/edfs/F07.edf	luna-grins/v1/annots/F07.annot
+F08	luna-grins/v1/edfs/F08.edf	luna-grins/v1/annots/F08.annot
+F09	luna-grins/v1/edfs/F09.edf	luna-grins/v1/annots/F09.annot
+F10	luna-grins/v1/edfs/F10.edf	luna-grins/v1/annots/F10.annot
+M01	luna-grins/v1/edfs/M01.edf	luna-grins/v1/annots/M01.annot
+M02	luna-grins/v1/edfs/M02.edf	luna-grins/v1/annots/M02.annot
+M03	luna-grins/v1/edfs/M03.edf	luna-grins/v1/annots/M03.annot
+M04	luna-grins/v1/edfs/M04.edf	luna-grins/v1/annots/M04.annot
+M05	luna-grins/v1/edfs/M05.edf	luna-grins/v1/annots/M05.annot
+M06	luna-grins/v1/edfs/M06.edf	luna-grins/v1/annots/M06.annot
+M07	luna-grins/v1/edfs/M07.edf	luna-grins/v1/annots/M07.annot
+M08	luna-grins/v1/edfs/M08.edf	luna-grins/v1/annots/M08.annot
+M09	luna-grins/v1/edfs/M09.edf	luna-grins/v1/annots/M09.annot
+M10	luna-grins/v1/edfs/M10.edf	luna-grins/v1/annots/M10.annot
 ```
 
 Extracting and processing just these three files __to overwrite the existing files in `harm1` for these four people only__: note the `^` is
 swapped out for the ID in the script below for `WRITE-ANNOTS`:
 
 ```{ .sh .codeL }
-luna s.lst @work/data/aux/cmaps @work/data/aux/amaps id=F01,F05,F10,M10 \
+luna s.lst id=F01,F05,F10,M10 \
+     @work/data/auxiliary/cmaps \
+     @work/data/auxiliary/amaps \
  -s ' RESAMPLE sr=128 & uV
       REFERENCE sig=${eeg} ref=A1,A2
       SIGNALS drop=A1,A2

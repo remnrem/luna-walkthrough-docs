@@ -65,48 +65,53 @@ dataset](http://sleepdata.org/datasets/luna-grins/)
 
 After getting access and downloading these data (potentially
 extracting the contents of the archive), you should see a single
-folder entitled `orig/`, with three sub-folders, `v1`, `v2` and `aux`:
-The files in `aux/` are used at various places in the walkthrough and
-will be described at that point.  Not all files in `aux` are listed
+folder entitled `luna-grins/`, with three sub-folders, `v1`, `v2` and `auxiliary`:
+The files in `auxiliary/` are used at various places in the walkthrough and
+will be described at that point.  Not all files in `auxiliary` are listed
 here, only some key ones.
 
 | Folder | Contents |
 |----|-----|
-| `orig/v1` | _Original_ version of the data |
-| `orig/v1/edfs` | _Original_ EDFs |
-| `orig/v1/annots` | _Original_ annotation files |
+| `luna-grins/v1` | _Original_ version of the data |
+| `luna-grins/v1/edfs` | _Original_ EDFs |
+| `luna-grins/v1/annots` | _Original_ annotation files |
 |||
-| `orig/v2` | _Manipulated_ version of the data |
-| `orig/v2/edfs` | _Manipulated_ EDFs |
-| `orig/v2/annots` | _Manipulated_ annotation files |
+| `luna-grins/v2` | _Manipulated_ version of the data |
+| `luna-grins/v2/edfs` | _Manipulated_ EDFs |
+| `luna-grins/v2/annots` | _Manipulated_ annotation files |
 | | |
-| `orig/aux/` | _Auxiliary datafiles_ used in the walkthrough | 
-| `orig/aux/master.txt` | Basic demographic information (age, sex) |
-| `orig/aux/amaps`      | Mapping file for annotations |
-| `orig/aux/cmaps`      | Mapping file for channels |
-| `orig/aux/badchs.txt` | List of channels to impute |
-| `orig/aux/clocs`      | Channel location information |
+| `luna-grins/auxiliary/` | _Auxiliary datafiles_ used in the walkthrough | 
+| `luna-grins/auxiliary/master.txt` | Basic demographic information (age, sex) |
+| `luna-grins/auxiliary/amaps`      | Mapping file for annotations |
+| `luna-grins/auxiliary/cmaps`      | Mapping file for channels |
+| `luna-grins/auxiliary/badchs.txt` | List of channels to impute |
+| `luna-grins/auxiliary/clocs`      | Channel location information |
 | | |
-| `orig/aux/models/` | Subfolder with age-prediction model files |
-| `orig/aux/pops/` | Subfolder with POPS model files |
+| `luna-grins/auxiliary/models/` | Subfolder with age-prediction model files |
+| `luna-grins/auxiliary/pops/` | Subfolder with POPS model files |
 
 
 
 ## Project set-up
 
-We assume all analyses occur in a working folder that contains the above `orig/` folder
-as well as a folder named `work`; you can create this from the shell:
+We assume all analyses occur in a working folder that contains the
+above `luna-grins/` folder as well as a folder named `work/`; you can
+create this from the shell:
 
 ```{ .sh .codeL }
 mkdir -p work/data work/harm1 work/harm2 work/clean
 ```
+
+This should result in the following directory structure: all analyses/paths will be specified
+relative to the _current folder_:
+
 ```
    ./ (current folder)
    |
-   |---> orig/
+   |---> luna-grins/
    |      |---> v1/
    |      |---> v2/
-   |      |---> aux/
+   |      |---> auxiliary/
    |
    |---> work/
           |---> data/
@@ -119,7 +124,7 @@ As created above, `work/` will contain four sub-folders, which we'll use to
 store different iterations of the dataset as it goes through quality
 control (QC):
 
- - `data`: a simple copy of the original folder `orig/v2` (i.e. the _manipulated_ original files)
+ - `data`: a simple copy of the original folder `luna-grins/v2` (i.e. the _manipulated_ original files)
 
  - `harm1`: new EDFs and annotations created that are harmonized for basic properties (file format, harmonized labels, etc), based on following [_step 1_](p1/index.md) of this demonstration
 
@@ -128,21 +133,21 @@ control (QC):
  - `clean`: a final, analysis-ready cleaned dataset, following epoch-level artifact correction as described in [_step 4_](p4/index.md) of this demonstration
 
 To follow the walkthorugh, commands should be executed in the
-working (_current folder_ above) that contains both `orig/` and `data/`.
+working (_current folder_ above) that contains both `luna-grins/` and `data/`.
 
 Now we'll populate the new `work/data/` folder with the core elements
-needed from `orig/v2`, here listing out the folders/files explicitly
+needed from `luna-grins/v2`, here listing out the folders/files explicitly
 (this step may take half a minute or so):
 
 ```{ .sh .codeL }
-cp -r orig/v2/edfs orig/v2/annots orig/aux work/data/
+cp -r luna-grins/v2/edfs luna-grins/v2/annots luna-grins/auxiliary work/data/
 ```
 
 ```{ .sh .codeL }
 ls -R work/data
 ```
 ```
-annots	aux	edfs
+annots	auxiliary	edfs
 
 work/data/annots:
 F01.annot	F05.annot	F09.annot	M03.tsv		M07.eannot
@@ -150,17 +155,17 @@ F02.annot	F06.annot	F10.annot	M04.tsv		M08.eannot
 F03.annot	F07.annot	M01.csv		M05.eannot	M09.xml
 F04b.annot	F08.annot	M02.csv		M06.eannot	M10.xml
 
-work/data/aux:
+work/data/auxiliary:
 amaps			female.ids		models
 badchs.txt		file.txt		n106.psd.n2.proj
 clocs			lm.sigs			pops
 cm.sigs			male.ids		specs.json
 cmaps			master.txt		step5.sh
 
-work/data/aux/models:
+work/data/auxiliary/models:
 m1-adult-age-data.txt		m1-adult-age-features.txt	m1-adult-age-luna.txt
 
-work/data/aux/pops:
+work/data/auxiliary/pops:
 s2.conf		s2.priors	s2.rspec2.svd	s2.spec2a.svd
 s2.ftr		s2.ranges	s2.spec1.svd	s2.spec2b.svd
 s2.mod		s2.rspec1.svd	s2.spec2.svd	s2.spec2c.svd
@@ -173,11 +178,11 @@ F02.edf	F04.edf	F06.edf	F08.edf	F10.edf	M02.edf	M04.edf	M06.edf	M08.edf	M10.edf
 
 !!!info "Retrieving the originals"
     All QC steps (steps 1-4 of this
-    demonstration are based on the _manipulated_ datasets (`orig/v2`).
+    demonstration are based on the _manipulated_ datasets (`luna-grins/v2`).
     The analysis section (step 5) is based on the _cleaned_ data from
     these steps (which is expected to reside in `work/clean`).  Note
     that occasionally we'll retrieve data from the original
-    (pre-manipulation) versions of the data (`orig/v1`), as needed.
+    (pre-manipulation) versions of the data (`luna-grins/v1`), as needed.
     For example, for truncated EDFs, or scrambled stage annotations,
     the QC process can _detect_ there is a problem, but naturally it
     cannot magically fix those problems.  Here, we'll pull the
@@ -284,7 +289,7 @@ figure out the answers.
     You can just look at the commands
     below to check you understand them.  If you want to actually
     execute them too, the file `file.txt` is in the original
-    walkthrough folders (`orig/aux/file.txt`).  Alternatively, you can
+    walkthrough folders (`luna-grins/auxiliary/file.txt`).  Alternatively, you can
     make one yourself with a text editor (it should use tabs to
     separate columns for the steps to play out as below).
 
@@ -296,9 +301,9 @@ _Move into it_
 ```{ .sh .codeL }
 cd tmp1
 ```
-_Copy a pre-existing file from a different folder (`orig/aux/`) in the parent folder (`../`) of this current folder (`.`)_
+_Copy a pre-existing file from a different folder (`luna-grins/auxiliary/`) in the parent folder (`../`) of this current folder (`.`)_
 ```{ .sh .codeL }
-cp ../orig/aux/file.txt .
+cp ../luna-grins/auxiliary/file.txt .
 ```
 _Confirm that `file.txt` now exists within the current (`tmp1`) folder_
 ```{ .sh .codeL }

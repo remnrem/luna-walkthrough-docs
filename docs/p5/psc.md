@@ -597,7 +597,7 @@ the solution, so that other (new) individuals can be scored (projected into) thi
 
 ```
 # luna --psc -o out/n106-psc-psd-n2.db \
-#      --options spectra=n106/psd.n2 v=PSD nc=10 proj=work/data/aux/n106/psd.n2.proj
+#      --options spectra=n106/psd.n2 v=PSD nc=10 proj=work/data/auxiliary/n106/psd.n2.proj
 ```
 <!---
 
@@ -679,7 +679,7 @@ luna c.lst  -o out/psc-psd-n2-proj106.db \
        CHEP epochs & RE preserve-cache
        MASK random=50 & RE preserve-cache
        PSD sig=${eeg} dB spectrum min=0.5 max=20 
-       PSC proj=work/data/aux/n106.psd.n2.proj cache=c1 norm '
+       PSC proj=work/data/auxiliary/n106.psd.n2.proj cache=c1 norm '
 ```
 
 Of note

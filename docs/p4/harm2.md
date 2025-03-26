@@ -85,7 +85,7 @@ issues also, but we'll ignore that for now and use the available
 manual staging in this walkthrough.
 
 ```{ .sh .codeL }
-cp orig/v1/annots/* work/harm2/
+cp luna-grins/v1/annots/* work/harm2/
 ```
 
 ## Sample list
@@ -95,7 +95,7 @@ matching `.annot` files.
 
  - 16 EDFs are copied directly from `work/harm1`, whereas 4 were updated (i.e. rescaled, flipped EEGs, channel added)
 
- - 20 annotation files have been copied from the original `v1` (unmanipulated) dataset (from `orig/v1/annots/`) 
+ - 20 annotation files have been copied from the original `v1` (unmanipulated) dataset (from `luna-grins/v1/annots/`) 
  
 For the pipeline in this walkthrough, the only remaining QC step is
 to apply epoch-level interpolation, as [previously described

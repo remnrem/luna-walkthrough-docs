@@ -233,10 +233,10 @@ during file transfer, etc).__
 In this walkthrough, we'll take the approach of "re-exporting" the
 EDF, i.e. going to the original `v1` dataset: there are some
 circumstances where it is always best to go back to the source, if
-possible. This involves copying the original files from `orig/v1/edfs/`:
+possible. This involves copying the original files from `luna-grins/v1/edfs/`:
 
 ```{ .sh .codeL }
-cp orig/v1/edfs/F06.edf orig/v1/edfs/F08.edf work/data/edfs/
+cp luna-grins/v1/edfs/F06.edf luna-grins/v1/edfs/F08.edf work/data/edfs/
 ```
 
 
