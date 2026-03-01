@@ -33,18 +33,14 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
+extra_javascript:
+  - 'javascripts/extra.js'
+
 extra_css:
   - 'stylesheets/extra.css'
 
 plugins:
   - search
-  - with-pdf:
-      enabled_if_env: ENABLE_PDF_EXPORT
-      author: luna.remnrem@gmail.com
-      copyright: CC BY-NC-ND 4.0
-      cover: true
-      back_cover: false
-      cover_subtitle: Version 1.0 (28-Sept-204)
       
 
 nav:

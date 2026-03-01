@@ -527,7 +527,7 @@ destrat out/dynam.db +PSD -r CH VAR B QD   > res/dynam.band.1
 destrat out/dynam.db +PSD -r CH VAR B Q QD > res/dynam.band.2
 ```
 
-[Connectivity (PSI) metrics](p5/psi.md#phase-slope-index-psi):
+[Connectivity (PSI) metrics](p5/conn.md#phase-slope-index-psi):
 
 ```{ .sh .codeL}
 luna c.lst -o out/coh-nrem.db order-signals=T \
