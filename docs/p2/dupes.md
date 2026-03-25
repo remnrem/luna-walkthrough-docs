@@ -220,7 +220,7 @@ despite the default of the `DUPES` command being different, it is
 often better to run it with the `physical` flag set, which determines
 whether two signals are similar based on _physical_ rather than
 _digital_ values.  However, when comparing floating point (physical)
-values, we need to set an _episilon_ value (the maximum ignorable
+values, we need to set an _epsilon_ value (the maximum ignorable
 difference) as 22.0001 and 22.0002, for example, are effectively
 identical given the limited floating-point resolution inherent in
 single-precision, 16-bit numerical representations.
@@ -309,10 +309,10 @@ That is, as expected, we can now see that:
 
 !!!note "Scaling issues"
     Note that depending on the scaling of the
-    channel (e.g. volts versus micro-volts), the specified episilon
+    channel (e.g. volts versus micro-volts), the specified epsilon
     may be too large or too small to make a meaningful comparison
     between channels, when we don't expect them to be numerically
-    _exactly_ identical, per se.  You can specify the episilon value to
+    _exactly_ identical, per se.  You can specify the epsilon value to
     use with `DUPES` via the `eps` argument.
 
     Single (16-bit) precision - as used by EDF - typically provides
@@ -326,7 +326,7 @@ That is, as expected, we can now see that:
 ---
 
 We've seen how `DUPES` can be used to spot flat channels and
-duplicates.  In real settings (and in this walkthorugh), we'd have to
+duplicates.  In real settings (and in this walkthrough), we'd have to
 deal with these bad/missing channels, e.g. by interpolation,
 re-exporting/re-recording, or simply dropping them.  Below, in a
 subsequent step, we'll use interpolation.  As we'll see later, the

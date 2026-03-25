@@ -316,7 +316,7 @@ luna s1.lst -o out.db \
 You can remove the `work/harm1b/` folder after confirming that the above command worked as expected.
 
 
-## Contra-latreral mastoid example
+## Contra-lateral mastoid example
 
 As a second (and more technical) example of `CANONICAL`, the script
 `orig/aux/cm.sigs` contains rules to make new datasets with

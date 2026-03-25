@@ -98,7 +98,7 @@ names(d)
 [58] "male"                "age"                
 ```
 
-Plotting an initial representative metric, the sleep period time (SPT), the time between sleep onset and final wake), by males and females:
+Plotting an initial representative metric, the sleep period time (SPT), the time between sleep onset and final wake, by males and females:
 
 ```{ .R .codeR }
 boxplot( d$SPT ~ rep(c("Female","Male"),each=10) , col = c("red","blue" ), 

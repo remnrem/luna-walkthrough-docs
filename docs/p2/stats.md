@@ -45,7 +45,7 @@ luna harm1.lst -o out.db -s ' SIGSTATS epoch sig=${eeg} '
 This will take a minute or so to run for all subjects.  
     
 !!!hint "Keeping track of output"
-    For simplicity, in this walkthorugh, we
+    For simplicity, in this walkthrough, we
     tend to overwrite a single `out.db`, which probably isn't the best
     practice for real, larger studies, where it might take a
     non-trivial time to generate the output, and where reproducibility is 
@@ -322,7 +322,7 @@ varying over time (epochs) and channel.
     d <- read.table( "tmp/hjorth.1" , header=T, stringsAsFactors=F)
     d$H1 <- log( d$H1 )
     ```
-    In general, it is a good idea to keep different terminal windows open (or, if using Jupyter notebooks, a seperate _Terminal_ tab)
+    In general, it is a good idea to keep different terminal windows open (or, if using Jupyter notebooks, a separate _Terminal_ tab)
     to be able to go between different tools interactively.
 
 We'll do this separately for each of the 20 individuals:

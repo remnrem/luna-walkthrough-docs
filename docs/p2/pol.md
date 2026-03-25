@@ -76,7 +76,7 @@ thresholds differentially for positive and negative SO halfwaves.
 
 __Method 1: spectral content__
 
-We extratct two summary statistics from the [`POL` command](https://zzz.bwh.harvard.edu/luna/ref/exp/#pol) for each individual/channel:
+We extract two summary statistics from the [`POL` command](https://zzz.bwh.harvard.edu/luna/ref/exp/#pol) for each individual/channel:
 
 ```{ .sh .codeL }
 destrat out.db +POL -r CH -v T_DIFF T_H1 > tmp/pol.1
@@ -167,5 +167,5 @@ command prior to making a final dataset (we'll do this later).__
 
 ---
 
-Next, we've move on to [reviewing annotations](../p3/index.md),
+Next, we move on to [reviewing annotations](../p3/index.md),
 including the existing (manual) staging.

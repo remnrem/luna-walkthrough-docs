@@ -19,7 +19,7 @@ version of Luna, in particular one that includes the [JupyterLab
 environment](https://github.com/remnrem/luna-api-notebooks?tab=readme-ov-file#docker-installation)
 which will allow the commands below to be run directly.
 
-## [Step 0 : prerequisities](prep.md)
+## [Step 0 : prerequisites](prep.md)
 
 First, we assume the data have already been downloaded and exist in
 the current folder as a subfolder called `luna-grins/`.

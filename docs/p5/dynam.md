@@ -356,7 +356,7 @@ dev.off()
 
 These simple U and U2 metrics can be used as metrics to capture
 individual differences in ultradian EEG power dynamics.  To understand
-the primary nature of these types of dynamic chamges, it can often be useful
+the primary nature of these types of dynamic changes, it can often be useful
 to more directly plot how power changes over time.  This information
 is implicit in the `res/dynam.band.2` file, which has the (normalized)
 power values for each individual, split by decile of each period

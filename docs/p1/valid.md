@@ -97,7 +97,7 @@ format is simply ID, EDF, then annotation files(s).  We could have
 made this file by hand, or via Excel, etc, but it is often easier to
 use `--build`.
 
-To handle the issue with the mislablled file: we could manually edit
+To handle the issue with the mislabelled file: we could manually edit
 `s1.lst` and enter the path for `F04b.annot`, which would be perfectly
 legitimate, as all core Luna commands don't require that the EDF and
 annotation names actually match - this is only a requirement for the

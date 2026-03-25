@@ -191,7 +191,7 @@ seconds. Inputs can be written either way.)
 
 Commands such as `EPOCH`, `SEGMENTS`, `ANNOTS` and `SPANNING` can be
 used to tabulate the structure of an EDF+D and the alignment of stage
-annotations across EDF+D segments.  It is often easier to visulize
+annotations across EDF+D segments.  It is often easier to visualize
 records, however.  Here we'll use Luna's Python interface
 [`lunapi`](https://zzz.bwh.harvard.edu/luna/lunapi/).
 
@@ -918,7 +918,7 @@ Wrapping up, we've seen how to detect and describe gapped EDFs, how to
 visualize those segments/gaps (with `lunapi`), and how to consider different issues
 that may arise if segments, stage annotations, analytic epochs (and/or
 EDF record boundaries) misalign in various ways.   We've used the EDF-MINUS to "correct"
-these issues for `F10` and `M10` in principled ways -- although in this walkthorugh, we'll actually
+these issues for `F10` and `M10` in principled ways -- although in this walkthrough, we'll actually
 revert to the `v1` originals for all three gapped recordings, for simplicity. 
 
 We'll now go on to [detect possible flat/duplicate channels](dupes.md) across EDFs.

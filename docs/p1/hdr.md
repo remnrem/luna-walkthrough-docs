@@ -54,11 +54,11 @@ We can note a few things:
 
  - three files are EDF+, with the `D` indicating that _discontinuities_ or gaps are present
 
- - all but two EDFs have 59 signals (`NS`) as expected, expect one (`M04`) that has one channel fewer, and one (`M09`) that has two fewer
+ - all but two EDFs have 59 signals (`NS`) as expected, except one (`M04`) that has one channel fewer, and one (`M09`) that has two fewer
 
- - one file has a different (and unsual) EDF record size: 17 versus 1 second
+ - one file has a different (and unusual) EDF record size: 17 versus 1 second
 
- - otherwise, all files appear to have broadly typically durations for sleep studies (i.e. 7-8 hours).
+ - otherwise, all files appear to have broadly typical durations for sleep studies (i.e. 7-8 hours).
 
 ---
 
