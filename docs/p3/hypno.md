@@ -21,7 +21,7 @@ hypnograms:
    and gross timing metrics
 
  - to classify epochs with respect to hypnogram properties,
-   e.g. proximity to a stage transition, reative position within the
+   e.g. proximity to a stage transition, relative position within the
    spanning sleep cycle, etc
 
  - optionally, to constrain analyses to fixed periods of the
@@ -42,7 +42,7 @@ As [noted above](../p2/edfd.md#hypnogram-statistics-on-edfd), by
 default Luna defines epochs of 30 seconds from the EDF start, assuming
 that stage annotations will align with those epochs (i.e. assuming
 that epochs are not spanned by more than one stage annotation).  If
-stage annotatons are aligned differently (e.g. starting at some
+stage annotations are aligned differently (e.g. starting at some
 arbitrary offset into the EDF, which can be especially common with
 gapped EDF+D files), this will lead to "conflicts" when running
 commands such as `HYPNO`.

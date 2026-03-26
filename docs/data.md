@@ -38,7 +38,7 @@ This reduced subset of the original GRINS dataset is labelled `v1` in this demon
 ## Manipulated data (`v2`)
 
 From the _original_ (`v1`) dataset we have created a second
-_manipulated_ version (`v2`), in which we have purposefuly introduced
+_manipulated_ version (`v2`), in which we have purposefully introduced
 variations in standards and conventions as well as several flavors of
 data corruption. In particular, changes in the `v2` dataset include:
 
@@ -53,7 +53,7 @@ data corruption. In particular, changes in the `v2` dataset include:
 
  - variable pre-filtering
 
- - duplicated or missing EEGs channels
+ - duplicated or missing EEG channels
 
  - gaps in recordings  
 

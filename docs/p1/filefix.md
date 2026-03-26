@@ -80,7 +80,7 @@ presence of _gaps_, as `F01.edf` happens to be an EDF+D file:
     
 So, now we can see what happens for the two EDFs flagged as being
 corrupt - i.e. we'd expect an error message of some sort, which was
-the reason why `--validate` flagged these as bad files).
+the reason why `--validate` flagged these as bad files.
 
 ### F08
 
@@ -107,7 +107,7 @@ ls -l work/data/edfs/F08.edf
 
 This indeed matches what was listed in the [manipulations table](../data.md#signal-manipulations) for `F08`. 
 
-!!!hint "Advanced viewing of binary EDfs"
+!!!hint "Advanced viewing of binary EDFs"
 
     EDF files are binary, but a number of common command line tools can be used to inspect them directly, for example `xxd`:
     ```{ .sh .codeL }
@@ -248,10 +248,10 @@ files (`M03.tsv` and `M04.tsv`).
 
 ### CSV files
 
-There is an easy explantation here: Luna does not accept
+There is an easy explanation here: Luna does not accept
 comma-delimited lists as annotation files. Valid formats are described
 [here](https://zzz.bwh.harvard.edu/luna/ref/annotations/#luna-annotations).  As expected given the file extension,
-these are indeed a comma-delimited files, e.g.:
+these are indeed comma-delimited files, e.g.:
 ```{ .sh .codeL }
 head work/data/annots/M01.csv
 ```
@@ -300,7 +300,7 @@ N1	22:04:00	22:04:30
 
 ### TSV files
 
-The other two files TSV (`M03.tsv` and `M04.tsv`) have a valid delimiter, but still gave an error messages, albeit
+The other two files TSV (`M03.tsv` and `M04.tsv`) have a valid delimiter, but still gave error messages, albeit
 a more cryptic one:
 ```
 problem : [M03] bad format for class/inst pairing: 22:00:00

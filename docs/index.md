@@ -28,7 +28,7 @@ Luna to his or her own data._  In brief:
    these issues, before stepping through ten areas of analysis for
    sleep EEG recordings:
 
-    - [macro-architecture](p5/macro.md	) (hypnogram-based) analysis
+    - [macro-architecture](p5/macro.md) (hypnogram-based) analysis
     - [time-frequency analysis](p5/tf.md) including various approaches to spectral analysis
     - [ultradian dynamics](p5/dynam.md)
     - functional [connectivity](p5/conn.md) metrics
@@ -66,7 +66,7 @@ Some key points to make right off the bat:
     necessarily reflect best practice for R programming either: they 
     get the job done but feel free to improve on what is presented here.
 
- - There is a relative large amount of material here, spanning a range
+ - There is a relatively large amount of material here, spanning a range
    of topics. Although the key steps of the walkthrough are designed to
    be performed sequentially, the material is still somewhat modular.
    Some of the components can be skipped or studied in isolation.
@@ -106,7 +106,7 @@ science, although we acknowledge this may be a personal opinion.
 <!--
  - the lack of "memory": each Luna command starts anew and so does not depend on any (potentially cryptic) hidden states, or to order in
  which cells have been evaluated
-  - currently, Ctrl-C does not efficiently interupt long-running jobs in lunapi
+  - currently, Ctrl-C does not efficiently interrupt long-running jobs in lunapi
   - in Jupyter Lab, sometimes standard out and standard error streams get interleaved
 -->
 
@@ -135,7 +135,7 @@ Over time, we'll be adding a series of more advanced/in-depth sections under the
 
 ---
 
-Now let's get started, by [looking at the data using](data.md).
+Now let's get started, by [looking at the data](data.md).
 
 
 

@@ -6,7 +6,7 @@ In this last step of QC, we'll perform three major steps:
 
  - we'll then run [epoch-level interpolation](interp.md) to drop and re-impute bad epochs and/or whole channels
 
- - finally, we [review Hjpoth and PSD plots](hjorth.md) of pre- and post-interpolation datasets
+ - finally, we [review Hjorth and PSD plots](hjorth.md) of pre- and post-interpolation datasets
 
 Having done that, we'll finally embark on the [analytic
 steps](../p5/index.md) of this walkthrough with our final, cleaned

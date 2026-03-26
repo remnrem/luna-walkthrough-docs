@@ -1,6 +1,6 @@
 # 4.3. Hjorth plots
 
-He'll we pull and visually review further metrics from
+Here we'll pull and visually review further metrics from
 `int-out.db`, created in the previous [interpolation step](interp.md).
 
 ## Preparatory steps
@@ -144,7 +144,7 @@ interpolation_).  We'll extract this data frame from the list `k` and save as `d
 d <- k$CHEP$CH_E
 ```
 
-This contains a list of which channels where masked as bad for which
+This contains a list of which channels were masked as bad for which
 epochs (including those for channels where the entire record was set
 as bad):
 
@@ -214,7 +214,7 @@ horizontal stripes would indicate the entire channel was interpolated.
 
 By default, _lunaR_'s generic `lheatmap()` function orders the y-axis
 alphanumerically, which is not necessarily optimal - i.e. the channels are not grouped by
-any further, specific topograhpic considerations.
+any further, specific topographic considerations.
 
 Although we can use `ltopo.xy()` or other approaches (see [below](#comparison-with-ltopoxy)), sometimes
 heatmap/matrix style plots are more convenient. We can improve them
@@ -267,7 +267,7 @@ ltopo.rb( clocs$CH , clocs$O , zeroed=F , sz=1.5)
 
 We see it has the desired properties, i.e. 24 left hemisphere channels
 ordered along an _anteroposterior_ gradient, followed by 9 midline
-channels similarly ordered, followed by 24 right hemipshere channels
+channels similarly ordered, followed by 24 right hemisphere channels
 similarly ordered (indicated by the blue-white-red color gradient):
 
 To use this ordering when making a heatmap/matrix plot, we need to

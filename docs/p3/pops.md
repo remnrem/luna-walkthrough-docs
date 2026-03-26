@@ -1,7 +1,7 @@
 # 3.4. Automated staging (POPS)
 
-The recordings in this walkthorugh have been manually staged and we'll
-use those stagings for all subsequent analyses). However, if manual
+The recordings in this walkthrough have been manually staged and we'll
+use those stagings for all subsequent analyses. However, if manual
 staging did not exist, rather than performing the [previous SOAP
 step](soap.md) one would instead need to generate stage labels per
 epoch.  Luna offers the POPS stager, which can be (re)trained on
@@ -71,7 +71,7 @@ We'll use `s.lst` that points to the `v1` data and
 tell `RUN-POPS` to re-reference to contra-lateral mastoids (i.e. to use C4-A1):
 
 ```{ .sh .codeL }
-luna s.lst -o out.db -s RUN-POPS sig=C4 ref=A1 path=work/data/auxilary/pops
+luna s.lst -o out.db -s RUN-POPS sig=C4 ref=A1 path=work/data/auxiliary/pops
 ```
 
 This runs quite quickly: on this laptop, for all 20 individuals the
@@ -141,7 +141,7 @@ The median (mean) 3-class kappa is 0.80 (0.78).
     do not exist.  As such, Luna will naturally not be able to output
     any kappa/accuracy statistics.  When manual staging doesn't exist,
     it can be useful to visually review the hypnograms and hypnodensity
-    plots generated.  In particular, very fragemented hypnograms, or
+    plots generated.  In particular, very fragmented hypnograms, or
     cases of low _confidence_ (i.e. the maximum posterior probabilities
     tend to be relatively low across many epochs, i.e. rather than all near 1.0) are signs
     that the automated staging is less likely to be accurate.  In these
@@ -157,7 +157,7 @@ The median (mean) 3-class kappa is 0.80 (0.78).
 ## Multiple channels
 
 Although all features in this model are based on a single EEG channel,
-you can still apply it (sequentially) to muliple, broadly comparable
+you can still apply it (sequentially) to multiple, broadly comparable
 channels. Luna does this automatically and compiles the results across
 channels, to provide a single set of predictions.  By default, Luna
 reports the mean of the posterior probabilities, each weighted by the

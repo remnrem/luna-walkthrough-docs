@@ -196,7 +196,7 @@ Next, we'll generate a mapping file to make all annotations consistent
 across individuals.  Although some (e.g. `S1`) are mapped
 automatically, we'll include the terms here for reference anyway; we
 won't add the lower-case variants however, as all annotation labels
-are case-insentive.
+are case-insensitive.
 
 Using the same `primary|alt1|alt2|...` form, we'll make a two-column
 tab-delimited file (which should already exist in the demonstration
@@ -241,7 +241,7 @@ wake and other stages including REM.  As we'll see later, this in fact
 reflects one of the [_manipulations_](../data.md#signal-manipulations)
 of this dataset (for `F01`), so we'll revisit this observation later.
 
-We can now make a set of new reformated and remapped annotation files,
+We can now make a set of new reformatted and remapped annotation files,
 which we'll write to the same `work/harm1` folder as the EDFs.  We do
 this by combining the remapping stage (the `remap` terms @-included
 from `amaps`) with the [`WRITE-ANNOTS`

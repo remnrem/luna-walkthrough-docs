@@ -16,7 +16,7 @@ We'll briefly consider ten areas of analysis:
 | Domain | Description |
 |------|-------|
 | [Macro-architecture](macro.md) | Quantifying sleep macro-architecture |
-| [Time/frequency analyses](tf.md)| Spectral analyses, includng Welch, multi-taper and IRASA methods |
+| [Time/frequency analyses](tf.md)| Spectral analyses, including Welch, multi-taper and IRASA methods |
 | [Ultradian dynamics](dynam.md)| Cycle-based and epoch-based NREM dynamics |
 | [Connectivity](conn.md)| Time-domain and spectral (phase-slope index) sensor-space connectivity |
 | [Dimension reduction](psc.md)| Principal spectral components |
@@ -59,7 +59,7 @@ accounts of broad analytic domains; rather, they aim to
 introduce some of the major approaches and features of Luna.  Fuller
 appreciation of these methods will come from a) studying the original
 underlying methods, and b) careful sensitivity analyses and
-sanity-checking of ones own data.
+sanity-checking of one's own data.
 
 
 ## Cheat mode

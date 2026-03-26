@@ -4,7 +4,7 @@ As described
 [here](https://zzz.bwh.harvard.edu/luna/vignettes/soap-pops/#evaluating-overall-staging-quality),
 Luna's [SOAP](https://zzz.bwh.harvard.edu/luna/ref/soap/) command can
 quickly evaluate whether there are gross misalignments
-or other inconsistencies between staging and signal (typically, but to necessarily EEG) data.
+or other inconsistencies between staging and signal (typically, but not necessarily EEG) data.
 
 In brief, `SOAP` tries to predict existing staging given one or more
 (EEG) signal. If the prediction _within a single
@@ -40,7 +40,7 @@ luna harm1.lst -o out.db -s ' SOAP sig=C3 '
     step, we replaced one `v2` recording (`F01`) that only had N2 epochs
     with the correct, original version: if we hadn't done this, we'd
     have to skip `F01` here, as `SOAP` would fail, as the
-    `SOAP` model relies of _intra-individual variation between
+    `SOAP` model relies on _intra-individual variation between
     different stages_ to build a model. 
 
     Also note that we've resolved issues with misaligned staging already: if

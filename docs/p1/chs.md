@@ -220,7 +220,7 @@ a file with a line containing an expression in the form:
 alias    primary|alt1|alt2|alt3
 ```
 then any instance of `alt1` (matched ignoring case and after any _sanitization_) will be changed to `primary`, and likewise for `alt2` and `alt3`.  Different
-aliases can listed using a pipe (`|`) character.  We can have aliases specified in a text file, or add them on the command line, in
+aliases can be listed using a pipe (`|`) character.  We can have aliases specified in a text file, or add them on the command line, in
 which case the syntax is slightly different:
 ```{ .sh .codeL }
 luna ex.lst alias="primary|alt1|alt2|alt3" -o out.db -s <commands...>

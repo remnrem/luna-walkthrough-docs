@@ -132,7 +132,7 @@ control (QC):
 
  - `clean`: a final, analysis-ready cleaned dataset, following epoch-level artifact correction as described in [_step 4_](p4/index.md) of this demonstration
 
-To follow the walkthorugh, commands should be executed in the
+To follow the walkthrough, commands should be executed in the
 working (_current folder_ above) that contains both `luna-grins/` and `data/`.
 
 Now we'll populate the new `work/data/` folder with the core elements

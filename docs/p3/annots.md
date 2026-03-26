@@ -91,7 +91,7 @@ table( d$ID, d$ANNOT )
 ```
 
 Note: because of how the annotation/staging information was supplied
-(e.g. via .eannot files only in some cases), so individuals do not
+(e.g. via .eannot files only in some cases), some individuals do not
 have any marked arousals: it is naturally always important to know
 whether `0` in this context means truly no arousals detected, versus
 that they were included/measured for only some individuals.
@@ -134,7 +134,7 @@ The above types of descriptives can be useful to spot obvious outliers or errors
  - for staging, most individual stage annotations are in units of 30
    seconds. This need not be the case however, e.g. as we saw for
    `F03` - `F06`, they had annotation files generated where contiguous
-   intervals of the same stage were represented as a single annotaiton
+   intervals of the same stage were represented as a single annotation
    (e.g. 90 seconds = three 30 second epochs, etc).  From Luna's
    perspective, either representation is fine for all commands.  The
    point of this type of review is to check we don't have nonsensical/nonstandard
@@ -175,5 +175,5 @@ These are given just as examples to motivate visual inspection of annotations as
 
 We'll explore these staging-signal inconsistencies when considering
 the `SOAP` command [in a step below](soap.md). But before that, we'll
-continue with what we started above and move on the [visualizing and
+continue with what we started above and move on to [visualizing and
 summarizing hypnograms](hypno.md).

@@ -25,7 +25,7 @@ data](../data.md#signal-manipulations):
 At this point, before moving to [reviewing staging
 annotations](../p3/index.md), we'll deal with the issue of the gapped
 recordings.  This is because of how we generated the
-[manipulated](../data.md#signal-manipulations), _only shifting the
+[manipulated data](../data.md#signal-manipulations), _only shifting the
 signals and not the annotations for `M10`_ (purely for didactic
 purposes to show the use of `SEGMENTS` and `EDF-MINUS`), for the two
 gapped recordings, we're going to retrieve the original, unmanipulated

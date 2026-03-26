@@ -8,6 +8,6 @@ We next look at the (manually scored) stage annotations included with these EDFs
 
  - evaluating signal/staging consistency/quality using the [SOAP command](soap.md) 
 
- - in parallel, using Luna's automated staging module [POPS](pops.md) in place of the manual stagig
+ - in parallel, using Luna's automated staging module [POPS](pops.md) in place of the manual staging
  
  

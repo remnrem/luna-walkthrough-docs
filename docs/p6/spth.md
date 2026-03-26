@@ -213,7 +213,7 @@ f1("FRQ",NULL)
 
 For example, the first two males (`M01` and `M02` as well as `M04`,
 `M06` and `M10`) have patterns of _slow spindle frequency_ that are a)
-higher than expected and b) track in a revesred posterior-to-anterior
+higher than expected and b) track in a reversed posterior-to-anterior
 direction, unlike that seen in most other individuals.  In fact, the
 gradients of spindle frequency in these males look closer to those seen
 for fast spindles - which may be consistent with the generally higher
@@ -339,7 +339,7 @@ for (id  in ids[11:20] ) {
 There are a number of things one can note from the above plots
 
  - `M01`, `M02` and some other males clearly have sigma peaks that are
- below the mid-sigma value (13.5 Hz), whereas most feamles have
+ below the mid-sigma value (13.5 Hz), whereas most females have
  parietal (i.e. orange/red, fast spindle) peaks that are at or above
  13.5 Hz
 
@@ -541,7 +541,7 @@ The defaults of 11 Hz and 15 Hz with 7 cycles was selected to a)
 broadly span the sigma band with approximately even total coverage
 (i.e. the two curves meet at around the 0.5 value), and b) still
 preserve the distinction between "slower" and "faster" spindles, even
-though, as we've seen, spindles do not truely come in two completely
+though, as we've seen, spindles do not truly come in two completely
 distinct frequency classes, and even though fast spindles typically
 have modal frequencies below 15 Hz.
 

@@ -8,7 +8,7 @@ Currently, this section contains only the following _next step_:
 
 | Page | Description |
 |----|----|
-| [Canonical signals](canonical.md) | Rule-based automatic harmonization of EDF channels, to complement the manaul approach to [channel harmonization](../p1/chs.md) |
+| [Canonical signals](canonical.md) | Rule-based automatic harmonization of EDF channels, to complement the manual approach to [channel harmonization](../p1/chs.md) |
 
 
 !!!info "Up next..."

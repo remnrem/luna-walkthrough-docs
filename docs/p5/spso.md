@@ -350,7 +350,7 @@ f1( "SO_RATE")
 The profile of SO (peak-to-peak) amplitude shows a somewhat similar topography:
 
 ```{ .R .codeR }
-f1( "SO_P2P") 
+f1( "SO_AMP_P2P")
 ```
 
 ![img](../imgs/so-p2.png)
